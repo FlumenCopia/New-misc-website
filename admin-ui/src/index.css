@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Custom dark scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Blog Content Rich HTML Preview Styles */
+.prose-admin h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #f8fafc;
+}
+.prose-admin h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #f1f5f9;
+}
+.prose-admin h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: #e2e8f0;
+}
+.prose-admin p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+  color: #cbd5e1;
+}
+.prose-admin ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: #cbd5e1;
+}
+.prose-admin ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: #cbd5e1;
+}
+.prose-admin a {
+  color: #fbbf24;
+  text-decoration: underline;
+}
+.prose-admin blockquote {
+  border-left: 4px solid #f59e0b;
+  padding-left: 1rem;
+  font-style: italic;
+  margin: 1rem 0;
+  color: #94a3b8;
+}
