@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misc Audible — Sound, Crafted in Kerala</title>
+<meta name="description" content="Misc Audible is a Kerala-based audible production house. 4+ years, 8000+ hours. Podcast, Audiobook, Sound Design. A Misc Archive company.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          'display': ['Fraunces', 'serif'],
+          'sans': ['Instrument Sans', 'system-ui', 'sans-serif'],
+        },
+        colors: {
+          ma: {
+            gold: '#e9b825',
+            'gold-strong': '#f2c84a',
+            'gold-dark': '#c59716',
+            ash: '#a6a59f',
+            'ash-soft': '#c9c8c3',
+            'ash-muted': '#7a7a75',
+            black: '#0d0d0f',
+            charcoal: '#141417',
+            'charcoal-2': '#1b1b1f',
+            'line': 'rgba(255,255,255,0.10)',
+          }
+        }
+      }
+    }
+  }
+</script>
+<style type="text/tailwindcss">
+  html { scroll-behavior: smooth; }
+  body {
+    background: #0d0d0f;
+    color: #e8e6e2;
+    font-family: 'Instrument Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .font-display { font-family: 'Fraunces', serif; }
+  
+  /* Liquid Glass */
+  .glass {
+    background: linear-gradient(145deg, rgba(255,255,255,0.067), rgba(255,255,255,0.022));
+    backdrop-filter: blur(24px) saturate(1.35);
+    -webkit-backdrop-filter: blur(24px) saturate(1.35);
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 20px 60px rgba(0,0,0,0.45);
+  }
+  .glass-soft {
+    background: linear-gradient(145deg, rgba(255,255,255,0.042), rgba(255,255,255,0.016));
+    backdrop-filter: blur(18px) saturate(1.2);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    border: 1px solid rgba(255,255,255,0.078);
+  }
+  .glass-strong {
+    background: linear-gradient(145deg, rgba(34,32,30,0.78), rgba(22,22,24,0.72));
+    backdrop-filter: blur(26px) saturate(1.4);
+    -webkit-backdrop-filter: blur(26px) saturate(1.4);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.085), 0 28px 90px rgba(0,0,0,0.56);
+  }
+
+  .btn-gold {
+    background: #e9b825;
+    color: #1a1304;
+    font-weight: 600;
+    transition: all .22s ease;
+    box-shadow: 0 8px 28px rgba(233,184,37,0.18), inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .btn-gold:hover {
+    background: #f2c84a;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 36px rgba(233,184,37,0.26), inset 0 1px 0 rgba(255,255,255,0.45);
+  }
+  .btn-glass {
+    background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025));
+    border: 1px solid rgba(255,255,255,0.14);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: #eceae6;
+    font-weight: 600;
+    transition: all .22s ease;
+  }
+  .btn-glass:hover {
+    background: linear-gradient(135deg, rgba(255,255,255,0.11), rgba(255,255,255,0.042));
+    border-color: rgba(233,184,37,0.34);
+    transform: translateY(-1px);
+  }
+
+  .nav-link {
+    color: #b9b8b3;
+    position: relative;
+    transition: color .2s;
+    font-weight: 500;
+    font-size: 14.5px;
+  }
+  .nav-link:hover, .nav-link.active {
+    color: #f2efe8;
+  }
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -7px;
+    height: 2px;
+    background: #e9b825;
+    border-radius: 2px;
+  }
+
+  .page-section { display: none; }
+  .page-section.active-page { display: block; animation: pageIn .45s cubic-bezier(.22,1,.36,1); }
+  @keyframes pageIn { from { opacity:0; transform: translateY(14px);} to { opacity:1; transform: translateY(0);} }
+
+  .service-card:hover { border-color: rgba(233,184,37,0.28); }
+  .service-card:hover .svc-icon { color: #e9b825; transform: scale(1.06); }
+
+  /* Grain */
+  #grain-overlay {
+    position: fixed; inset: 0; pointer-events: none; z-index: 60;
+    opacity: .038;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%25" height="100%25" filter="url(%23n)"/></svg>');
+    mix-blend-mode: overlay;
+  }
+
+  /* WebGL canvas */
+  #liquid-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+  .site-layer { position: relative; z-index: 10; }
+
+  .soft-divider { height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent); }
+
+  .chip {
+    border: 1px solid rgba(255,255,255,0.13);
+    background: rgba(255,255,255,0.022);
+    color: #c8c6c0;
+    transition: all .18s;
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+  .chip:hover, .chip.chip-active {
+    border-color: rgba(233,184,37,0.55);
+    background: rgba(233,184,37,0.11);
+    color: #f5e7be;
+  }
+
+  .work-card { cursor: pointer; transition: transform .25s ease, border-color .25s ease; }
+  .work-card:hover { transform: translateY(-3px); border-color: rgba(233,184,37,0.28); }
+
+  .field-input {
+    width: 100%;
+    background: rgba(255,255,255,0.036);
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 14px;
+    padding: 13px 16px;
+    color: #f0ede7;
+    outline: none;
+    transition: border-color .18s, background .18s;
+    font-size: 15px;
+  }
+  .field-input::placeholder { color: #7f7d77; }
+  .field-input:focus { border-color: rgba(233,184,37,0.62); background: rgba(255,255,255,0.052); }
+
+  .mini-label { font-size: 11px; letter-spacing: .11em; text-transform: uppercase; color: #9b9993; font-weight: 700;}
+  .eyebrow { font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: #c9a63a; font-weight: 700; }
+
+  /* Wave bars */
+  .wave-bar { width: 3px; background: #e9b825; border-radius: 3px; }
+
+  /* Hide scrollbar for carousels */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Audio player progress */
+  .player-progress { appearance: none; height: 4px; background: rgba(255,255,255,0.18); border-radius: 99px; width: 100%; cursor: pointer; }
+  .player-progress::-webkit-slider-thumb { appearance: none; width: 12px; height: 12px; background: #e9b825; border-radius: 50%; }
+
+  /* Toast */
+  #toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(16px);
+    z-index: 100; opacity: 0; transition: all .3s ease; pointer-events: none;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 768px){
+    .nav-link.active::after { display:none; }
+  }
+</style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+  <!-- Liquid 3D Background -->
+  <canvas id="liquid-canvas" aria-hidden="true"></canvas>
+  <div id="grain-overlay" aria-hidden="true"></div>
+
+  <div class="site-layer min-h-screen flex flex-col">
+    <!-- Header -->
+    <header id="site-header" class="sticky top-0 z-40">
+      <div class="mx-auto max-w-7xl px-5 md:px-8 lg:px-12">
+        <div class="mt-4 md:mt-6 glass-strong rounded-[22px] md:rounded-[26px] px-4 md:px-7 py-[14px] md:py-[15px] flex items-center justify-between">
+          <!-- Logo -->
+          <button data-nav="home" class="flex items-center nav-go group" aria-label="Misc Audible home">
+            <img
+              src="/assets/images/miscaudiable.jpg"
+              alt="Misc Audible"
+              class="h-11 w-auto max-w-[168px] rounded-[10px] bg-white px-2 py-1 object-contain shadow-[0_4px_18px_rgba(233,184,37,0.24)] transition-transform duration-300 group-hover:scale-[1.03]"
+            >
+          </button>
+
+          <!-- Desktop Nav -->
+          <nav class="hidden lg:flex items-center gap-8 xl:gap-10">
+            <button data-nav="home" class="nav-link nav-go active">Home</button>
+            <button data-nav="about" class="nav-link nav-go">About Us</button>
+            <button data-nav="gallery" class="nav-link nav-go">Gallery</button>
+            <button data-nav="blog" class="nav-link nav-go">Blog</button>
+            <button data-nav="contact" class="nav-link nav-go">Contact Us</button>
+          </nav>
+
+          <div class="flex items-center gap-3">
+            <button data-nav="contact" class="nav-go hidden md:inline-flex btn-gold rounded-full px-5 py-2.5 text-[13.8px]">
+              Book a Session
+            </button>
+            <button id="mobile-menu-btn" class="lg:hidden glass-soft rounded-xl w-11 h-11 flex items-center justify-center text-[#dcdad5]">
+              <i data-lucide="menu" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile drawer -->
+      <div id="mobile-drawer" class="lg:hidden hidden">
+        <div class="mx-auto max-w-7xl px-5 md:px-8">
+          <div class="mt-2 glass-strong rounded-[20px] px-5 py-5">
+            <nav class="grid gap-4 text-[15.5px] font-medium text-[#d5d3cd]">
+              <button data-nav="home" class="nav-go text-left nav-m-link">Home</button>
+              <button data-nav="about" class="nav-go text-left nav-m-link">About Us</button>
+              <button data-nav="gallery" class="nav-go text-left nav-m-link">Gallery</button>
+              <button data-nav="blog" class="nav-go text-left nav-m-link">Blog</button>
+              <button data-nav="contact" class="nav-go text-left nav-m-link">Contact Us</button>
+            </nav>
+            <div class="h-px bg-white/10 my-4"></div>
+            <div class="text-[13px] text-ma-ash-muted">
+              <div>miscaudible@gmail.com</div>
+              <div>+91 89076 34900</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <!-- HOME -->
+      <section id="page-home" class="page-section active-page">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 lg:px-12 pt-14 md:pt-24 pb-20">
+          <!-- Hero -->
+          <div class="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+            <div class="lg:col-span-7">
+              <p class="eyebrow mb-4">Sound, Crafted in Kerala • Est. 2020</p>
+              <h1 class="font-display text-[48px] md:text-[78px] lg:text-[86px] leading-[0.91] tracking-[-0.025em] text-[#f4f1ea]">
+                Audible stories<br/>with weight.
+              </h1>
+              <p class="mt-6 max-w-xl text-[17.5px] md:text-[19px] leading-relaxed text-[#bdbbb5]">
+                Misc Audible is a full-service audible production studio out of Kerala. Podcast, audiobook, sound design and spatial mix — shaped for Malayalam, English & Hindi listeners.
+              </p>
+              <div class="flex flex-wrap gap-3 mt-8">
+                <button data-nav="contact" class="nav-go btn-gold rounded-full px-6 py-[13px] text-[15px] flex items-center gap-2">
+                  Start a Project
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+                <button data-nav="gallery" class="nav-go btn-glass rounded-full px-6 py-[13px] text-[15px] flex items-center gap-2">
+                  <i data-lucide="play" class="w-4 h-4"></i>
+                  Hear Our Work
+                </button>
+              </div>
+              <div class="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-[13.7px] text-[#a5a39d]">
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-ma-gold"></i> 4+ Years in production</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-ma-gold"></i> 8000+ Hours logged</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-ma-gold"></i> Remote & in-studio</span>
+              </div>
+            </div>
+
+            <!-- Right liquid glass listening card -->
+            <div class="lg:col-span-5">
+              <div class="glass rounded-[28px] p-6 md:p-7 relative overflow-hidden">
+                <div class="absolute -top-20 -right-20 w-56 h-56 rounded-full blur-[90px] opacity-[0.32]" style="background: radial-gradient(circle, #e9b825, transparent 70%);"></div>
+                <div class="relative">
+                  <div class="flex items-center justify-between mb-4">
+                    <div class="mini-label">Now Monitoring</div>
+                    <span class="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-emerald-400/10 text-emerald-300 border border-emerald-400/20">LIVE ROOM</span>
+                  </div>
+                  <div class="text-[15.5px] text-[#dad8d2] font-medium">Nila • Ep. 14 — “Thira”</div>
+                  <div class="text-[13px] text-ma-ash-muted mt-1">Vocal comp • 48k / 24-bit • Malayalam</div>
+
+                  <!-- Live waveform -->
+                  <div class="mt-6 h-[90px] rounded-[18px] bg-black/25 border border-white/8 flex items-center justify-center px-4 relative overflow-hidden">
+                    <canvas id="hero-wave" width="480" height="90" class="w-full h-[90px]"></canvas>
+                    <div class="absolute bottom-2.5 left-4 text-[11px] text-[#8f8e89] tracking-wide">TRUE PEAK −1.4 dBFS</div>
+                  </div>
+
+                  <div class="flex items-center gap-3 mt-4">
+                    <button id="hero-play-btn" class="w-11 h-11 rounded-full bg-[#ece8e0] text-[#161616] flex items-center justify-center hover:scale-105 transition">
+                      <i data-lucide="play" class="w-[18px] h-[18px] ml-0.5" id="hero-play-icon"></i>
+                    </button>
+                    <div class="flex-1">
+                      <div class="h-[5px] rounded-full bg-white/15 relative overflow-hidden">
+                        <div id="hero-progress" class="absolute left-0 top-0 bottom-0 bg-ma-gold rounded-full" style="width:31%"></div>
+                      </div>
+                      <div class="flex justify-between text-[11.5px] text-[#928f89] mt-1.5">
+                        <span id="hero-time">01:42</span>
+                        <span>05:28</span>
+                      </div>
+                    </div>
+                    <button class="text-[#a9a7a1] hover:text-white transition"><i data-lucide="volume-2" class="w-[18px] h-[18px]"></i></button>
+                  </div>
+
+                  <div class="soft-divider my-5"></div>
+                  <div class="grid grid-cols-3 gap-3 text-center">
+                    <div class="glass-soft rounded-[16px] py-3">
+                      <div class="font-display text-[22px] text-[#f0ede7]">-14</div>
+                      <div class="text-[10.5px] text-[#9b9993] uppercase tracking-wider">LUFS</div>
+                    </div>
+                    <div class="glass-soft rounded-[16px] py-3">
+                      <div class="font-display text-[22px] text-[#f0ede7]">48k</div>
+                      <div class="text-[10.5px] text-[#9b9993] uppercase tracking-wider">Rate</div>
+                    </div>
+                    <div class="glass-soft rounded-[16px] py-3">
+                      <div class="font-display text-[22px] text-ma-gold">A+</div>
+                      <div class="text-[10.5px] text-[#9b9993] uppercase tracking-wider">Check</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 mt-4 text-[13px] text-[#a09e98]">
+                <img src="https://i.pravatar.cc/60?img=32" class="w-8 h-8 rounded-full ring-1 ring-white/15" alt="">
+                <span>Engineered by Arjun M • Monitored in treated room, Kochi</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats band -->
+          <div class="mt-16 md:mt-24 glass-soft rounded-[26px] px-5 md:px-10 py-7 md:py-9">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left">
+              <div>
+                <div class="font-display text-[38px] md:text-[46px] text-[#f2f0ea]">8000<span class="text-ma-gold">+</span></div>
+                <div class="text-[13.5px] text-ma-ash">Production Hours</div>
+              </div>
+              <div>
+                <div class="font-display text-[38px] md:text-[46px] text-[#f2f0ea]">240<span class="text-ma-gold">+</span></div>
+                <div class="text-[13.5px] text-ma-ash">Projects Shipped</div>
+              </div>
+              <div>
+                <div class="font-display text-[38px] md:text-[46px] text-[#f2f0ea]">4<span class="text-ma-gold">+</span></div>
+                <div class="text-[13.5px] text-ma-ash">Years, Kerala-born</div>
+              </div>
+              <div>
+                <div class="font-display text-[38px] md:text-[46px] text-[#f2f0ea]">12</div>
+                <div class="text-[13.5px] text-ma-ash">Languages & dialects</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Services -->
+          <div class="mt-24 md:mt-32">
+            <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+              <div>
+                <p class="eyebrow mb-2">Services</p>
+                <h2 class="font-display text-[36px] md:text-[52px] leading-tight tracking-[-0.018em] text-[#f1eee8]">End-to-end audible craft.</h2>
+              </div>
+              <p class="max-w-sm text-[15.5px] text-[#b5b3ac]">From first VO take to final master. Clean, loud, and true to language.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-[18px]">
+              <!-- 6 services -->
+              <div class="service-card glass rounded-[24px] p-[22px] md:p-[26px]">
+                <div class="svc-icon text-[#d9d6cf] transition"><i data-lucide="mic" class="w-6 h-6"></i></div>
+                <h3 class="font-display text-[22px] mt-4 text-[#edeae4]">Podcast Production</h3>
+                <p class="text-[14.7px] text-[#b3b1aa] mt-2 leading-relaxed">Full editorial, clean-up, scoring, loudness to Spotify / Apple standards. Malayalam-first teams.</p>
+                <div class="text-[12.8px] text-[#8f8d87] mt-4">Edit • Mix • Master • Show notes</div>
+              </div>
+              <div class="service-card glass rounded-[24px] p-[22px] md:p-[26px]">
+                <div class="svc-icon text-[#d9d6cf] transition"><i data-lucide="book-open" class="w-6 h-6"></i></div>
+                <h3 class="font-display text-[22px] mt-4 text-[#edeae4]">Audiobook Mastering</h3>
+                <p class="text-[14.7px] text-[#b3b1aa] mt-2 leading-relaxed">ACX / Findaway compliant masters. Chapter QC, breath control, consistent room tone.</p>
+                <div class="text-[12.8px] text-[#8f8d87] mt-4">Long-form QC • Retail ready</div>
+              </div>
+              <div class="service-card glass rounded-[24px] p-[22px] md:p-[26px]">
+                <div class="svc-icon text-[#d9d6cf] transition"><i data-lucide="sparkles" class="w-6 h-6"></i></div>
+                <h3 class="font-display text-[22px] mt-4 text-[#edeae4]">Sound Design</h3>
+                <p class="text-[14.7px] text-[#b3b1aa] mt-2 leading-relaxed">Foley, ambience beds, UI stings. Built for film, ads, and interactive audio.</p>
+                <div class="text-[12.8px] text-[#8f8d87] mt-4">Stereo / Binaural</div>
+              </div>
+              <div class="service-card glass rounded-[24px] p-[22px] md:p-[26px]">
+                <div class="svc-icon text-[#d9d6cf] transition"><i data-lucide="users" class="w-6 h-6"></i></div>
+                <h3 class="font-display text-[22px] mt-4 text-[#edeae4]">Voice Casting</h3>
+                <p class="text-[14.7px] text-[#b3b1aa] mt-2 leading-relaxed">A curated bench of Malayalam, Tamil, Hindi & English voice talent. Direction included.</p>
+                <div class="text-[12.8px] text-[#8f8d87] mt-4">220+ vetted voices</div>
+              </div>
+              <div class="service-card glass rounded-[24px] p-[22px] md:p-[26px]">
+                <div class="svc-icon text-[#d9d6cf] transition"><i data-lucide="sliders-horizontal" class="w-6 h-6"></i></div>
+                <h3 class="font-display text-[22px] mt-4 text-[#edeae4]">Mix & Master</h3>
+                <p class="text-[14.7px] text-[#b3b1aa] mt-2 leading-relaxed">Vocal-first music, ads, and spoken word. Translation-accurate loudness.</p>
+                <div class="text-[12.8px] text-[#8f8d87] mt-4">Dolby / Streaming</div>
+              </div>
+              <div class="service-card glass rounded-[24px] p-[22px] md:p-[26px]">
+                <div class="svc-icon text-[#d9d6cf] transition"><i data-lucide="clapperboard" class="w-6 h-6"></i></div>
+                <h3 class="font-display text-[22px] mt-4 text-[#edeae4]">Foley / ADR</h3>
+                <p class="text-[14.7px] text-[#b3b1aa] mt-2 leading-relaxed">On-picture ADR in Kochi. Clean ISO tracks, pitch-matched sync.</p>
+                <div class="text-[12.8px] text-[#8f8d87] mt-4">Film & OTT</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Selected Work strip -->
+          <div class="mt-24 md:mt-32">
+            <div class="flex items-center justify-between mb-6">
+              <h3 class="font-display text-[30px] md:text-[38px] text-[#f0ede6]">Selected work</h3>
+              <button data-nav="gallery" class="nav-go text-[14px] text-[#c8c6bf] hover:text-white flex items-center gap-1.5">Full Gallery <i data-lucide="arrow-up-right" class="w-4 h-4"></i></button>
+            </div>
+            <div class="flex gap-4 overflow-x-auto no-scrollbar snap-x pb-2">
+              <!-- 4 cards -->
+              <div class="min-w-[300px] md:min-w-[360px] snap-start glass rounded-[22px] p-5">
+                <div class="text-[11px] uppercase tracking-wider text-ma-ash-muted">Podcast • Malayalam</div>
+                <div class="font-display text-[22px] mt-1 text-[#edeae4]">Kaalam • S3</div>
+                <div class="text-[13.6px] text-[#a8a6a0] mt-2">Docu-series. 14 episodes. Dialogue restoration + score.</div>
+                <div class="mt-4 h-11 rounded-xl bg-black/25 border border-white/10 flex items-center px-3 gap-[3px]"><div class="wave-bar h-4"></div><div class="wave-bar h-7"></div><div class="wave-bar h-3"></div><div class="wave-bar h-8"></div><div class="wave-bar h-5"></div><div class="wave-bar h-7"></div><div class="wave-bar h-4"></div><div class="wave-bar h-6 opacity-60"></div><div class="wave-bar h-3 opacity-60"></div></div>
+              </div>
+              <div class="min-w-[300px] md:min-w-[360px] snap-start glass rounded-[22px] p-5">
+                <div class="text-[11px] uppercase tracking-wider text-ma-ash-muted">Audiobook • Hindi</div>
+                <div class="font-display text-[22px] mt-1 text-[#edeae4]">Raaste</div>
+                <div class="text-[13.6px] text-[#a8a6a0] mt-2">11.4 hrs retail master. ACX / Storytel pass first try.</div>
+                <div class="mt-4 h-11 rounded-xl bg-black/25 border border-white/10 flex items-center px-3 gap-[3px]"><div class="wave-bar h-5"></div><div class="wave-bar h-6"></div><div class="wave-bar h-4"></div><div class="wave-bar h-7"></div><div class="wave-bar h-5"></div></div>
+              </div>
+              <div class="min-w-[300px] md:min-w-[360px] snap-start glass rounded-[22px] p-5">
+                <div class="text-[11px] uppercase tracking-wider text-ma-ash-muted">Sound Design</div>
+                <div class="font-display text-[22px] mt-1 text-[#edeae4]">Veyil (Short)</div>
+                <div class="text-[13.6px] text-[#a8a6a0] mt-2">Festival mix. Foley stage, Kerala monsoon beds.</div>
+                <div class="mt-4 h-11 rounded-xl bg-black/25 border border-white/10 flex items-center px-3 gap-[3px]"><div class="wave-bar h-4"></div><div class="wave-bar h-8"></div><div class="wave-bar h-5"></div><div class="wave-bar h-6"></div></div>
+              </div>
+              <div class="min-w-[300px] md:min-w-[360px] snap-start glass rounded-[22px] p-5">
+                <div class="text-[11px] uppercase tracking-wider text-ma-ash-muted">Ad • English</div>
+                <div class="font-display text-[22px] mt-1 text-[#edeae4]">Aroha Tea</div>
+                <div class="text-[13.6px] text-[#a8a6a0] mt-2">30s TVC. VO cast, mix, 5.1 deliverable.</div>
+                <div class="mt-4 h-11 rounded-xl bg-black/25 border border-white/10 flex items-center px-3 gap-[3px]"><div class="wave-bar h-6"></div><div class="wave-bar h-4"></div><div class="wave-bar h-7"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA Band -->
+          <div class="mt-24 md:mt-32 glass rounded-[28px] md:rounded-[34px] px-6 md:px-12 py-12 md:py-16 relative overflow-hidden">
+            <div class="absolute -right-20 -bottom-28 w-[420px] h-[420px] rounded-full blur-[130px] opacity-[0.23]" style="background: radial-gradient(circle, #e9b825 0%, transparent 70%);"></div>
+            <div class="relative max-w-3xl">
+              <p class="eyebrow mb-3">Work with Misc Audible</p>
+              <h3 class="font-display text-[34px] md:text-[56px] leading-[1.05] tracking-[-0.018em] text-[#f8f6f0]">Have a voice worth hearing clearly?</h3>
+              <p class="text-[17px] text-[#c2bfb8] mt-4 max-w-xl">Send us a pilot, a script, or just an idea. We'll map the sound, the language cadence, and the delivery standard — before we record a single syllable.</p>
+              <div class="flex flex-wrap gap-3 mt-7">
+                <button data-nav="contact" class="nav-go btn-gold rounded-full px-6 py-3.5 text-[15px]">Book a session</button>
+                <a href="mailto:miscaudible@gmail.com" class="btn-glass rounded-full px-6 py-3.5 text-[15px]">miscaudible@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="page-about" class="page-section">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 lg:px-12 pt-14 md:pt-20 pb-24">
+          <p class="eyebrow">About Us</p>
+          <h1 class="font-display text-[42px] md:text-[68px] leading-[0.95] tracking-[-0.022em] text-[#f3f0ea] mt-3 max-w-4xl">A sound house from Kerala, built for language-first audio.</h1>
+
+          <div class="grid lg:grid-cols-12 gap-10 mt-12 md:mt-16">
+            <div class="lg:col-span-7 text-[17.5px] leading-relaxed text-[#c5c3bc] space-y-5">
+              <p>Misc Audible is the dedicated audible production arm of <strong class="text-[#e8e6e1] font-semibold">Misc Archive</strong>. We started in 2020 in Kochi with one treated room, a pair of good headphones, and a very stubborn commitment to clean Malayalam dialogue.</p>
+              <p>4 years and 8000+ billed production hours later, we run podcast seasons, audiobook catalogs, documentary sound and ad mixes — in Malayalam, English, Hindi, Tamil and a handful of dialects in between.</p>
+              <p>We’re small by choice. 6 engineers, 2 producers, 1 casting director. No account managers. You talk to the person turning the knobs.</p>
+              <div class="soft-divider"></div>
+              <div class="grid sm:grid-cols-2 gap-6 text-[15px]">
+                <div>
+                  <div class="mini-label mb-1">Focus</div>
+                  <div class="text-[#ddd9d1]">Spoken word, narrative, language fidelity</div>
+                </div>
+                <div>
+                  <div class="mini-label mb-1">Location</div>
+                  <div class="text-[#ddd9d1]">Kochi, Kerala — Remote worldwide</div>
+                </div>
+                <div>
+                  <div class="mini-label mb-1">Parent</div>
+                  <div class="text-[#ddd9d1]">Misc Archive</div>
+                </div>
+                <div>
+                  <div class="mini-label mb-1">Languages</div>
+                  <div class="text-[#ddd9d1]">ML / EN / HI / TA + dialects</div>
+                </div>
+              </div>
+            </div>
+            <div class="lg:col-span-5">
+              <div class="glass rounded-[26px] p-7">
+                <div class="font-display text-[28px] text-[#f0ede6]">Production pillars</div>
+                <ul class="mt-5 space-y-3 text-[15px] text-[#c4c2bb]">
+                  <li class="flex gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-ma-gold shrink-0 mt-0.5"></i> Dialogue-first mix decisions. No crushed voices.</li>
+                  <li class="flex gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-ma-gold shrink-0 mt-0.5"></i> Language-accurate casting & direction.</li>
+                  <li class="flex gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-ma-gold shrink-0 mt-0.5"></i> Loudness targets matched to platform, not presets.</li>
+                  <li class="flex gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-ma-gold shrink-0 mt-0.5"></i> Archival masters, clean session handoff.</li>
+                  <li class="flex gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-ma-gold shrink-0 mt-0.5"></i> Fast turnarounds, honest QC notes.</li>
+                </ul>
+              </div>
+              <div class="glass-soft rounded-[22px] p-6 mt-4">
+                <div class="mini-label mb-2">Studio</div>
+                <div class="text-[15.2px] text-[#cac8c2]">Treated VO booth, mix room calibrated to 79 dB SPL. Source-Connect / Cleanfeed / Riverside. Reaper / Pro Tools / RX Advanced.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div class="mt-20 md:mt-28">
+            <h3 class="font-display text-[32px] md:text-[40px] text-[#f0ede6]">Timeline</h3>
+            <div class="mt-7 grid md:grid-cols-4 gap-4 text-[14.8px]">
+              <div class="glass-soft rounded-[18px] p-5">
+                <div class="text-ma-gold font-bold">2020</div>
+                <div class="text-[#d7d5cf] mt-1">Misc Audible founded in Kochi under Misc Archive.</div>
+              </div>
+              <div class="glass-soft rounded-[18px] p-5">
+                <div class="text-ma-gold font-bold">2021 — 2022</div>
+                <div class="text-[#d7d5cf] mt-1">First 100 podcast episodes. Malayalam audiobook pipeline.</div>
+              </div>
+              <div class="glass-soft rounded-[18px] p-5">
+                <div class="text-ma-gold font-bold">2023</div>
+                <div class="text-[#d7d5cf] mt-1">Film ADR stage. 4000 hours logged.</div>
+              </div>
+              <div class="glass-soft rounded-[18px] p-5">
+                <div class="text-ma-gold font-bold">2024 — 25</div>
+                <div class="text-[#d7d5cf] mt-1">8000+ hours. 12 languages. Remote direction stack.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Values -->
+          <div class="mt-16 glass rounded-[26px] px-6 md:px-10 py-10 md:py-12">
+            <div class="grid md:grid-cols-3 gap-10">
+              <div>
+                <div class="text-ma-gold"><i data-lucide="ear" class="w-6 h-6"></i></div>
+                <div class="font-display text-[22px] text-[#f0ebe3] mt-3">Listen first</div>
+                <p class="text-[14.7px] text-[#b9b7b0] mt-2">We mix for comprehension, not for meters. If the language doesn't land, the mix doesn't ship.</p>
+              </div>
+              <div>
+                <div class="text-ma-gold"><i data-lucide="layers" class="w-6 h-6"></i></div>
+                <div class="font-display text-[22px] text-[#f0ebe3] mt-3">Keep it true</div>
+                <p class="text-[14.7px] text-[#b9b7b0] mt-2">Minimal processing. Room tone stays natural. Breath stays human.</p>
+              </div>
+              <div>
+                <div class="text-ma-gold"><i data-lucide="archive" class="w-6 h-6"></i></div>
+                <div class="font-display text-[22px] text-[#f0ebe3] mt-3">Archive minded</div>
+                <p class="text-[14.7px] text-[#b9b7b0] mt-2">From Misc Archive: clean sessions, labeled stems, documented loudness. Future-proof.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <section id="page-gallery" class="page-section">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 lg:px-12 pt-14 md:pt-20 pb-28">
+          <div class="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <p class="eyebrow">Gallery / Work</p>
+              <h1 class="font-display text-[42px] md:text-[62px] leading-[0.96] tracking-[-0.022em] text-[#f3f0ea] mt-3">Listen to the room.</h1>
+              <p class="text-[#bcbab3] mt-3 max-w-xl text-[16.5px]">Click any card to preview in the player. Full reels available on request.</p>
+            </div>
+            <div class="text-[13.5px] text-[#a19f98]">240+ projects • 8000+ hrs</div>
+          </div>
+
+          <div id="gallery-filters" class="flex flex-wrap gap-2 mt-8">
+            <button class="chip chip-active px-4 py-2 rounded-full" data-filter="all">All</button>
+            <button class="chip px-4 py-2 rounded-full" data-filter="podcast">Podcasts</button>
+            <button class="chip px-4 py-2 rounded-full" data-filter="audiobook">Audiobooks</button>
+            <button class="chip px-4 py-2 rounded-full" data-filter="film">Film / Docs</button>
+            <button class="chip px-4 py-2 rounded-full" data-filter="ads">Ads</button>
+          </div>
+
+          <div id="gallery-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-[18px] mt-8">
+            <!-- JS injects -->
+          </div>
+
+          <div class="mt-12 text-center text-[14px] text-[#9d9b95]">
+            Want the full private reel with watermarks removed? <button data-nav="contact" class="nav-go text-ma-gold hover:underline">Request access →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- BLOG -->
+      <section id="page-blog" class="page-section">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 lg:px-12 pt-14 md:pt-20 pb-28">
+          <p class="eyebrow">Sonic Notes</p>
+          <h1 class="font-display text-[42px] md:text-[62px] leading-[0.96] tracking-[-0.022em] text-[#f2efe9] mt-3">Blog.</h1>
+          <p class="text-[#bcbab3] mt-3 max-w-xl text-[16.5px]">Mix notes, language casting guides, and field reports from Kerala studios.</p>
+
+          <div class="grid lg:grid-cols-12 gap-8 mt-10">
+            <div class="lg:col-span-8 space-y-4">
+              <!-- Featured -->
+              <article class="glass rounded-[26px] p-7 md:p-9 relative overflow-hidden">
+                <div class="absolute right-[-40px] top-[-30px] w-56 h-56 rounded-full blur-[90px] opacity-[0.21]" style="background: radial-gradient(circle, #e9b825, transparent 70%);"></div>
+                <div class="relative">
+                  <div class="text-[11.5px] uppercase tracking-wider text-[#bca45f]">Featured • Dec 2, 2024</div>
+                  <h2 class="font-display text-[28px] md:text-[34px] text-[#f2efe9] mt-2">Mixing Malayalam dialogue for earbuds: 5 things we stopped doing</h2>
+                  <p class="text-[#c0beb6] mt-3 max-w-2xl">Sibilance mapping per speaker, room-tone stitching, and why −14 LUFS isn’t always the target for ML podcasts…</p>
+                  <div class="text-[13.5px] text-[#9d9b95] mt-4">8 min read • Mixing</div>
+                </div>
+              </article>
+
+              <div class="grid md:grid-cols-2 gap-4" id="blog-list">
+                <!-- JS -->
+              </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="lg:col-span-4 space-y-4">
+              <div class="glass rounded-[24px] p-6">
+                <div class="font-display text-[22px] text-[#f1eee7]">Sonic Notes — Monthly</div>
+                <p class="text-[14.3px] text-[#b9b7b0] mt-2">Short mix breakdowns, casting calls, Kerala VO rates. No spam.</p>
+                <form id="newsletter-form" class="mt-4 flex gap-2">
+                  <input required type="email" placeholder="you@email.com" class="field-input flex-1 !py-[11px] !rounded-full">
+                  <button class="btn-gold rounded-full px-4 text-[13.5px]">Join</button>
+                </form>
+                <div class="text-[11.8px] text-[#87857f] mt-2">~420 readers</div>
+              </div>
+
+              <div class="glass-soft rounded-[24px] p-6">
+                <div class="mini-label mb-3">Popular Tags</div>
+                <div class="flex flex-wrap gap-2 text-[12.8px] text-[#c2c0b9]">
+                  <span class="px-3 py-1.5 rounded-full bg-white/[0.045] border border-white/10">Malayalam VO</span>
+                  <span class="px-3 py-1.5 rounded-full bg-white/[0.045] border border-white/10">Podcast QC</span>
+                  <span class="px-3 py-1.5 rounded-full bg-white/[0.045] border border-white/10">ACX</span>
+                  <span class="px-3 py-1.5 rounded-full bg-white/[0.045] border border-white/10">Loudness</span>
+                  <span class="px-3 py-1.5 rounded-full bg-white/[0.045] border border-white/10">Foley</span>
+                </div>
+              </div>
+
+              <div class="glass-soft rounded-[24px] p-6">
+                <div class="mini-label mb-2">Need mix notes on a pilot?</div>
+                <p class="text-[14px] text-[#b9b7b0]">Send a 90-sec clip, get written notes in 48 hrs. Free.</p>
+                <button data-nav="contact" class="nav-go mt-3 btn-glass rounded-full px-4 py-2 text-[13.5px] w-full">Request QC pass</button>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="page-contact" class="page-section">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 lg:px-12 pt-14 md:pt-20 pb-28">
+          <p class="eyebrow">Contact Us</p>
+          <h1 class="font-display text-[42px] md:text-[62px] leading-[0.96] tracking-[-0.022em] text-[#f2efe9] mt-3">Let's make it sound right.</h1>
+
+          <div class="grid lg:grid-cols-12 gap-10 mt-12">
+            <!-- Left info -->
+            <div class="lg:col-span-5 space-y-4">
+              <div class="glass rounded-[24px] p-6">
+                <div class="mini-label mb-3">Direct</div>
+                <div class="space-y-3 text-[15.3px] text-[#d9d7d1]">
+                  <div class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4 text-ma-gold"></i> <a href="mailto:miscaudible@gmail.com" class="hover:text-white">miscaudible@gmail.com</a></div>
+                  <div class="flex items-center gap-3"><i data-lucide="phone" class="w-4 h-4 text-ma-gold"></i> <a href="tel:+918907634900" class="hover:text-white">+91 89076 34900</a></div>
+                  <div class="flex items-center gap-3"><i data-lucide="map-pin" class="w-4 h-4 text-ma-gold"></i> Kochi, Kerala, India</div>
+                  <div class="flex items-center gap-3"><i data-lucide="clock" class="w-4 h-4 text-ma-gold"></i> IST • Mon–Sat, 10:00–19:00</div>
+                </div>
+              </div>
+
+              <div class="glass-soft rounded-[24px] p-6">
+                <div class="mini-label mb-2">What to include</div>
+                <ul class="text-[14.3px] text-[#bdbbb4] space-y-1.5 list-disc pl-4">
+                  <li>Language(s) + rough duration</li>
+                  <li>Sample / script if available</li>
+                  <li>Delivery date & platform</li>
+                  <li>Budget range (helps us scope fast)</li>
+                </ul>
+              </div>
+
+              <div class="glass-soft rounded-[24px] p-6">
+                <div class="font-display text-[20px] text-[#efece5]">Misc Audible</div>
+                <div class="text-[13.7px] text-[#a8a6a0] mt-1">A Misc Archive company.<br/>Audio production • Sound design • Voice.</div>
+                <div class="flex gap-3 mt-4 text-[#b8b6af]">
+                  <a href="#" aria-label="Instagram" class="hover:text-white"><i data-lucide="instagram" class="w-[18px] h-[18px]"></i></a>
+                  <a href="#" aria-label="YouTube" class="hover:text-white"><i data-lucide="youtube" class="w-[18px] h-[18px]"></i></a>
+                  <a href="#" aria-label="Spotify" class="hover:text-white"><i data-lucide="music-2" class="w-[18px] h-[18px]"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right form -->
+            <div class="lg:col-span-7">
+              <form id="contact-form" class="glass rounded-[26px] p-6 md:p-8">
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="mini-label">Name</label>
+                    <input required name="name" class="field-input mt-1.5" placeholder="Your name">
+                  </div>
+                  <div>
+                    <label class="mini-label">Email</label>
+                    <input required type="email" name="email" class="field-input mt-1.5" placeholder="you@studio.com">
+                  </div>
+                  <div>
+                    <label class="mini-label">Project Type</label>
+                    <select name="type" class="field-input mt-1.5">
+                      <option>Podcast</option>
+                      <option>Audiobook</option>
+                      <option>Sound Design / Film</option>
+                      <option>Ad / Commercial</option>
+                      <option>Voice Casting</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="mini-label">Budget (INR)</label>
+                    <select name="budget" class="field-input mt-1.5">
+                      <option>Under ₹25k</option>
+                      <option>₹25k – ₹90k</option>
+                      <option>₹90k – ₹3L</option>
+                      <option>₹3L+</option>
+                      <option>Not sure yet</option>
+                    </select>
+                  </div>
+                  <div class="md:col-span-2">
+                    <label class="mini-label">Message</label>
+                    <textarea required name="message" rows="5" class="field-input mt-1.5 resize-y" placeholder="Tell us about the language, length, deadline, and what 'good' sounds like to you…"></textarea>
+                  </div>
+                </div>
+                <div class="flex flex-wrap items-center justify-between gap-4 mt-5">
+                  <label class="text-[13px] text-[#a6a49e] flex items-center gap-2"><input type="checkbox" required class="accent-[#e9b825]"> I agree to be contacted about this project.</label>
+                  <button class="btn-gold rounded-full px-6 py-3 text-[14.8px] flex items-center gap-2">
+                    Send message <i data-lucide="send" class="w-4 h-4"></i>
+                  </button>
+                </div>
+                <p class="text-[12.7px] text-[#888681] mt-4">Typical reply: same business day. Rush mixes possible with advance booking.</p>
+              </form>
+
+              <div class="mt-4 text-[13.5px] text-[#9e9c96] flex flex-wrap gap-x-5 gap-y-1">
+                <span>Remote sessions: Cleanfeed / Source-Connect</span>
+                <span>•</span>
+                <span>NDA available on request</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/[0.09] mt-auto">
+      <div class="max-w-7xl mx-auto px-5 md:px-8 lg:px-12 py-12 md:py-16">
+        <div class="grid md:grid-cols-12 gap-10 text-[14.5px]">
+          <div class="md:col-span-5">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-[12px] bg-[#e9b825] text-[#1a1404] flex items-center justify-center font-display font-800 text-[17px]">ma</span>
+              <span class="font-display text-[20px] text-[#f0ede6]">Misc Audible</span>
+            </div>
+            <p class="text-[#b6b4ad] mt-3 max-w-sm">Kerala-based audible production. Podcast, audiobook, sound design. A Misc Archive company.</p>
+            <p class="text-[13px] text-[#8e8c85] mt-4">4+ years • 8000+ hours • Kochi, Kerala, India</p>
+          </div>
+          <div class="md:col-span-2">
+            <div class="mini-label mb-3">Pages</div>
+            <ul class="space-y-2 text-[#c5c3bc]">
+              <li><button data-nav="home" class="nav-go hover:text-white">Home</button></li>
+              <li><button data-nav="about" class="nav-go hover:text-white">About Us</button></li>
+              <li><button data-nav="gallery" class="nav-go hover:text-white">Gallery</button></li>
+              <li><button data-nav="blog" class="nav-go hover:text-white">Blog</button></li>
+              <li><button data-nav="contact" class="nav-go hover:text-white">Contact</button></li>
+            </ul>
+          </div>
+          <div class="md:col-span-2">
+            <div class="mini-label mb-3">Services</div>
+            <ul class="space-y-2 text-[#c5c3bc]">
+              <li>Podcast Production</li>
+              <li>Audiobooks</li>
+              <li>Sound Design</li>
+              <li>Voice Casting</li>
+            </ul>
+          </div>
+          <div class="md:col-span-3">
+            <div class="mini-label mb-3">Contact</div>
+            <div class="text-[#c5c3bc] space-y-1">
+              <div>miscaudible@gmail.com</div>
+              <div>+91 89076 34900</div>
+              <div class="text-[#9d9b94]">Kochi, Kerala, India</div>
+            </div>
+            <div class="text-[12.6px] text-[#8a8881] mt-4">Parent: Misc Archive</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-10 mt-10 border-t border-white/[0.08] text-[13px] text-[#8f8d86]">
+          <div>© <span id="year-copy"></span> Misc Audible — A Misc Archive company.</div>
+          <div class="flex gap-5">
+            <a href="#" class="hover:text-[#c9c7c0]">Privacy</a>
+            <a href="#" class="hover:text-[#c9c7c0]">Terms</a>
+            <a href="#" class="hover:text-[#c9c7c0]">Credits</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Mini Player (Gallery) -->
+  <div id="mini-player" class="fixed left-0 right-0 bottom-0 z-50 hidden">
+    <div class="mx-auto max-w-5xl px-4 pb-4">
+      <div class="glass-strong rounded-[20px] px-4 md:px-5 py-3 md:py-[14px] flex items-center gap-4">
+        <button id="mp-play" class="w-11 h-11 rounded-full bg-[#f0ece4] text-[#161616] flex items-center justify-center shrink-0">
+          <i data-lucide="pause" class="w-[18px] h-[18px]" id="mp-play-icon"></i>
+        </button>
+        <div class="min-w-0 flex-1">
+          <div class="text-[13.8px] text-[#e9e6df] truncate"><span id="mp-title" class="font-semibold">—</span> <span id="mp-meta" class="text-[#a9a7a1]"></span></div>
+          <div class="flex items-center gap-3 mt-1.5">
+            <span class="text-[11px] text-[#8f8d86] w-10" id="mp-current">0:00</span>
+            <input type="range" id="mp-seek" min="0" max="100" value="0" class="player-progress flex-1">
+            <span class="text-[11px] text-[#8f8d86] w-10 text-right" id="mp-total">2:14</span>
+          </div>
+        </div>
+        <button id="mp-close" class="text-[#a8a6a0] hover:text-white p-2"><i data-lucide="x" class="w-[18px] h-[18px]"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="glass-strong rounded-full px-5 py-3 text-[13.8px] text-[#f1eee7] shadow-2xl">
+    <span id="toast-msg">Done</span>
+  </div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+
+const canvas = document.getElementById('liquid-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.7));
+
+const scene = new THREE.Scene();
+const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+
+const geo = new THREE.PlaneGeometry(2, 2);
+
+const uniforms = {
+  uTime: { value: 0 },
+  uResolution: { value: new THREE.Vector2(1,1) },
+  uMouse: { value: new THREE.Vector2(0.5,0.5) }
+};
+
+const mat = new THREE.ShaderMaterial({
+  uniforms,
+  vertexShader: `
+    varying vec2 vUv;
+    void main(){
+      vUv = uv;
+      gl_Position = vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    precision highp float;
+    varying vec2 vUv;
+    uniform float uTime;
+    uniform vec2 uResolution;
+    uniform vec2 uMouse;
+
+    // hash / noise
+    float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453); }
+    float noise(vec2 p){
+      vec2 i = floor(p);
+      vec2 f = fract(p);
+      float a = hash(i);
+      float b = hash(i + vec2(1.0,0.0));
+      float c = hash(i + vec2(0.0,1.0));
+      float d = hash(i + vec2(1.0,1.0));
+      vec2 u = f*f*(3.0-2.0*f);
+      return mix(a,b,u.x) + (c-a)*u.y*(1.0-u.x) + (d-b)*u.x*u.y;
+    }
+    float fbm(vec2 p){
+      float v = 0.0;
+      float a = 0.5;
+      for(int i=0;i<5;i++){
+        v += a * noise(p);
+        p = p * 2.02 + vec2(0.3,0.71);
+        a *= 0.52;
+      }
+      return v;
+    }
+
+    void main(){
+      vec2 uv = vUv;
+      float aspect = uResolution.x / uResolution.y;
+      vec2 p = uv * 2.0 - 1.0;
+      p.x *= aspect;
+
+      float t = uTime * 0.085;
+
+      // liquid flow field
+      vec2 q = vec2( fbm(p*1.15 + vec2(t*0.65, -t*0.32)),
+                    fbm(p*1.11 + vec2(-t*0.27, t*0.48)) );
+
+      float n = fbm(p*1.65 + q*1.7 + t*0.45);
+
+      // flowing ribbons
+      float rib = smoothstep(0.45, 0.73, n) - smoothstep(0.73, 0.92, n);
+      rib = pow(rib, 1.45);
+
+      // mouse-reactive light rays
+      vec2 mouse = (uMouse * 2.0 - 1.0);
+      mouse.x *= aspect;
+      vec2 toMouse = p - mouse * 0.38;
+      float ang = atan(toMouse.y, toMouse.x);
+      float rayNoise = fbm(vec2(ang*2.9, length(toMouse)*1.6 - t*1.3));
+      float rays = pow(max(rayNoise - 0.52, 0.0), 2.9) * 0.84;
+      float distFall = exp(-length(toMouse)*1.75);
+      rays *= distFall;
+
+      // slow rotating god rays from center
+      float a2 = atan(p.y, p.x) + t*0.55;
+      float beam = pow(0.5 + 0.5 * sin(a2*6.0), 9.0);
+      beam *= smoothstep(1.55, 0.15, length(p));
+      beam *= 0.33;
+
+      // Base colors
+      vec3 colBlack = vec3(0.052, 0.052, 0.058);
+      vec3 colAsh   = vec3(0.56, 0.545, 0.52);
+      vec3 colGold  = vec3(0.914, 0.722, 0.145);
+
+      // liquid gold veins
+      vec3 base = colBlack;
+      base = mix(base, colAsh * 0.72, smoothstep(0.33, 0.78, n));
+      base = mix(base, colGold, rib * 0.95);
+
+      // add light rays (warm)
+      vec3 rayCol = vec3(1.0, 0.825, 0.42);
+      base += rayCol * rays * 0.95;
+      base += rayCol * beam * 0.48;
+
+      // vignette
+      float vign = smoothstep(1.55, 0.35, length(p*vec2(0.92,1.0)));
+      base *= vign;
+
+      // filmic lift
+      base = pow(base, vec3(0.96));
+      base += vec3(0.011);
+
+      gl_FragColor = vec4(base, 1.0);
+    }
+  `
+});
+
+scene.add(new THREE.Mesh(geo, mat));
+
+function resize(){
+  const w = window.innerWidth, h = window.innerHeight;
+  renderer.setSize(w, h, false);
+  uniforms.uResolution.value.set(w, h);
+}
+resize();
+window.addEventListener('resize', resize);
+
+let mouseX = 0.5, mouseY = 0.5, targetX = 0.5, targetY = 0.5;
+window.addEventListener('pointermove', e=>{
+  targetX = e.clientX / window.innerWidth;
+  targetY = 1.0 - e.clientY / window.innerHeight;
+}, {passive:true});
+
+const clock = new THREE.Clock();
+function tick(){
+  requestAnimationFrame(tick);
+  mouseX += (targetX - mouseX) * 0.045;
+  mouseY += (targetY - mouseY) * 0.045;
+  uniforms.uMouse.value.set(mouseX, mouseY);
+  uniforms.uTime.value = clock.getElapsedTime();
+  renderer.render(scene, camera);
+}
+tick();
+</script>
+
+<script>
+/* NAV */
+const pages = ['home','about','gallery','blog','contact'];
+function goTo(page){
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active-page'));
+  const el = document.getElementById('page-'+page);
+  if(el) el.classList.add('active-page');
+  document.querySelectorAll('.nav-link').forEach(a=>{
+    a.classList.toggle('active', a.dataset.nav === page);
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+  document.getElementById('mobile-drawer').classList.add('hidden');
+  history.replaceState(null,'','#'+page);
+}
+document.querySelectorAll('.nav-go').forEach(b=>{
+  b.addEventListener('click', ()=> goTo(b.dataset.nav));
+});
+const initial = location.hash.replace('#','');
+if(pages.includes(initial)) goTo(initial);
+
+/* Mobile menu */
+document.getElementById('mobile-menu-btn').addEventListener('click', ()=>{
+  document.getElementById('mobile-drawer').classList.toggle('hidden');
+});
+
+/* Hero waveform */
+const hw = document.getElementById('hero-wave');
+if(hw){
+  const hctx = hw.getContext('2d');
+  let hw_t=0;
+  function drawHeroWave(){
+    const w = hw.width, h = hw.height;
+    hctx.clearRect(0,0,w,h);
+    hctx.beginPath();
+    for(let x=0;x<w;x++){
+      const nx = x / w;
+      const amp = 18 + 10*Math.sin(hw_t*0.8 + nx*6.3);
+      const y = h*0.5 + Math.sin(nx*18 + hw_t*2.7)*amp*0.55 + Math.sin(nx*7.2 - hw_t*1.15)*7;
+      if(x===0) hctx.moveTo(x,y); else hctx.lineTo(x,y);
+    }
+    hctx.strokeStyle = 'rgba(233,184,37,0.95)';
+    hctx.lineWidth = 2;
+    hctx.stroke();
+
+    // second faint line
+    hctx.beginPath();
+    for(let x=0;x<w;x++){
+      const nx = x / w;
+      const y = h*0.5 + Math.sin(nx*21 + hw_t*2.1)*10;
+      if(x===0) hctx.moveTo(x,y); else hctx.lineTo(x,y);
+    }
+    hctx.strokeStyle = 'rgba(233,184,37,0.29)';
+    hctx.lineWidth = 1;
+    hctx.stroke();
+
+    hw_t += 0.028;
+    requestAnimationFrame(drawHeroWave);
+  }
+  drawHeroWave();
+}
+let heroPlaying = false;
+const heroPlayBtn = document.getElementById('hero-play-btn');
+if(heroPlayBtn){
+  heroPlayBtn.addEventListener('click', ()=>{
+    heroPlaying = !heroPlaying;
+    document.getElementById('hero-play-icon').setAttribute('data-lucide', heroPlaying ? 'pause' : 'play');
+    lucide.createIcons();
+    showToast(heroPlaying ? 'Preview playing' : 'Preview paused');
+  });
+}
+
+/* Gallery data */
+const works = [
+  { title:'Kaalam • S3', client:'Kaalam Collective', cat:'podcast', lang:'Malayalam', dur:148, tag:'Docu-series' },
+  { title:'Raaste', client:'Westland Audio', cat:'audiobook', lang:'Hindi', dur:134, tag:'11.4 hrs' },
+  { title:'Veyil (Short)', client:'Festival Mix', cat:'film', lang:'Malayalam', dur:112, tag:'Foley + Mix' },
+  { title:'Aroha Tea • TVC', client:'Aroha', cat:'ads', lang:'English', dur:88, tag:'30s' },
+  { title:'Thira • Ep.14', client:'Nila', cat:'podcast', lang:'Malayalam', dur:162, tag:'Narrative' },
+  { title:'Bhasha Lab', client:'EdTech', cat:'audiobook', lang:'English / Hindi', dur:121, tag:'E-learning' },
+  { title:'Monsoon Diaries', client:'Indie Doc', cat:'film', lang:'Tamil', dur:145, tag:'Stereo' },
+  { title:'The Kerala Table', client:'Podcast One', cat:'podcast', lang:'English', dur:129, tag:'Food & Culture' },
+  { title:'Nilaam • S2', client:'Misc Archive', cat:'audiobook', lang:'Malayalam', dur:155, tag:'Fiction' },
+];
+
+const galleryGrid = document.getElementById('gallery-grid');
+function renderGallery(filter='all'){
+  galleryGrid.innerHTML = '';
+  works.filter(w => filter==='all' || w.cat===filter).forEach((w, idx)=>{
+    const card = document.createElement('div');
+    card.className = 'work-card glass rounded-[22px] p-5';
+    card.innerHTML = `
+      <div class="flex items-center justify-between text-[11.3px] uppercase tracking-wider text-ma-ash-muted">
+        <span>${w.cat} • ${w.lang}</span>
+        <span>${Math.floor(w.dur/60)}:${String(w.dur%60).padStart(2,'0')}</span>
+      </div>
+      <div class="font-display text-[22px] mt-2 text-[#edeae4]">${w.title}</div>
+      <div class="text-[13.6px] text-[#a9a7a0]">${w.client} · ${w.tag}</div>
+      <div class="mt-4 h-[54px] rounded-xl bg-black/25 border border-white/[0.09] flex items-center px-3 gap-[3px]">
+        ${Array.from({length:28},(_,i)=>{
+          const h = 8 + Math.abs(Math.sin(i*0.8 + idx))*28;
+          return `<div class="wave-bar" style="height:${h}px; opacity:${0.55 + Math.sin(i+idx)*0.3}"></div>`
+        }).join('')}
+      </div>
+      <div class="flex items-center justify-between mt-3 text-[13px] text-[#b2b0a8]">
+        <span class="flex items-center gap-1.5"><i data-lucide="play" class="w-3.5 h-3.5"></i> Preview</span>
+        <span class="text-[#8e8c85]">Click to play</span>
+      </div>`;
+    card.addEventListener('click', ()=> openPlayer(w));
+    galleryGrid.appendChild(card);
+  });
+  lucide.createIcons();
+}
+renderGallery();
+document.querySelectorAll('#gallery-filters button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#gallery-filters button').forEach(b=>b.classList.remove('chip-active'));
+    btn.classList.add('chip-active');
+    renderGallery(btn.dataset.filter);
+  });
+});
+
+/* Mini player */
+let mpTimer = null, mpPos = 0, mpDur = 134, mpPlaying = true, mpCurrent = null;
+const mpEl = document.getElementById('mini-player');
+function openPlayer(work){
+  mpCurrent = work;
+  mpDur = work.dur;
+  mpPos = 0;
+  document.getElementById('mp-title').textContent = work.title;
+  document.getElementById('mp-meta').textContent = ' · ' + work.client;
+  document.getElementById('mp-total').textContent = fmt(mpDur);
+  mpPlaying = true;
+  updateMpIcon();
+  mpEl.classList.remove('hidden');
+  startMp();
+  lucide.createIcons();
+}
+function fmt(s){ const m=Math.floor(s/60); const r=s%60; return m+':'+String(r).padStart(2,'0'); }
+function startMp(){
+  clearInterval(mpTimer);
+  mpTimer = setInterval(()=>{
+    if(mpPlaying){
+      mpPos++;
+      if(mpPos >= mpDur){ mpPos = 0; }
+      syncMp();
+    }
+  }, 1000);
+  syncMp();
+}
+function syncMp(){
+  document.getElementById('mp-current').textContent = fmt(mpPos);
+  document.getElementById('mp-seek').value = (mpPos/mpDur*100)|0;
+}
+document.getElementById('mp-play').addEventListener('click', ()=>{
+  mpPlaying = !mpPlaying; updateMpIcon();
+});
+function updateMpIcon(){
+  document.getElementById('mp-play-icon').setAttribute('data-lucide', mpPlaying ? 'pause' : 'play');
+  lucide.createIcons();
+}
+document.getElementById('mp-seek').addEventListener('input', e=>{
+  mpPos = Math.round(mpDur * e.target.value/100);
+  syncMp();
+});
+document.getElementById('mp-close').addEventListener('click', ()=>{
+  clearInterval(mpTimer);
+  mpEl.classList.add('hidden');
+});
+
+/* Blog list */
+const blogPosts = [
+  { date:'Nov 18, 2024', title:'Casting Malayalam VO for non-Malayalam directors', tag:'Casting', read:'6 min' },
+  { date:'Oct 30, 2024', title:'Audiobook QC checklist we actually use (ACX + Storytel)', tag:'Audiobooks', read:'9 min' },
+  { date:'Oct 6, 2024', title:'Podcast loudness targets in India: Spotify, YouTube, JioSaavn', tag:'Mixing', read:'7 min' },
+  { date:'Sep 14, 2024', title:'Recording clean ADR in a monsoon', tag:'Film', read:'5 min' },
+  { date:'Aug 21, 2024', title:'Building a Kerala foley library', tag:'Sound Design', read:'6 min' },
+  { date:'Jul 9, 2024', title:'Why we stopped de-breathing everything', tag:'Editorial', read:'4 min' },
+];
+const blogList = document.getElementById('blog-list');
+if(blogList){
+  blogPosts.forEach(p=>{
+    const el = document.createElement('article');
+    el.className = 'glass-soft rounded-[22px] p-5 hover:border-ma-gold/25 transition border border-transparent';
+    el.innerHTML = `<div class="text-[11.5px] text-[#9d9b94]">${p.date} • ${p.read}</div>
+      <div class="font-display text-[20px] text-[#ebe8e2] mt-2 leading-snug">${p.title}</div>
+      <div class="text-[12.8px] text-[#a8a59d] mt-3">${p.tag}</div>`;
+    blogList.appendChild(el);
+  });
+}
+
+/* Forms */
+let toastT;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(()=> t.classList.remove('show'), 2400);
+}
+document.getElementById('newsletter-form')?.addEventListener('submit', e=>{
+  e.preventDefault();
+  e.target.reset();
+  showToast('Subscribed to Sonic Notes — thank you!');
+});
+document.getElementById('contact-form')?.addEventListener('submit', e=>{
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  showToast('Thanks, '+ (fd.get('name')||'friend') +' — we’ll reply within a business day.');
+  e.target.reset();
+});
+
+/* Icons + year */
+function refreshIcons(){ lucide.createIcons(); }
+refreshIcons();
+document.getElementById('year-copy').textContent = new Date().getFullYear();
+
+/* Gallery first paint icons refresh (mutation) */
+new MutationObserver(refreshIcons).observe(document.getElementById('gallery-grid'), {childList:true});
+
+</script>
+</body>
+</html>
