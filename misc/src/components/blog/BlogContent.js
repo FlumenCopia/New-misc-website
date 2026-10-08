@@ -1,8 +1,10 @@
-import React from 'react';
-import Link from 'next/link';
+'use client';
 
-const BlogContent = () => {
-  const blogPosts = [
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { getBlogs, resolveMediaUrl } from '@/lib/api';
+
+const defaultBlogPosts = [
     
         
     {
@@ -544,6 +546,36 @@ const BlogContent = () => {
     },
 
   ];
+
+const BlogContent = ({ initialBlogs }) => {
+  const [blogPosts, setBlogPosts] = useState(() => {
+    if (initialBlogs && Array.isArray(initialBlogs) && initialBlogs.length > 0) {
+      return initialBlogs.map((b) => ({
+        image: resolveMediaUrl(b.featuredImage || b.image),
+        category: b.category || 'Digital Marketing',
+        date: b.publishDate ? new Date(b.publishDate).toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' }) : '',
+        title: b.title,
+        href: `/blog/${b.slug}`,
+      }));
+    }
+    return defaultBlogPosts;
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+    getBlogs({ limit: 100 }).then((data) => {
+      if (isMounted && data && Array.isArray(data) && data.length > 0) {
+        setBlogPosts(data.map((b) => ({
+          image: resolveMediaUrl(b.featuredImage || b.image) || '/assets/images/blogs/bl63.webp',
+          category: b.category || 'Digital Marketing',
+          date: b.publishDate ? new Date(b.publishDate).toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' }) : '',
+          title: b.title,
+          href: `/blog/${b.slug}`,
+        })));
+      }
+    }).catch(() => {});
+    return () => { isMounted = false; };
+  }, []);
 
   return (
     <>

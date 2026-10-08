@@ -1,11 +1,48 @@
+'use client';
+
 // components/AboutUs.js or pages/about-us.js
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getTeamMembers, resolveMediaUrl } from '@/lib/api';
 
-const AboutUs = () => {
+const DEFAULT_TEAM = [
+  {
+    name: 'Anoop D Anil',
+    designation: 'Vice President, CFO',
+    photoImage: '/assets/images/sunny.webp',
+  },
+  {
+    name: 'Anoop Krishna',
+    designation: 'CEO, FOUNDER',
+    photoImage: '/assets/images/anoop.webp',
+  },
+  {
+    name: 'Rohini A Pillai',
+    designation: 'Co-Founder, COO',
+    photoImage: '/assets/images/anju.webp',
+  },
+  {
+    name: 'Akhil G V',
+    designation: 'Vice President, Creative Head',
+    photoImage: '/assets/images/akhil (1).webp',
+  },
+];
+
+const AboutUs = ({ initialTeam }) => {
+  const [team, setTeam] = useState(initialTeam && initialTeam.length > 0 ? initialTeam : DEFAULT_TEAM);
+
+  useEffect(() => {
+    let isMounted = true;
+    getTeamMembers(true).then((data) => {
+      if (isMounted && data && Array.isArray(data) && data.length > 0) {
+        setTeam(data);
+      }
+    }).catch(() => {});
+    return () => { isMounted = false; };
+  }, []);
+
   return (
     <>
-
       <section className="about-us">
         <div className="container-fluid">
           <div className="row">
@@ -36,58 +73,29 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* Uncomment this if you want to include the team members section */}
-      {/*
-      <section className="team-members">
-        <div style={{ padding: '100px 0' }}></div>
-        <div className="container fadeInUp">
-          <div className="row">
-            <div className="col-md-3 col-sm-3">
-              <figure>
-                <img src="/assets/images/sunny.webp" alt="Anoop D Anil" />
-                <figcaption>
-                  <h3>Anoop D Anil</h3>
-                  <h6>Vice President, CFO</h6>
-                </figcaption>
-              </figure>
-            </div>
-
-            <div className="col-md-3 col-sm-3">
-              <figure>
-                <img src="/assets/images/anoop.webp" alt="Anoop Krishna" />
-                <figcaption>
-                  <h3>Anoop Krishna</h3>
-                  <h6>CEO, FOUNDER</h6>
-                </figcaption>
-              </figure>
-            </div>
-
-            <div className="col-md-3 col-sm-3">
-              <figure>
-                <img src="/assets/images/anju.webp" alt="Rohini A Pillai" />
-                <figcaption>
-                  <h3>Rohini A Pillai</h3>
-                  <h6>Co-Founder, COO</h6>
-                </figcaption>
-              </figure>
-            </div>
-
-            <div className="col-md-3 col-sm-3">
-              <figure>
-                <img src="/assets/images/akhil (1).webp" alt="Akhil G V" />
-                <figcaption>
-                  <h3>Akhil G V</h3>
-                  <h6>Vice President, Creative Head</h6>
-                </figcaption>
-              </figure>
+      {team && team.length > 0 && (
+        <section className="team-members">
+          <div style={{ padding: '100px 0' }}></div>
+          <div className="container fadeInUp">
+            <div className="row">
+              {team.map((member, idx) => (
+                <div className="col-md-3 col-sm-3" key={member._id || idx}>
+                  <figure>
+                    <img
+                      src={resolveMediaUrl(member.photoImage || member.image) || member.photoImage || member.image}
+                      alt={member.name}
+                    />
+                    <figcaption>
+                      <h3>{member.name}</h3>
+                      <h6>{member.designation || member.role}</h6>
+                    </figcaption>
+                  </figure>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
-      */}
-
-
-     
+        </section>
+      )}
     </>
   );
 };

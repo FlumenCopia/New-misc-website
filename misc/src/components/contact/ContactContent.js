@@ -1,28 +1,66 @@
 "use client";
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import $ from "jquery";
-
-
+import { getSettings, submitEnquiry } from "@/lib/api";
 
 const ContactContent = () => {
+  const [settings, setSettings] = useState(null);
 
-   useEffect(() => {
-      $("#submit-form2").submit((e) => {
-        e.preventDefault();
+  useEffect(() => {
+    getSettings().then((s) => s && setSettings(s)).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const handleContactSubmit = async (e) => {
+      e.preventDefault();
+      const formEl = document.getElementById("submit-form2");
+      if (!formEl) return;
+      const formData = new FormData(formEl);
+      const payload = {
+        name: formData.get("name") || "",
+        email: formData.get("email") || "",
+        phone: formData.get("phone") || "",
+        subject: formData.get("subject") || "",
+        message: formData.get("message") || "",
+        formSource: "contact_page",
+      };
+
+      try {
+        const res = await submitEnquiry(payload);
+        if (res && res.success) {
+          alert("Form submitted successfully");
+          window.location.reload();
+          return;
+        }
+        throw new Error(res?.message || 'Error');
+      } catch (err) {
+        // Fallback to legacy endpoint
         $.ajax({
           url: "https://script.google.com/macros/s/AKfycbxLw60yrM_9HtfrIsIJLyKTBD5FGKZ9UWUrPDe_FIquLZ3f8_hoQA_qm2RJnIRs2kub/exec",
           data: $("#submit-form2").serialize(),
           method: "post",
           success: function (response) {
-          alert("Form submitted successfully")
-           window.location.reload();
+            alert("Form submitted successfully");
+            window.location.reload();
           },
           error: function (err) {
             alert("An error occurred");
           },
         });
-      });
-    }, []); 
+      }
+    };
+
+    $("#submit-form2").on("submit", handleContactSubmit);
+    return () => {
+      $("#submit-form2").off("submit", handleContactSubmit);
+    };
+  }, []); 
+
+  const phone1 = settings?.contact?.phones?.[0] || '+91 8907634900';
+  const phone2 = settings?.contact?.phones?.[1] || '+91 8848608726';
+  const email = settings?.contact?.emails?.[0] || 'contact@miscarchive.com';
+  const address = settings?.contact?.addressPrimary || 
+    'Rohini, MRA E34, Mele kuzhivila lane, Maruthankuzhy Brg, Kanjirampara, Thiruvananthapuram, Kerala 695030';
   
   return (
     <>
@@ -44,19 +82,14 @@ const ContactContent = () => {
               <address className=" fadeInUp">
                 <h3>Get in Touch With Us</h3>
                 <p>
-                  Rohini, MRA E34, Mele kuzhivila lane, <br />
-                  Maruthankuzhy Brg, 
-                  Kanjirampara <br/>
-                  Thiruvananthapuram, Kerala 695030
-
-                   
+                  {address}
                 </p>
                 <p>
                   PHONE: &nbsp;
-                  <a href="tel:+918907634900">+91 8907634900</a>, &nbsp;&nbsp;
-                  <a href="tel:+918848608726">+91 8848608726</a>
+                  <a href={`tel:${phone1.replace(/\s+/g, '')}`}>{phone1}</a>, &nbsp;&nbsp;
+                  <a href={`tel:${phone2.replace(/\s+/g, '')}`}>{phone2}</a>
                 </p>
-                <a href="mailto:contactmiscarchive@gmail.com">contactmiscarchive@gmail.com</a>
+                <a href={`mailto:${email}`}>{email}</a>
               </address>
 
               <form id="submit-form2" className=" fadeInUp">
@@ -128,7 +161,7 @@ const ContactContent = () => {
 
             <div className="col-xs-12 col-md-6">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.817829742477!2d76.9749134744944!3d8.517061096793476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bb3682df7b0b%3A0x883771e7a4c3fd4f!2sMisc%20Archive!5e0!3m2!1sen!2sin!4v1751711918093!5m2!1sen!2sin"
+                src={settings?.googleMapsEmbedUrl || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.817829742477!2d76.9749134744944!3d8.517061096793476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bb3682df7b0b%3A0x883771e7a4c3fd4f!2sMisc%20Archive!5e0!3m2!1sen!2sin!4v1751711918093!5m2!1sen!2sin"}
                 width="100%"
                 height="450"
                 style={{ border: 0 }}

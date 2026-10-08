@@ -1,26 +1,22 @@
-import React from 'react'
+import React from 'react';
 import Header from "@/components/common/Header";
 import FooterSection from "@/components/common/Footer";
 import Blogtitle from '@/components/blog/Blogtitle';
+import CmsBlogArticle from '@/components/blog/CmsBlogArticle';
 import RetargetingWontSaveBadAds from '@/components/blog/RetargetingWontSaveBadAds';
+import { getBlogBySlug } from '@/lib/api';
 
+const SLUG = 'retargeting-wont-save-bad-ads';
 
+export default async function page() {
+    const blog = await getBlogBySlug(SLUG);
 
-
-export const metadata = {
-  title: 'Why Retargeting Can’t Fix Bad Campaigns',
-  description: 'Retargeting can’t rescue weak ads. Learn why campaigns fail before retargeting and how to fix the real issues for better performance.',
-};
-
-
-export default function page() {
     return (
         <div>
             <Header />
-            <Blogtitle title="Why Retargeting Won’t Save Bad Ads" />
-            <RetargetingWontSaveBadAds/>
-        
+            <Blogtitle title={blog?.title || "Why Retargeting Won’t Save Bad Ads"} />
+            <CmsBlogArticle slug={SLUG} initialBlog={blog} fallback={<RetargetingWontSaveBadAds />} />
             <FooterSection />
         </div>
-    )
+    );
 }

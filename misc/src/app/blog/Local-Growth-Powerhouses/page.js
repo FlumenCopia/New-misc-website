@@ -1,22 +1,22 @@
-import React from 'react'
+import React from 'react';
 import Header from "@/components/common/Header";
 import FooterSection from "@/components/common/Footer";
 import Blogtitle from '@/components/blog/Blogtitle';
-import Cookieless_Future from '@/components/blog/Cookieless_Future';
-import ARVRMagic from '@/components/blog/AR&VRMagic';
-import ReelsIntoRealSales from '@/components/blog/ReelsIntoRealSales';
+import CmsBlogArticle from '@/components/blog/CmsBlogArticle';
 import LocalGrowthPowerhouses from '@/components/blog/LocalGrowthPowerhouses';
+import { getBlogBySlug } from '@/lib/api';
 
-export default function page() {
+const SLUG = 'Local-Growth-Powerhouses';
+
+export default async function page() {
+    const blog = await getBlogBySlug(SLUG);
+
     return (
         <div>
             <Header />
-            <Blogtitle title="How to Turn Short Videos Into Local Growth Powerhouses" />
-        {/* <ReelsIntoRealSales /> */}
-<LocalGrowthPowerhouses />
-
-
+            <Blogtitle title={blog?.title || "How to Turn Short Videos Into Local Growth Powerhouses"} />
+            <CmsBlogArticle slug={SLUG} initialBlog={blog} fallback={<LocalGrowthPowerhouses />} />
             <FooterSection />
         </div>
-    )
+    );
 }

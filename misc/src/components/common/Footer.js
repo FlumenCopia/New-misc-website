@@ -1,8 +1,27 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Script from 'next/script';
+import { getSettings } from '@/lib/api';
 
-export default function FooterSection() {
+export default function FooterSection({ settings: initialSettings }) {
+  const [settings, setSettings] = useState(initialSettings || null);
+
+  useEffect(() => {
+    if (!initialSettings) {
+      getSettings().then((s) => s && setSettings(s)).catch(() => {});
+    }
+  }, [initialSettings]);
+
+  const address = settings?.contact?.addressPrimary || 
+    'Rohini, MRA E34, Mele kuzhivila lane, Maruthankuzhy Brg, Kanjirampara, Thiruvananthapuram, Kerala 695030';
+  const phone1 = settings?.contact?.phones?.[0] || '+91 8907634900';
+  const phone2 = settings?.contact?.phones?.[1] || '+91 8848608726';
+  const email = settings?.contact?.emails?.[0] || 'contact@miscarchive.com';
+  const workingHours = settings?.contact?.workingHours || 'Mon-Sat 9.30am - 6.30pm';
+  const copyright = settings?.copyrightText || 
+    'Copyright © 2023, MiscArchive | IT Solution | Digital Marketing Agency | Audibles';
+
   return (
     <>
       <section className="contact footer-contact">
@@ -12,10 +31,7 @@ export default function FooterSection() {
               <img src="/assets/images/icon5.png" alt="Location Icon" />
               <div>
                 <strong>LOCATION</strong>
-                <address>
-                  Rohini, MRA E34, Mele kuzhivila lane, Maruthankuzhy Brg,
-                  Kanjirampara, Thiruvananthapuram, Kerala 695030
-                </address>
+                <address>{address}</address>
               </div>
             </div>
 
@@ -24,8 +40,8 @@ export default function FooterSection() {
               <div>
                 <strong>PHONE</strong>
                 <p>
-                  +91 8907634900<br />
-                  +91 8848608726
+                  {phone1}<br />
+                  {phone2}
                 </p>
               </div>
             </div>
@@ -34,7 +50,7 @@ export default function FooterSection() {
               <img src="/assets/images/icon7.png" alt="Email Icon" />
               <div>
                 <strong>E-MAIL</strong>
-                <p>contact@miscarchive.com</p>
+                <p>{email}</p>
               </div>
             </div>
 
@@ -42,7 +58,7 @@ export default function FooterSection() {
               <img src="/assets/images/icon8.png" alt="Working Hours Icon" />
               <div>
                 <strong>WORKING HOURS</strong>
-                <p>Mon-Sat 9.30am - 6.30pm</p>
+                <p>{workingHours}</p>
               </div>
             </div>
           </div>
@@ -57,7 +73,7 @@ export default function FooterSection() {
               {/* <Script src="https://apps.elfsight.com/p/platform.js" strategy="lazyOnload" />
               <div className="elfsight-app-4755684f-b1cf-4ee2-b1e8-26479ae849bb"></div> */}
               <h6 className="footer-copyright">
-                Copyright &copy; 2023, MiscArchive | IT Solution | Digital Marketing Agency | Audibles
+                {copyright}
               </h6>
             </div>
             <div className="col-md-6 text-md-end">

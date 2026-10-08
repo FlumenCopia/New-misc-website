@@ -1,20 +1,22 @@
-import React from 'react'
+import React from 'react';
 import Header from "@/components/common/Header";
 import FooterSection from "@/components/common/Footer";
 import Blogtitle from '@/components/blog/Blogtitle';
-import FirstParty from '@/components/blog/FirstParty';
-import AITransforming from '@/components/blog/AITransforming';
-import HowLinkedIn from '@/components/blog/HowLinkedIn';
+import CmsBlogArticle from '@/components/blog/CmsBlogArticle';
 import HowDigitalMarketing from '@/components/blog/HowDigitalMarketing';
+import { getBlogBySlug } from '@/lib/api';
 
-export default function page() {
-  return (
-    <div>
-        <Header/>
-        <Blogtitle title="How Digital Marketing Builds Trust for Builders and Property Developers" />
+const SLUG = 'How-Digital-Marketing-Builds-Trust-for-Builders';
 
-<HowDigitalMarketing />
-        <FooterSection/>
-    </div>
-  )
+export default async function page() {
+    const blog = await getBlogBySlug(SLUG);
+
+    return (
+        <div>
+            <Header />
+            <Blogtitle title={blog?.title || "How Digital Marketing Builds Trust for Builders and Property Developers"} />
+            <CmsBlogArticle slug={SLUG} initialBlog={blog} fallback={<HowDigitalMarketing />} />
+            <FooterSection />
+        </div>
+    );
 }

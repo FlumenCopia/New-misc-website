@@ -1,14 +1,39 @@
-import React from "react";
+'use client';
+import React, { useEffect, useState } from "react";
+import { getSubServices } from "@/lib/api";
 
 const SmmContent = () => {
+  const [data, setData] = useState({
+    title: "S M M",
+    subtitle: "Social Media Marketing",
+    shortDescription: "Unlock the power of social media to grow your brand and engage with your audience like never before",
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+    getSubServices().then((subs) => {
+      if (isMounted && Array.isArray(subs)) {
+        const item = subs.find((s) => s.slug === "smm");
+        if (item) {
+          setData({
+            title: item.title || "S M M",
+            subtitle: "Social Media Marketing",
+            shortDescription: item.shortDescription || "Unlock the power of social media to grow your brand and engage with your audience like never before",
+          });
+        }
+      }
+    }).catch(() => {});
+    return () => { isMounted = false; };
+  }, []);
+
   return (
     <>
       <header className="yellow-bg">
         <div className="container" style={{ paddingTop: "130px" }}>
           <div className="row">
             <div className="col-xs-12">
-              <h2 className="title" style={{color:"#333"}}>S M M</h2>
-              <h5 className="sub-title" style={{color:"#333"}}>Social Media Marketing</h5>
+              <h2 className="title" style={{color:"#333"}}>{data.title}</h2>
+              <h5 className="sub-title" style={{color:"#333"}}>{data.subtitle}</h5>
             </div>
           </div>
         </div>
@@ -35,7 +60,7 @@ const SmmContent = () => {
             marginTop: "20px",
           }}
         >
-Unlock the power of social media to grow your brand and engage with your audience like never before        </p>
+{data.shortDescription}        </p>
         <div style={{ marginTop: "30px" }}>
           <button
             className="btn"

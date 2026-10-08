@@ -21,21 +21,21 @@ export const metadata = {
 
 export default function Home() {
   return (
-   <div>
-    <Header/>
-    <Banner/>
-    <AboutSection/>
-    <LogosSection/>
-    <ServicesSection/>
-    <DigitalMarketingSection/>
-      {/* <Faqs /> */}
-    <BlogSection/>
+    <div>
+     <Header/>
+     <Banner/>
+     <AboutSection/>
+     <LogosSection/>
+     <ServicesSection/>
+     <DigitalMarketingSection/>
+     <Faqs />
+     <BlogSection/>
 
-    {/* <QuoteSection/> */}
+     {/* <QuoteSection/> */}
 
-    {/* <WhatsAppButton/> */}
-    <FooterSection/>
-    {/* <Footer2 /> */}
-   </div>
+     <WhatsAppButton/>
+     <FooterSection/>
+     {/* <Footer2 /> */}
+    </div>
   );
 }

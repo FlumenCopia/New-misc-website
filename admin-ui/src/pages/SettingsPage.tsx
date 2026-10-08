@@ -55,11 +55,11 @@ export const SettingsPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+      <div className="flex items-center justify-between border-b border-slate-200 pb-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Global Website Settings</h1>
-          <p className="text-xs text-slate-400 mt-1">
-            Configure global website metadata, contact coordinates, 4 logo variants, and tracking IDs.
+          <h1 className="text-2xl font-bold text-slate-900">Global Website Settings</h1>
+          <p className="text-sm text-slate-600 mt-1">
+            Configure global website metadata, contact coordinates, physical addresses, and tracking IDs.
           </p>
         </div>
         <Button onClick={handleSave} isLoading={saving} className="gap-2">
@@ -71,8 +71,8 @@ export const SettingsPage: React.FC = () => {
         <div
           className={`p-4 rounded-xl flex items-center gap-3 text-xs border ${
             message.type === 'success'
-              ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
-              : 'bg-rose-500/15 border-rose-500/30 text-rose-400'
+              ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-600'
+              : 'bg-rose-500/15 border-rose-500/30 text-rose-600'
           }`}
         >
           {message.type === 'success' ? (
@@ -89,91 +89,21 @@ export const SettingsPage: React.FC = () => {
         <Card title="Branding & Title">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Site Name</label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Site Name</label>
               <input
                 type="text"
                 value={settings?.siteName || ''}
                 onChange={(e) => setSettings({ ...settings, siteName: e.target.value })}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500"
+                className="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-[#1abc9c]"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Tagline</label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Tagline</label>
               <input
                 type="text"
                 value={settings?.tagline || ''}
                 onChange={(e) => setSettings({ ...settings, tagline: e.target.value })}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500"
-              />
-            </div>
-          </div>
-        </Card>
-
-        {/* 4 Logo Variants */}
-        <Card title="Logo Asset Variations" subtitle="Phase 1 identified 4 distinct logo variations utilized across sticky and non-sticky navbars">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
-                White Logo (Non-sticky)
-              </label>
-              <input
-                type="text"
-                value={settings?.logos?.whiteNonSticky || ''}
-                onChange={(e) =>
-                  setSettings({
-                    ...settings,
-                    logos: { ...settings.logos, whiteNonSticky: e.target.value },
-                  })
-                }
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-amber-500"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Black Logo (Non-sticky)
-              </label>
-              <input
-                type="text"
-                value={settings?.logos?.blackNonSticky || ''}
-                onChange={(e) =>
-                  setSettings({
-                    ...settings,
-                    logos: { ...settings.logos, blackNonSticky: e.target.value },
-                  })
-                }
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-amber-500"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
-                White Sticky Logo
-              </label>
-              <input
-                type="text"
-                value={settings?.logos?.whiteSticky || ''}
-                onChange={(e) =>
-                  setSettings({
-                    ...settings,
-                    logos: { ...settings.logos, whiteSticky: e.target.value },
-                  })
-                }
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-amber-500"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Black Sticky Logo
-              </label>
-              <input
-                type="text"
-                value={settings?.logos?.blackSticky || ''}
-                onChange={(e) =>
-                  setSettings({
-                    ...settings,
-                    logos: { ...settings.logos, blackSticky: e.target.value },
-                  })
-                }
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-amber-500"
+                className="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-[#1abc9c]"
               />
             </div>
           </div>

@@ -1,14 +1,39 @@
-import React from "react";
+'use client';
+import React, { useEffect, useState } from "react";
+import { getSubServices } from "@/lib/api";
 
 const SemContent = () => {
+  const [data, setData] = useState({
+    title: "S E M",
+    subtitle: "Search Engine Marketing",
+    shortDescription: "Boost Visibility, Drive Traffic, and Achieve Measurable Results with Precision-Powered SEM Strategies",
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+    getSubServices().then((subs) => {
+      if (isMounted && Array.isArray(subs)) {
+        const item = subs.find((s) => s.slug === "sem");
+        if (item) {
+          setData({
+            title: item.title || "S E M",
+            subtitle: "Search Engine Marketing",
+            shortDescription: item.shortDescription || "Boost Visibility, Drive Traffic, and Achieve Measurable Results with Precision-Powered SEM Strategies",
+          });
+        }
+      }
+    }).catch(() => {});
+    return () => { isMounted = false; };
+  }, []);
+
   return (
     <>
       <header className="yellow-bg">
         <div className="container" style={{ paddingTop: "130px" }}>
           <div className="row">
             <div className="col-xs-12">
-              <h2 className="title" style={{color:"#333"}}>S E M</h2>
-              <h5 className="sub-title" style={{color:"#333"}}>Search Engine Marketing</h5>
+              <h2 className="title" style={{color:"#333"}}>{data.title}</h2>
+              <h5 className="sub-title" style={{color:"#333"}}>{data.subtitle}</h5>
             </div>
           </div>
         </div>
@@ -35,7 +60,7 @@ const SemContent = () => {
             marginTop: "20px",
           }}
         >
-    Boost Visibility, Drive Traffic, and Achieve Measurable Results with Precision-Powered SEM Strategies
+    {data.shortDescription}
         </p>
         <div style={{ marginTop: "30px" }}>
           <button

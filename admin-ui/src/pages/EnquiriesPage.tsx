@@ -94,32 +94,32 @@ export const EnquiriesPage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Lead Enquiries & Inquiries</h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <h1 className="text-2xl font-bold text-slate-900">Lead Enquiries & Inquiries</h1>
+          <p className="text-xs text-slate-500 mt-1">
             Manage incoming inquiries originating from the contact page, header modal, and expansion landing pages.
           </p>
         </div>
       </div>
 
       {/* Filter and Search */}
-      <div className="flex flex-wrap items-center gap-3 bg-slate-900 p-3 rounded-xl border border-slate-800">
+      <div className="flex flex-wrap items-center gap-3 bg-white p-3.5 rounded-xl border border-slate-200 shadow-xs">
         <div className="relative flex-1 min-w-[240px]">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search leads by name, email, phone, or service..."
-            className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-4 py-2 text-xs text-white focus:outline-none focus:border-amber-500"
+            className="w-full bg-white border border-slate-300 rounded-lg pl-9 pr-4 py-2 text-xs text-slate-900 focus:outline-none focus:border-slate-800"
           />
         </div>
 
         <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-slate-500" />
+          <Filter className="w-4 h-4 text-slate-400" />
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-amber-500"
+            className="bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:border-slate-800"
           >
             <option value="all">All Enquiries</option>
             <option value="new">New (Unread)</option>
@@ -140,28 +140,28 @@ export const EnquiriesPage: React.FC = () => {
             emptyMessage="No enquiries found matching your criteria."
           >
             {enquiries.map((enq) => (
-              <tr key={enq._id} className="hover:bg-slate-800/40 transition-colors">
+              <tr key={enq._id} className="hover:bg-slate-50/80 transition-colors">
                 <td className="px-6 py-4">
-                  <p className="text-sm font-semibold text-white">{enq.name}</p>
-                  <p className="text-xs text-slate-400 flex items-center gap-2 mt-0.5">
+                  <p className="text-sm font-semibold text-slate-900">{enq.name}</p>
+                  <p className="text-xs text-slate-500 flex items-center gap-2 mt-0.5">
                     <span className="flex items-center gap-1">
-                      <Mail className="w-3 h-3 text-slate-500" /> {enq.email}
+                      <Mail className="w-3 h-3 text-slate-400" /> {enq.email}
                     </span>
                     {enq.phone && (
-                      <span className="flex items-center gap-1 text-slate-400 font-mono">
-                        <Phone className="w-3 h-3 text-slate-500" /> {enq.phone}
+                      <span className="flex items-center gap-1 text-slate-500 font-mono">
+                        <Phone className="w-3 h-3 text-slate-400" /> {enq.phone}
                       </span>
                     )}
                   </p>
                 </td>
                 <td className="px-6 py-4">
-                  <p className="text-xs font-medium text-amber-400">{enq.service || 'General Consultation'}</p>
-                  <p className="text-xs text-slate-400 line-clamp-1 max-w-xs">{enq.message}</p>
+                  <p className="text-xs font-semibold text-slate-800">{enq.service || 'General Consultation'}</p>
+                  <p className="text-xs text-slate-500 line-clamp-1 max-w-xs">{enq.message}</p>
                 </td>
-                <td className="px-6 py-4 text-xs font-mono text-slate-400">{enq.formSource}</td>
-                <td className="px-6 py-4 text-xs text-slate-400">
+                <td className="px-6 py-4 text-xs font-mono text-slate-500">{enq.formSource}</td>
+                <td className="px-6 py-4 text-xs text-slate-500">
                   <span className="flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-slate-500" />
+                    <Clock className="w-3 h-3 text-slate-400" />
                     {new Date(enq.createdAt).toLocaleDateString()}
                   </span>
                 </td>
@@ -174,14 +174,14 @@ export const EnquiriesPage: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => handleOpenDetail(enq)}
-                      className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-700 rounded transition-colors"
+                      className="p-1.5 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded transition-colors"
                       title="View Details"
                     >
                       <Eye className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => handleDelete(enq._id)}
-                      className="p-1.5 text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded transition-colors"
+                      className="p-1.5 text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded transition-colors"
                       title="Delete"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -193,7 +193,7 @@ export const EnquiriesPage: React.FC = () => {
           </Table>
 
           {pagination.totalPages > 1 && (
-            <div className="flex items-center justify-between text-xs text-slate-400 pt-2">
+            <div className="flex items-center justify-between text-xs text-slate-500 pt-2">
               <span>
                 Showing Page {pagination.page} of {pagination.totalPages} ({pagination.total} total leads)
               </span>
@@ -229,40 +229,40 @@ export const EnquiriesPage: React.FC = () => {
       >
         {selectedEnquiry && (
           <div className="space-y-5">
-            <div className="grid grid-cols-2 gap-4 bg-slate-900 p-4 rounded-xl border border-slate-800 text-xs">
+            <div className="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs">
               <div>
                 <span className="text-slate-500 block uppercase font-semibold text-[10px]">Prospect Name</span>
-                <span className="text-white font-medium text-sm">{selectedEnquiry.name}</span>
+                <span className="text-slate-900 font-medium text-sm">{selectedEnquiry.name}</span>
               </div>
               <div>
                 <span className="text-slate-500 block uppercase font-semibold text-[10px]">Email Address</span>
-                <span className="text-amber-400 font-medium">{selectedEnquiry.email}</span>
+                <span className="text-slate-900 font-medium">{selectedEnquiry.email}</span>
               </div>
               <div>
                 <span className="text-slate-500 block uppercase font-semibold text-[10px]">Phone Number</span>
-                <span className="text-slate-300 font-mono">{selectedEnquiry.phone || 'Not provided'}</span>
+                <span className="text-slate-700 font-mono">{selectedEnquiry.phone || 'Not provided'}</span>
               </div>
               <div>
                 <span className="text-slate-500 block uppercase font-semibold text-[10px]">Requested Service</span>
-                <span className="text-slate-300">{selectedEnquiry.service || 'General'}</span>
+                <span className="text-slate-700">{selectedEnquiry.service || 'General'}</span>
               </div>
             </div>
 
             <div>
-              <span className="text-xs font-semibold text-slate-300 block mb-1">Message Content</span>
-              <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 text-xs text-slate-200 leading-relaxed whitespace-pre-wrap">
+              <span className="text-xs font-semibold text-slate-700 block mb-1">Message Content</span>
+              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs text-slate-700 leading-relaxed whitespace-pre-wrap">
                 {selectedEnquiry.message}
               </div>
             </div>
 
-            <form onSubmit={handleUpdateStatus} className="border-t border-slate-800 pt-4 space-y-4">
+            <form onSubmit={handleUpdateStatus} className="border-t border-slate-100 pt-4 space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">Update Status</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Update Status</label>
                   <select
                     value={statusToUpdate}
                     onChange={(e) => setStatusToUpdate(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500"
+                    className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-slate-800"
                   >
                     <option value="new">New (Unread)</option>
                     <option value="in_progress">In Progress</option>
@@ -273,7 +273,7 @@ export const EnquiriesPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
                   Internal Notes / Follow-up History
                 </label>
                 <textarea
@@ -281,7 +281,7 @@ export const EnquiriesPage: React.FC = () => {
                   value={notesToUpdate}
                   onChange={(e) => setNotesToUpdate(e.target.value)}
                   placeholder="Record client responses, consultation notes, or quotation status..."
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500"
+                  className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-slate-800"
                 />
               </div>
 

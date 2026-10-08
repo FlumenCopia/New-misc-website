@@ -8,7 +8,7 @@ async function runTests() {
   // 1. Health Check
   console.log("Test 1: Health Check");
   const healthRes = await fetch(`${BASE_URL}/health`);
-  const healthJson = await healthRes.json();
+  const healthJson = await healthRes.json() as any;
   assert.strictEqual(healthRes.status, 200);
   assert.strictEqual(healthJson.status, "ok");
   console.log("✓ Health check OK\n");
@@ -40,7 +40,7 @@ async function runTests() {
     }),
   });
   assert.strictEqual(loginRes.status, 200);
-  const loginJson = await loginRes.json();
+  const loginJson = await loginRes.json() as any;
   assert(loginJson.token, "Login should return JWT token");
   const token = loginJson.token;
   console.log("✓ Login successful and token received\n");
@@ -54,7 +54,7 @@ async function runTests() {
   console.log("Test 5: Auth - Verify Current User (/me)");
   const meRes = await fetch(`${BASE_URL}/auth/me`, { headers: authHeaders });
   assert.strictEqual(meRes.status, 200);
-  const meJson = await meRes.json();
+  const meJson = await meRes.json() as any;
   assert.strictEqual(meJson.user.email, "admin@miscarchive.com");
   console.log("✓ /auth/me returned correct admin user\n");
 
@@ -62,7 +62,7 @@ async function runTests() {
   console.log("Test 6: Settings - Read & Update");
   const settingsRes = await fetch(`${BASE_URL}/settings`);
   assert.strictEqual(settingsRes.status, 200);
-  const settingsJson = await settingsRes.json();
+  const settingsJson = await settingsRes.json() as any;
   assert.strictEqual(settingsJson.data.siteName, "MiscArchive");
 
   const updateSettingsRes = await fetch(`${BASE_URL}/settings`, {
@@ -97,7 +97,7 @@ async function runTests() {
     }),
   });
   assert.strictEqual(submitEnquiryRes.status, 201);
-  const submitEnquiryJson = await submitEnquiryRes.json();
+  const submitEnquiryJson = await submitEnquiryRes.json() as any;
   const enquiryId = submitEnquiryJson.data.id;
 
   // Admin list
@@ -105,7 +105,7 @@ async function runTests() {
     headers: authHeaders,
   });
   assert.strictEqual(listEnquiriesRes.status, 200);
-  const listEnquiriesJson = await listEnquiriesRes.json();
+  const listEnquiriesJson = await listEnquiriesRes.json() as any;
   assert(listEnquiriesJson.data.some((e: any) => e._id === enquiryId));
 
   // Admin update status
@@ -155,7 +155,7 @@ async function runTests() {
     body: JSON.stringify(testBlogPayload),
   });
   assert.strictEqual(createBlogRes.status, 201);
-  const createBlogJson = await createBlogRes.json();
+  const createBlogJson = await createBlogRes.json() as any;
   const blogId = createBlogJson.data._id;
   assert.strictEqual(createBlogJson.data.slug, "test-ai-in-marketing-2026");
 
@@ -171,7 +171,7 @@ async function runTests() {
   // Get by slug
   const getBySlugRes = await fetch(`${BASE_URL}/blogs/test-ai-in-marketing-2026`);
   assert.strictEqual(getBySlugRes.status, 200);
-  const getBySlugJson = await getBySlugRes.json();
+  const getBySlugJson = await getBySlugRes.json() as any;
   assert(getBySlugJson.data.contentHtml.includes("<h2>The New Reality of AI</h2>"));
   console.log("✓ Full Rich HTML body preserved intact and retrievable by exact slug");
 
@@ -182,7 +182,7 @@ async function runTests() {
     body: JSON.stringify({ isPublished: false, excerpt: "Updated excerpt text." }),
   });
   assert.strictEqual(updateBlogRes.status, 200);
-  const updateBlogJson = await updateBlogRes.json();
+  const updateBlogJson = await updateBlogRes.json() as any;
   assert.strictEqual(updateBlogJson.data.isPublished, false);
 
   // Clean up blog
@@ -213,7 +213,7 @@ async function runTests() {
     headers: authHeaders,
   });
   assert.strictEqual(statsRes.status, 200);
-  const statsJson = await statsRes.json();
+  const statsJson = await statsRes.json() as any;
   assert(statsJson.stats);
   assert(statsJson.stats.enquiries !== undefined);
   assert(statsJson.stats.blogs !== undefined);

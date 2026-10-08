@@ -4,6 +4,8 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import $ from "jquery";
 
+import { submitEnquiry } from "@/lib/api";
+
 export default function Sidebar({ isOpen, onClose }) {
 
   // Lock body scroll
@@ -17,24 +19,47 @@ export default function Sidebar({ isOpen, onClose }) {
     $("#success").hide();
     $("#error").hide();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
 
       $("#success").hide();
       $("#error").hide();
 
-      $.ajax({
-        url: "https://script.google.com/macros/s/AKfycbxLw60yrM_9HtfrIsIJLyKTBD5FGKZ9UWUrPDe_FIquLZ3f8_hoQA_qm2RJnIRs2kub/exec",
-        data: $("#submit-form").serialize(),
-        method: "POST",
-        success: function () {
+      const formEl = document.getElementById("submit-form");
+      if (!formEl) return;
+      const formData = new FormData(formEl);
+      const payload = {
+        name: formData.get("name") || "",
+        email: formData.get("email") || "",
+        phone: formData.get("phone") || "",
+        service: formData.get("service") || "",
+        message: formData.get("message") || "",
+        formSource: "sidebar_enquiry",
+      };
+
+      try {
+        const res = await submitEnquiry(payload);
+        if (res && res.success) {
           $("#success").fadeIn();
-          $("#submit-form")[0].reset();
-        },
-        error: function () {
-          $("#error").fadeIn();
-        },
-      });
+          formEl.reset();
+          return;
+        }
+        throw new Error(res?.message || 'Submission failed');
+      } catch (err) {
+        // Fallback to legacy endpoint if CMS is unavailable
+        $.ajax({
+          url: "https://script.google.com/macros/s/AKfycbxLw60yrM_9HtfrIsIJLyKTBD5FGKZ9UWUrPDe_FIquLZ3f8_hoQA_qm2RJnIRs2kub/exec",
+          data: $("#submit-form").serialize(),
+          method: "POST",
+          success: function () {
+            $("#success").fadeIn();
+            formEl.reset();
+          },
+          error: function () {
+            $("#error").fadeIn();
+          },
+        });
+      }
     };
 
     $("#submit-form").on("submit", handleSubmit);

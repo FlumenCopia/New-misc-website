@@ -65,37 +65,37 @@ export const BlogsPage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Blog Articles Management</h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <h1 className="text-2xl font-bold text-slate-900">Blog Articles Management</h1>
+          <p className="text-xs text-slate-500 mt-1">
             Manage long-form articles, preserved rich HTML body, slugs, and SEO metadata.
           </p>
         </div>
         <Link to="/blogs/new">
           <Button className="gap-2">
-            <Plus className="w-4 h-4" /> Compose New Article
+            <Plus className="w-4 h-4" /> Add Blog
           </Button>
         </Link>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-wrap items-center gap-3 bg-slate-900 p-3 rounded-xl border border-slate-800">
+      <div className="flex flex-wrap items-center gap-3 bg-white p-3.5 rounded-xl border border-slate-200 shadow-xs">
         <div className="relative flex-1 min-w-[240px]">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by article title or slug..."
-            className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-4 py-2 text-xs text-white focus:outline-none focus:border-amber-500"
+            className="w-full bg-white border border-slate-300 rounded-lg pl-9 pr-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-[#1abc9c]"
           />
         </div>
 
         <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-slate-500" />
+          <Filter className="w-4 h-4 text-slate-400" />
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-amber-500"
+            className="bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none focus:border-[#1abc9c]"
           >
             <option value="all">All Status</option>
             <option value="published">Published</option>
@@ -105,7 +105,7 @@ export const BlogsPage: React.FC = () => {
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-amber-500"
+            className="bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none focus:border-[#1abc9c]"
           >
             <option value="">All Categories</option>
             {categories.map((c) => (
@@ -128,9 +128,9 @@ export const BlogsPage: React.FC = () => {
             emptyMessage="No blog articles match the current filter."
           >
             {blogs.map((b) => (
-              <tr key={b._id} className="hover:bg-slate-800/40 transition-colors">
+              <tr key={b._id} className="hover:bg-slate-50/80 transition-colors">
                 <td className="px-6 py-4">
-                  <div className="w-14 h-10 rounded bg-slate-900 border border-slate-700 overflow-hidden flex items-center justify-center">
+                  <div className="w-14 h-10 rounded-lg bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center">
                     {b.featuredImage ? (
                       <img
                         src={b.featuredImage}
@@ -139,20 +139,20 @@ export const BlogsPage: React.FC = () => {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <span className="text-[10px] text-slate-500 font-bold">BLOG</span>
+                      <span className="text-xs text-slate-500 font-bold">BLOG</span>
                     )}
                   </div>
                 </td>
                 <td className="px-6 py-4">
                   <div className="max-w-md">
-                    <p className="text-sm font-semibold text-white line-clamp-1">{b.title}</p>
-                    <p className="text-xs font-mono text-amber-400 mt-0.5 truncate">
+                    <p className="text-[15px] font-bold text-slate-900 line-clamp-1">{b.title}</p>
+                    <p className="text-[13px] font-mono text-slate-600 mt-0.5 truncate">
                       /blog/{b.slug}
                     </p>
                   </div>
                 </td>
-                <td className="px-6 py-4 text-xs text-slate-300">{b.category}</td>
-                <td className="px-6 py-4 text-xs text-slate-400">
+                <td className="px-6 py-4 text-[13.5px] font-medium text-slate-800">{b.category}</td>
+                <td className="px-6 py-4 text-[13px] text-slate-600">
                   {new Date(b.publishDate).toLocaleDateString()}
                 </td>
                 <td className="px-6 py-4">
@@ -164,14 +164,14 @@ export const BlogsPage: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <Link
                       to={`/blogs/edit/${b._id}`}
-                      className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-700 rounded transition-colors"
+                      className="p-1.5 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded transition-colors"
                       title="Edit Article"
                     >
                       <Edit2 className="w-4 h-4" />
                     </Link>
                     <button
                       onClick={() => handleDelete(b._id, b.title)}
-                      className="p-1.5 text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded transition-colors"
+                      className="p-1.5 text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded transition-colors"
                       title="Delete Article"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -184,7 +184,7 @@ export const BlogsPage: React.FC = () => {
 
           {/* Pagination */}
           {pagination.totalPages > 1 && (
-            <div className="flex items-center justify-between text-xs text-slate-400 pt-2">
+            <div className="flex items-center justify-between text-xs text-slate-500 pt-2">
               <span>
                 Showing Page {pagination.page} of {pagination.totalPages} ({pagination.total} articles total)
               </span>

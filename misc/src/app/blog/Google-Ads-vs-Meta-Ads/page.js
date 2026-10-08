@@ -1,19 +1,22 @@
-import React from 'react'
+import React from 'react';
 import Header from "@/components/common/Header";
 import FooterSection from "@/components/common/Footer";
 import Blogtitle from '@/components/blog/Blogtitle';
-import ChangingGoogle from '@/components/blog/ChangingGoogle';
+import CmsBlogArticle from '@/components/blog/CmsBlogArticle';
 import GoogleAdsVsMeta from '@/components/blog/GoogleAdsVsMeta';
+import { getBlogBySlug } from '@/lib/api';
 
-export default function page() {
-  return (
-    <div>
-        <Header/>
-        <Blogtitle title="Google Ads vs Meta Ads: Where Should Brands Invest in 2026?" />
+const SLUG = 'Google-Ads-vs-Meta-Ads';
 
-        <GoogleAdsVsMeta/>
+export default async function page() {
+    const blog = await getBlogBySlug(SLUG);
 
-        <FooterSection/>
-    </div>
-  )
+    return (
+        <div>
+            <Header />
+            <Blogtitle title={blog?.title || "Google Ads vs Meta Ads: Where Should Brands Invest in 2026?"} />
+            <CmsBlogArticle slug={SLUG} initialBlog={blog} fallback={<GoogleAdsVsMeta />} />
+            <FooterSection />
+        </div>
+    );
 }

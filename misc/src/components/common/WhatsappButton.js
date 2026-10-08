@@ -1,7 +1,19 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
+import { getSettings } from '@/lib/api';
 
-const WhatsAppButton = ({ phoneNumber = "918848608726" }) => {
-  const whatsappNumber = phoneNumber.replace(/\D/g, '');
+const WhatsAppButton = ({ phoneNumber }) => {
+  const [number, setNumber] = useState(phoneNumber || "918848608726");
+
+  useEffect(() => {
+    if (!phoneNumber) {
+      getSettings().then((s) => {
+        if (s?.contact?.whatsappNumber) setNumber(s.contact.whatsappNumber);
+      }).catch(() => {});
+    }
+  }, [phoneNumber]);
+
+  const whatsappNumber = number.replace(/\D/g, '');
   const whatsappLink = `https://wa.me/${whatsappNumber}`;
 
   return (

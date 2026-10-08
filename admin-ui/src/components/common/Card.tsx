@@ -16,12 +16,12 @@ export const Card: React.FC<CardProps> = ({
   className = '',
 }) => {
   return (
-    <div className={`bg-slate-800/80 border border-slate-700/80 rounded-xl overflow-hidden shadow-sm ${className}`}>
+    <div className={`bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs ${className}`}>
       {(title || action) && (
-        <div className="px-6 py-4 border-b border-slate-700/60 flex items-center justify-between">
+        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/60">
           <div>
-            {title && <h3 className="text-base font-semibold text-white">{title}</h3>}
-            {subtitle && <p className="text-xs text-slate-400 mt-0.5">{subtitle}</p>}
+            {title && <h3 className="text-[17px] font-bold text-slate-900 tracking-tight">{title}</h3>}
+            {subtitle && <p className="text-[13.5px] text-slate-600 mt-0.5">{subtitle}</p>}
           </div>
           {action && <div>{action}</div>}
         </div>

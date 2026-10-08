@@ -1,41 +1,78 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { getBlogs, resolveMediaUrl } from '@/lib/api';
 
-export default function BlogSection() {
-  // Blog data array (you can later fetch this from API or CMS)
-  const blogs = [
+const defaultBlogs = [
+  {
+    id: 1,
+    image: '/assets/images/blogs/bl63.webp',
+    category: 'Digital Marketing',
+    date: 'April 01, 2026',
+    title: 'How Social Media Builds Trust Before Sales',
+    link: '/blog/social-media-builds-trust-before-sales',
+  },
+  {
+    id: 2,
+    image: '/assets/images/blogs/bl62.webp',
+    category: 'Digital Marketing',
+    date: 'March 28, 2026',
+    title: 'Top 5 Reasons Strategy Beats Ad Spend',
+    link: '/blog/strategy-beats-ad-spend',
+  },
+  {
+    id: 3,
+    image: '/assets/images/blogs/bl61.webp',
+    category: 'Digital Marketing',
+    date: 'March 24, 2026',
+    title: 'A Guide to Using AI Without Losing Marketing Sense',
+    link: '/blog/ai-without-losing-marketing-sense',
+  },
+];
 
+export default function BlogSection({ initialBlogs }) {
+  const [blogs, setBlogs] = useState(() => {
+    if (initialBlogs && initialBlogs.length > 0) {
+      return initialBlogs.slice(0, 3).map((b, i) => ({
+        id: b._id || i,
+        image: resolveMediaUrl(b.featuredImage),
+        category: b.category || 'Digital Marketing',
+        date: new Date(b.publishDate || b.createdAt).toLocaleDateString('en-US', {
+          month: 'long',
+          day: '2-digit',
+          year: 'numeric',
+        }),
+        title: b.title,
+        link: `/blog/${b.slug}`,
+      }));
+    }
+    return defaultBlogs;
+  });
 
-    {
-           id: 1,
-     image: '/assets/images/blogs/bl63.webp',
-      category: 'Digital Marketing',
-      date: 'April 01, 2026',
-      title: 'How Social Media Builds Trust Before Sales',
-      link: '/blog/social-media-builds-trust-before-sales',
-    },
-    {
-           id: 2,
-     image: '/assets/images/blogs/bl62.webp',
-      category: 'Digital Marketing',
-      date: 'March 28, 2026',
-      title: 'Top 5 Reasons Strategy Beats Ad Spend',
-      link: '/blog/strategy-beats-ad-spend',
-    },
-    {
-           id: 3,
-     image: '/assets/images/blogs/bl61.webp',
-      category: 'Digital Marketing',
-      date: 'March 24, 2026',
-      title: 'A Guide to Using AI Without Losing Marketing Sense',
-      link: '/blog/ai-without-losing-marketing-sense',
-    },
+  useEffect(() => {
+    if (!initialBlogs) {
+      getBlogs({ limit: 3 }).then((data) => {
+        if (data && data.length > 0) {
+          setBlogs(
+            data.slice(0, 3).map((b, i) => ({
+              id: b._id || i,
+              image: resolveMediaUrl(b.featuredImage),
+              category: b.category || 'Digital Marketing',
+              date: new Date(b.publishDate || b.createdAt).toLocaleDateString('en-US', {
+                month: 'long',
+                day: '2-digit',
+                year: 'numeric',
+              }),
+              title: b.title,
+              link: `/blog/${b.slug}`,
+            }))
+          );
+        }
+      }).catch(() => {});
+    }
+  }, [initialBlogs]);
 
-
-
-  ];
 
   return (
     <section className="blog py-5">

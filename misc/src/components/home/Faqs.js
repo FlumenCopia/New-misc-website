@@ -1,63 +1,74 @@
 "use client";
-import { useState } from "react";
-// import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { getFaqs } from "@/lib/api";
 
-export default function Faqs() {
+const defaultItems = [
+  {
+    q: " Expertise Across the Spectrum",
+    a: "Our team comprises seasoned experts in every facet of digital marketing - from SEO and content creation to social media management and PPC advertising. We've got the skills and know-how to tackle all your digital marketing challenges."
+  },
+  {
+    q: "Tailored Strategies, Measurable Results:",
+    a: "We don't believe in one-size-fits-all solutions. Our approach begins with a deep understanding of your business, goals, and target audience. We then craft customized strategies that deliver measurable results."
+  },
+  {
+    q: "Data-Driven Decision Making:",
+    a: "With Miscarchive, you're not flying blind. We're obsessed with data. Our team rigorously analyzes performance metrics, ensuring that every campaign is optimized for success. We make informed decisions to maximize ROI."
+  },
+  {
+    q: "Creativity and Innovation:",
+    a: "Digital marketing isn't just about numbers; it's also about creativity. Our team is a melting pot of innovative thinkers, always pushing the boundaries to create engaging content and cutting-edge campaigns."
+  },
+  {
+    q: "Proven Track Record:",
+    a: "Our portfolio is a testament to our success. We've helped businesses of all sizes and industries achieve their digital marketing goals. When you choose Miscarchive, you're choosing a track record of excellence."
+  },
+  {
+    q: "Scalability and Adaptability:",
+    a: "As your business grows, we grow with you. Our strategies are designed to scale seamlessly, ensuring that your digital marketing efforts remain effective as you expand."
+  },
+  {
+    q: "Cost-Effective Solutions:",
+    a: "Quality doesn't have to come at a premium. Miscarchive offers competitive pricing without compromising on the quality of service. We believe in delivering value that exceeds your investment."
+  },
+  {
+    q: "Client-Centric Approach :",
+    a: "Your success is our success. We're committed to building long-lasting client relationships. When you choose Miscarchive, you're choosing a partner dedicated to your growth."
+  },
+];
+
+export default function Faqs({ initialFaqs }) {
   const [openIndex, setOpenIndex] = useState(2); // default open (3rd)
+  const [items, setItems] = useState(() => {
+    if (initialFaqs && initialFaqs.length > 0) {
+      return initialFaqs.map((f) => ({
+        q: f.question,
+        a: (f.answerHtml || f.answer || '').replace(/<[^>]+>/g, '').trim(),
+      }));
+    }
+    return defaultItems;
+  });
+
+  useEffect(() => {
+    if (!initialFaqs) {
+      getFaqs(true).then((data) => {
+        if (data && data.length > 0) {
+          setItems(
+            data.map((f) => ({
+              q: f.question,
+              a: (f.answerHtml || f.answer || '').replace(/<[^>]+>/g, '').trim(),
+            }))
+          );
+        }
+      }).catch(() => {});
+    }
+  }, [initialFaqs]);
 
   const toggleAccordion = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const items = [
-    {
-      q: " Expertise Across the Spectrum",
-      a: "Our team comprises seasoned experts in every facet of digital marketing - from SEO and content creation to social media management and PPC advertising. We've got the skills and know-how to tackle all your digital marketing challenges."
-    },
-
-    {
-      q: "Tailored Strategies, Measurable Results:",
-      a: "We don't believe in one-size-fits-all solutions. Our approach begins with a deep understanding of your business, goals, and target audience. We then craft customized strategies that deliver measurable results."
-    },
-
-
-    {
-      q: "Data-Driven Decision Making:",
-      a: "With Miscarchive, you're not flying blind. We're obsessed with data. Our team rigorously analyzes performance metrics, ensuring that every campaign is optimized for success. We make informed decisions to maximize ROI."
-    },
-
-
-    {
-      q: "Creativity and Innovation:",
-      a: "Digital marketing isn't just about numbers; it's also about creativity. Our team is a melting pot of innovative thinkers, always pushing the boundaries to create engaging content and cutting-edge campaigns."
-    },
-
-
-    {
-      q: "Proven Track Record:",
-      a: "Our portfolio is a testament to our success. We've helped businesses of all sizes and industries achieve their digital marketing goals. When you choose Miscarchive, you're choosing a track record of excellence."
-    },
-
-
-    {
-      q: "Scalability and Adaptability:",
-      a: "As your business grows, we grow with you. Our strategies are designed to scale seamlessly, ensuring that your digital marketing efforts remain effective as you expand."
-    },
-
-
-    {
-      q: "Cost-Effective Solutions:",
-      a: "Quality doesn't have to come at a premium. Miscarchive offers competitive pricing without compromising on the quality of service. We believe in delivering value that exceeds your investment."
-    },
-
-
-    {
-      q: "Client-Centric Approach :",
-      a: "Your success is our success. We're committed to building long-lasting client relationships. When you choose Miscarchive, you're choosing a partner dedicated to your growth."
-    },
-
-
-  ];
 
   return (
     <section

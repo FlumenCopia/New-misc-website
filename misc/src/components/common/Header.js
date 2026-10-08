@@ -1,14 +1,23 @@
 "use client";
+
 import Link from "next/link";
 import Sidebar from "./Sidebar";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { getSettings, resolveMediaUrl } from "@/lib/api";
 
-export default function Header() {
+export default function Header({ settings: initialSettings }) {
+  const [settings, setSettings] = useState(initialSettings || null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (!initialSettings) {
+      getSettings().then((s) => s && setSettings(s)).catch(() => {});
+    }
+  }, [initialSettings]);
 
   const lastScrollY = useRef(0);
   const lastTime = useRef(Date.now());
@@ -58,25 +67,25 @@ useEffect(() => {
               <Link href="/" className="navbar-brand">
 
                 <img
-                  src="/assets/images/logo2.png"
+                  src={resolveMediaUrl(settings?.logos?.whiteNonSticky) || "/assets/images/logo2.png"}
                   alt="Logo White (Non-Sticky)"
                   className="logo-ns-white"
                 />
 
                 <img
-                  src="/assets/images/42.png"
+                  src={resolveMediaUrl(settings?.logos?.blackNonSticky) || "/assets/images/42.png"}
                   alt="Logo Black (Non-Sticky)"
                   className="logo-ns-black"
                 />
 
                 <img
-                  src="/assets/images/logo22.png"
+                  src={resolveMediaUrl(settings?.logos?.whiteSticky) || "/assets/images/logo22.png"}
                   alt="Logo White (Sticky)"
                   className="logo-s-white"
                 />
 
                 <img
-                  src="/assets/images/4.png"
+                  src={resolveMediaUrl(settings?.logos?.blackSticky) || "/assets/images/4.png"}
                   alt="Logo Black (Sticky)"
                   className="logo-s-black"
                 />
@@ -119,7 +128,7 @@ useEffect(() => {
                   </ul>
                 </li>
 
-                <li><Link href="https://audible.miscarchive.com/" onClick={() => setMenuOpen(false)}>MISC AUDIBLE</Link></li>
+                <li><Link href={settings?.externalLinks?.audibles || "https://audible.miscarchive.com/"} onClick={() => setMenuOpen(false)}>MISC AUDIBLE</Link></li>
 
                 <li><Link href="/blog" onClick={() => setMenuOpen(false)}>BLOG</Link></li>
                 <li><Link href="/contact" onClick={() => setMenuOpen(false)}>CONTACT</Link></li>

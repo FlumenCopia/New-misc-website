@@ -11,9 +11,9 @@ export const AdminLayout: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center gap-4 text-slate-300">
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center gap-4 text-slate-600">
         <LoadingSpinner size="lg" />
-        <p className="text-sm">Connecting to MiscArchive Admin API...</p>
+        <p className="text-sm font-medium">Connecting to MiscArchive Admin API...</p>
       </div>
     );
   }
@@ -23,7 +23,7 @@ export const AdminLayout: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#f4f7f6] text-slate-900 flex flex-col">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="lg:pl-64 flex flex-col min-h-screen">
         <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />

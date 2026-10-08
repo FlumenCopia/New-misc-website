@@ -1,15 +1,23 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { getBlogs, resolveMediaUrl } from "@/lib/api";
 
 const DynamicBlogList = () => {
     const [blogs, setBlogs] = useState([]);
 
     useEffect(() => {
-        fetch("https://miscarchive.com//api/blogs/")
-            .then((response) => response.json())
-            .then((data) => setBlogs(data))
+        let isMounted = true;
+        getBlogs({ limit: 100 })
+            .then((data) => {
+                if (isMounted && data && Array.isArray(data)) {
+                    setBlogs(data);
+                }
+            })
             .catch((error) => console.error("Error fetching blogs:", error));
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     return (
@@ -29,23 +37,23 @@ const DynamicBlogList = () => {
                 <div className="container">
                     <div className="row">
                         {blogs.map((blog) => (
-                            <div key={blog.id} className="col-xxl-3 col-lg-3 col-sm-12 col-12">
+                            <div key={blog._id || blog.id || blog.slug} className="col-xxl-3 col-lg-3 col-sm-12 col-12">
                                 <div className="service-container blog-container fadeInDown">
                                     <div className="service-content-wrapper">
                                         <div className="service-content-wrapper-overlay "></div>
                                         <div className="service-image blog-image">
                                             <Link href={`/blog/${blog.slug}`}>
                                                 <img
-                                                    src={blog.image}
-                                                    alt={blog.name}
+                                                    src={resolveMediaUrl(blog.featuredImage || blog.image)}
+                                                    alt={blog.title || blog.name}
                                                     style={{ height: "300px", objectFit: "cover" }}
                                                 />
                                             </Link>
                                         </div>
                                     </div>
                                     <div className="service-info">
-                                        {/* <span>{post.date}</span> */}
-                                        <h5>{blog.name}</h5>
+                                        {/* <span>{blog.date}</span> */}
+                                        <h5>{blog.title || blog.name}</h5>
                                         <Link href={`/blog/${blog.slug}`} className="link">
                                             READ MORE
                                         </Link>
@@ -62,4 +70,5 @@ const DynamicBlogList = () => {
     )
 }
 
-export default DynamicBlogList
+export default DynamicBlogList;
+

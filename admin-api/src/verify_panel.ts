@@ -20,7 +20,7 @@ async function verifyAll() {
   console.log("2. Verifying Admin API Health (Port 5000)...");
   const healthRes = await fetch(`${API_URL}/health`);
   assert.strictEqual(healthRes.status, 200, "Admin API health must return HTTP 200");
-  const healthData = await healthRes.json();
+  const healthData = await healthRes.json() as any;
   assert.strictEqual(healthData.status, "ok");
   console.log("   ✓ Admin API health check passed: status = 'ok'\n");
 
@@ -42,7 +42,7 @@ async function verifyAll() {
     body: JSON.stringify(credentials),
   });
   assert.strictEqual(loginRes.status, 200, "Login must return 200 with valid credentials");
-  const loginData = await loginRes.json();
+  const loginData = await loginRes.json() as any;
   assert(loginData.token, "Login must return a valid JWT token");
   assert.strictEqual(loginData.user.email, "admin@miscarchive.com");
   assert.strictEqual(loginData.user.role, "admin");
@@ -59,7 +59,7 @@ async function verifyAll() {
   console.log("5. Verifying Active Session & Token Validation (/api/auth/me)...");
   const meRes = await fetch(`${API_URL}/auth/me`, { headers: authHeaders });
   assert.strictEqual(meRes.status, 200);
-  const meData = await meRes.json();
+  const meData = await meRes.json() as any;
   assert.strictEqual(meData.user.email, "admin@miscarchive.com");
   console.log("   ✓ Session validated successfully via JWT token\n");
 
@@ -67,7 +67,7 @@ async function verifyAll() {
   console.log("6. Verifying Dashboard Metrics Endpoint (/api/dashboard/stats)...");
   const dashRes = await fetch(`${API_URL}/dashboard/stats`, { headers: authHeaders });
   assert.strictEqual(dashRes.status, 200);
-  const dashData = await dashRes.json();
+  const dashData = await dashRes.json() as any;
   assert(dashData.stats !== undefined);
   console.log("   ✓ Dashboard stats retrieved successfully from MongoDB:", {
     blogs: dashData.stats.blogs,
@@ -92,14 +92,14 @@ async function verifyAll() {
     }),
   });
   assert.strictEqual(createLeadRes.status, 201, "Lead creation must return 201");
-  const leadData = await createLeadRes.json();
+  const leadData = await createLeadRes.json() as any;
   const leadId = leadData.data.id;
   console.log("   ✓ Record written to MongoDB successfully (ID: " + leadId + ")");
 
   // Verify record can be read by authenticated Admin
   const getLeadRes = await fetch(`${API_URL}/enquiries/${leadId}`, { headers: authHeaders });
   assert.strictEqual(getLeadRes.status, 200);
-  const getLeadData = await getLeadRes.json();
+  const getLeadData = await getLeadRes.json() as any;
   assert.strictEqual(getLeadData.data.name, "Architectural Verification Client");
   console.log("   ✓ Record retrieved by authenticated Admin from MongoDB");
 

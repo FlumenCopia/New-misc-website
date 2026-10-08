@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { getBanners, resolveMediaUrl } from '@/lib/api';
 
-const slides = [
+const defaultSlides = [
   {
     desktopImg: '/assets/images/Bannermisc.jpg',
     mobileImg: '/assets/images/MISC-PHONE-BANNER3.jpg',
@@ -23,12 +24,41 @@ const slides = [
   },
 ];
 
-export default function Banner() {
+export default function Banner({ initialBanners }) {
+  const [slides, setSlides] = useState(() => {
+    if (initialBanners && initialBanners.length > 0) {
+      return initialBanners.map((b) => ({
+        desktopImg: resolveMediaUrl(b.desktopImage),
+        mobileImg: resolveMediaUrl(b.mobileImage || b.desktopImage),
+        path: b.linkUrl || '',
+        theme: b.theme || 'light',
+      }));
+    }
+    return defaultSlides;
+  });
+
   const [current, setCurrent] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [inBanner, setInBanner] = useState(true);
   const bannerRef = useRef(null);
   const router = useRouter();
+
+  useEffect(() => {
+    if (!initialBanners) {
+      getBanners().then((data) => {
+        if (data && data.length > 0) {
+          setSlides(
+            data.map((b) => ({
+              desktopImg: resolveMediaUrl(b.desktopImage),
+              mobileImg: resolveMediaUrl(b.mobileImage || b.desktopImage),
+              path: b.linkUrl || '',
+              theme: b.theme || 'light',
+            }))
+          );
+        }
+      }).catch(() => {});
+    }
+  }, [initialBanners]);
 
   useEffect(() => {
     const checkScreen = () => setIsMobile(window.innerWidth <= 580);

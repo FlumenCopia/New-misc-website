@@ -7,7 +7,10 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "seed:admin": "tsx src/utils/seedAdmin.ts"
+    "seed:admin": "tsx src/utils/seedAdmin.ts",
+    "seed:website": "tsx src/utils/seedWebsite.ts",
+    "seed:all": "tsx src/utils/seedAll.ts",
+    "generate:seed": "tsx src/scripts/generateWebsiteSeed.ts"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",

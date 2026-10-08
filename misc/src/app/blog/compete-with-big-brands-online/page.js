@@ -1,20 +1,22 @@
-import React from 'react'
+import React from 'react';
 import Header from "@/components/common/Header";
 import FooterSection from "@/components/common/Footer";
 import Blogtitle from '@/components/blog/Blogtitle';
-import ChangingGoogle from '@/components/blog/ChangingGoogle';
-import GoogleAdsVsMeta from '@/components/blog/GoogleAdsVsMeta';
+import CmsBlogArticle from '@/components/blog/CmsBlogArticle';
 import CompeteWithBigBrandsOnline from '@/components/blog/CompeteWithBigBrandsOnline';
+import { getBlogBySlug } from '@/lib/api';
 
-export default function page() {
-  return (
-    <div>
-        <Header/>
-        <Blogtitle title="How Local Businesses Can Compete with Big Brands Online" />
+const SLUG = 'compete-with-big-brands-online';
 
-        <CompeteWithBigBrandsOnline/>
+export default async function page() {
+    const blog = await getBlogBySlug(SLUG);
 
-        <FooterSection/>
-    </div>
-  )
+    return (
+        <div>
+            <Header />
+            <Blogtitle title={blog?.title || "How Local Businesses Can Compete with Big Brands Online"} />
+            <CmsBlogArticle slug={SLUG} initialBlog={blog} fallback={<CompeteWithBigBrandsOnline />} />
+            <FooterSection />
+        </div>
+    );
 }

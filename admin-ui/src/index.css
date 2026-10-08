@@ -4,71 +4,154 @@
 
 :root {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --color-brand-primary: #1abc9c;
+  --color-brand-hover: #16a085;
+  --color-brand-accent: #00b894;
+  --color-flatnavy: #1b2434;
+  --color-canvas: #f4f7f6;
 }
 
-/* Custom dark scrollbar */
+/* Custom text selection */
+::selection {
+  background-color: rgba(26, 188, 156, 0.2);
+  color: #117a65;
+}
+
+/* Accessible focus visible outlines */
+*:focus-visible {
+  outline-color: #1abc9c;
+}
+
+/* Custom light scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #f4f7f6;
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #cbd5e1;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #94a3b8;
 }
 
-/* Blog Content Rich HTML Preview Styles */
+/* Universal Form Controls Light Theme */
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+textarea,
+select {
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"])::placeholder,
+textarea::placeholder {
+  color: #94a3b8 !important;
+  font-size: 13.5px !important;
+}
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus,
+textarea:focus,
+select:focus {
+  border-color: #1abc9c !important;
+  box-shadow: 0 0 0 1px #1abc9c !important;
+  outline: none !important;
+}
+
+/* Flat Able Canvas Typography & Structural Borders */
+main h1 {
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+main label {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #334155 !important;
+  letter-spacing: 0.02em !important;
+}
+main p.text-slate-400,
+main p.text-slate-500 {
+  font-size: 13.5px !important;
+  color: #475569 !important;
+  line-height: 1.5 !important;
+}
+main td {
+  font-size: 14px !important;
+  color: #1e293b !important;
+}
+main .border-slate-800 {
+  border-color: #e2e8f0 !important;
+}
+main .divide-slate-800 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #f1f5f9 !important;
+}
+main tr.hover\:bg-slate-800\/40:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Blog Content Rich HTML Preview Styles (Light Theme) */
 .prose-admin h1 {
   font-size: 1.875rem;
   font-weight: 700;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
-  color: #f8fafc;
+  color: #0f172a;
 }
 .prose-admin h2 {
   font-size: 1.5rem;
   font-weight: 600;
   margin-top: 1.25rem;
   margin-bottom: 0.5rem;
-  color: #f1f5f9;
+  color: #1e293b;
 }
 .prose-admin h3 {
   font-size: 1.25rem;
   font-weight: 600;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-  color: #e2e8f0;
+  color: #334155;
 }
 .prose-admin p {
   margin-bottom: 1rem;
   line-height: 1.75;
-  color: #cbd5e1;
+  color: #334155;
 }
 .prose-admin ul {
   list-style-type: disc;
   padding-left: 1.5rem;
   margin-bottom: 1rem;
-  color: #cbd5e1;
+  color: #334155;
 }
 .prose-admin ol {
   list-style-type: decimal;
   padding-left: 1.5rem;
   margin-bottom: 1rem;
-  color: #cbd5e1;
+  color: #334155;
 }
 .prose-admin a {
-  color: #fbbf24;
+  color: #1abc9c;
   text-decoration: underline;
 }
+.prose-admin a:hover {
+  color: #16a085;
+}
 .prose-admin blockquote {
-  border-left: 4px solid #f59e0b;
+  border-left: 4px solid #1abc9c;
   padding-left: 1rem;
   font-style: italic;
   margin: 1rem 0;
+  color: #64748b;
+}
+.prose-admin li {
+  margin-bottom: 0.25rem;
+}
+.prose-editor:empty:before {
+  content: attr(data-placeholder);
   color: #94a3b8;
+  pointer-events: none;
+  display: block;
 }

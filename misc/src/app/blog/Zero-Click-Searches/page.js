@@ -1,20 +1,22 @@
-import React from 'react'
+import React from 'react';
 import Header from "@/components/common/Header";
 import FooterSection from "@/components/common/Footer";
 import Blogtitle from '@/components/blog/Blogtitle';
-import DigitalMarketingAgencyTrivandrum from '@/components/blog/DigitalMarketingAgencyTrivandrum';
-import ReduceAdSpend from '@/components/blog/ReduceAdSpend';
-import LocalSeoStrategies from '@/components/blog/LocalSeoStrategies';
+import CmsBlogArticle from '@/components/blog/CmsBlogArticle';
 import ZeroClickSearches from '@/components/blog/ZeroClickSearches';
+import { getBlogBySlug } from '@/lib/api';
 
-export default function page() {
-  return (
-    <div>
-        <Header/>
-        <Blogtitle title="Zero-Click Searches: How Brands Can Still Win Traffic" />
+const SLUG = 'Zero-Click-Searches';
 
-        <ZeroClickSearches/>
-        <FooterSection/>
-    </div>
-  )
+export default async function page() {
+    const blog = await getBlogBySlug(SLUG);
+
+    return (
+        <div>
+            <Header />
+            <Blogtitle title={blog?.title || "Zero-Click Searches: How Brands Can Still Win Traffic"} />
+            <CmsBlogArticle slug={SLUG} initialBlog={blog} fallback={<ZeroClickSearches />} />
+            <FooterSection />
+        </div>
+    );
 }

@@ -1,19 +1,22 @@
-import React from 'react'
+import React from 'react';
 import Header from "@/components/common/Header";
 import FooterSection from "@/components/common/Footer";
 import Blogtitle from '@/components/blog/Blogtitle';
-import Cookieless_Future from '@/components/blog/Cookieless_Future';
-import ARVRMagic from '@/components/blog/AR&VRMagic';
+import CmsBlogArticle from '@/components/blog/CmsBlogArticle';
 import ReelsIntoRealSales from '@/components/blog/ReelsIntoRealSales';
+import { getBlogBySlug } from '@/lib/api';
 
-export default function page() {
+const SLUG = 'Reels-Into-Real-Sales';
+
+export default async function page() {
+    const blog = await getBlogBySlug(SLUG);
+
     return (
         <div>
             <Header />
-            <Blogtitle title="How to Turn Everyday Reels Into Real Sales" />
-        <ReelsIntoRealSales />
-        
+            <Blogtitle title={blog?.title || "How to Turn Everyday Reels Into Real Sales"} />
+            <CmsBlogArticle slug={SLUG} initialBlog={blog} fallback={<ReelsIntoRealSales />} />
             <FooterSection />
         </div>
-    )
+    );
 }
