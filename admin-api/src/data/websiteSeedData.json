@@ -62,19 +62,41 @@
   ],
   "services": [
     {
+      "title": "Main Services",
+      "slug": "main-services",
+      "route": "/services",
+      "iconImage": "/assets/images/dm.png",
+      "shortDescription": "Discover how we can assist you! We're excited to learn more about your project. Reach out and let's create something amazing together.",
+      "fullDescriptionHtml": "<div class=\"services-overview\"><h2>Our Core Services</h2><p>Misc Archive has many multidimensional strategies that aim to find, connect with, and develop relationships with customers online through various channels.</p><h3>Discover how we can assist you!</h3><p>We're excited to learn more about your project. Reach out and let's create something amazing together.</p></div>",
+      "features": [
+        "Digital Marketing",
+        "Search Engine Optimisation (SEO)",
+        "Web Development",
+        "Google Ads / PPC",
+        "RPA / AI",
+        "Audible",
+        "Branding",
+        "Recruiting"
+      ],
+      "order": 0,
+      "isActive": true
+    },
+    {
       "title": "Digital Marketing",
       "slug": "digital-marketing",
       "route": "/services/digital-marketing",
       "iconImage": "/assets/images/dm.png",
-      "shortDescription": "Misc Archive is the best digital marketing company in Trivandrum. In a world driven by data, innovation, and connectivity, the key to your business success lies in digital marketing.",
-      "fullDescriptionHtml": "<p>Misc Archive is the best digital marketing company in Trivandrum. In a world driven by data, innovation, and connectivity, the key to your business success lies in digital marketing.</p>",
+      "shortDescription": "Digital marketing works best when it feels natural not forced. At MiscArchive, we help businesses in Trivandrum, Kerala, and beyond grow their online presence.",
+      "fullDescriptionHtml": "<div class=\"digital-marketing-content\"><p class=\"tagline\"><strong>Strategy-Led. People-Focused. Results-Driven.</strong></p><p>Digital marketing works best when it feels natural not forced. At MiscArchive, we help businesses in Trivandrum, Kerala, and beyond grow their online presence.</p><h3>Our Digital Marketing Approach</h3><ul><li><strong>Audience Understanding:</strong> We dive deep into understanding your audience’s behavior and intent.</li><li><strong>Location Strategy:</strong> Strategies tailored for your local and regional market.</li><li><strong>Goal Alignment:</strong> Every campaign supports clear business objectives.</li></ul><h3>Our Digital Marketing Services</h3><ul><li><strong>SEO Optimization:</strong> Improve your organic search visibility.</li><li><strong>Social Media:</strong> Engage and grow communities.</li><li><strong>Performance Campaigns:</strong> ROI-focused paid advertising.</li><li><strong>Content Creation:</strong> Story-driven brand content.</li><li><strong>Email Marketing:</strong> Lead nurturing campaigns.</li><li><strong>Analytics & Reporting:</strong> Actionable insights.</li></ul><div class=\"cta-block\"><h4>Ready to Grow Your Digital Presence?</h4><p>Let’s discuss how we can help your business grow.</p></div></div>",
       "features": [
-        "Content Marketing",
-        "Social Media Marketing",
-        "SEM & PPC",
+        "SEO Optimization",
+        "Social Media",
+        "Performance Campaigns",
+        "Content Creation",
+        "Email Marketing",
         "Analytics & Reporting"
       ],
-      "order": 0,
+      "order": 1,
       "isActive": true
     },
     {
@@ -82,15 +104,17 @@
       "slug": "web-development",
       "route": "/services/web-development",
       "iconImage": "/assets/images/web devolepment 1.png",
-      "shortDescription": "Misc Archive is one of the finest web development companies in Trivandrum. We're passionate about turning your online presence into a masterpiece. A custom-built website is our main attraction.",
-      "fullDescriptionHtml": "<p>Misc Archive is one of the finest web development companies in Trivandrum. We're passionate about turning your online presence into a masterpiece. A custom-built website is our main attraction.</p>",
+      "shortDescription": "Websites That Look Good and Work Better. A website is often the first interaction someone has with your brand. We design and develop websites that are not only visually appealing, but also functional, fast, and easy to navigate.",
+      "fullDescriptionHtml": "<div class=\"web-development-content\"><h2>Websites That Look Good and Work Better</h2><p>A website is often the first interaction someone has with your brand. We design and develop websites that are not only visually appealing, but also functional, fast, and easy to navigate.</p><h3>Our Web Development Services</h3><p>At MiscArchive, our web development services focus on creating exceptional digital experiences.</p><ul><li><strong>Clear Structure & User Experience:</strong> We create intuitive layouts that guide users naturally through your content and offerings.</li><li><strong>Mobile-Friendly Responsive Design:</strong> Your website will look and function beautifully on all devices.</li><li><strong>SEO-Ready Development:</strong> We build with search engines in mind, helping your website rank higher.</li><li><strong>Performance & Loading Speed:</strong> Fast-loading websites keep users engaged and improve conversions.</li><li><strong>Easy Navigation & Conversion Flow:</strong> We design pathways that lead visitors to take action.</li><li><strong>Brand-Centric Design:</strong> We build websites that help users connect with your brand message.</li></ul><div class=\"cta-block\"><h4>Ready to Build Your Perfect Website?</h4><p>Let's create a website that not only looks impressive but drives results.</p></div></div>",
       "features": [
-        "Custom Web Applications",
-        "Next.js & React Architectures",
-        "E-Commerce",
-        "API Integrations"
+        "Clear Structure & User Experience",
+        "Mobile-Friendly Responsive Design",
+        "SEO-Ready Development",
+        "Performance & Loading Speed",
+        "Easy Navigation & Conversion Flow",
+        "Brand-Centric Design"
       ],
-      "order": 1,
+      "order": 2,
       "isActive": true
     },
     {
@@ -98,15 +122,15 @@
       "slug": "graphic-designing",
       "route": "/services/graphic-designing",
       "iconImage": "/assets/images/web devolepment 1.png",
-      "shortDescription": "Graphic design is the centre of attraction for any business. We at Misc Archive create unique graphic designs that help improve your business's online visibility.",
-      "fullDescriptionHtml": "<p>Graphic design is the centre of attraction for any business. We at Misc Archive create unique graphic designs that help improve your business's online visibility.</p>",
+      "shortDescription": "Visuals That Speak Without Explaining. Good design does not just look attractive, it communicates. Our graphic design services help brands create a strong visual identity that feels consistent, clear, and memorable.",
+      "fullDescriptionHtml": "<div class=\"graphic-design-content\"><h2>Graphic Designing</h2><p class=\"subtitle\"><strong>Visuals That Speak Without Explaining.</strong></p><p>Good design does not just look attractive, it communicates. Our graphic design services help brands create a strong visual identity that feels consistent, clear, and memorable.</p><p>We design with purpose, ensuring every visual aligns with your brand voice and message.</p><h3>Our graphic design services include:</h3><ul><li><strong>Brand creatives and marketing visuals:</strong> Create compelling brand visuals across all marketing channels.</li><li><strong>Social media creatives:</strong> Engaging posts, banners, and reels that capture attention.</li><li><strong>Website graphics and digital assets:</strong> Icons, banners, and layouts that elevate digital user experience.</li><li><strong>Marketing collateral and print design:</strong> Brochures, flyers, business cards, and packaging designs that leave an impression.</li></ul><div class=\"cta-block\"><h4>Ready to Elevate Your Brand's Visual Identity?</h4><p>Let's create designs that not only look impressive, but also build trust and connection with your audience.</p></div></div>",
       "features": [
-        "Visual Identity",
-        "Marketing Collaterals",
-        "Social Media Graphics",
-        "UI/UX Mockups"
+        "Brand creatives and marketing visuals",
+        "Social media creatives",
+        "Website graphics and digital assets",
+        "Marketing collateral and print design"
       ],
-      "order": 2,
+      "order": 3,
       "isActive": true
     },
     {
@@ -146,13 +170,13 @@
       "slug": "miscaudibles",
       "route": "/services/miscaudibles",
       "iconImage": "/assets/images/mic.png",
-      "shortDescription": "Misc Archive offers a creative hub where sounds and technology collide. The music studio serves as a refuge for both audiophiles and artists.",
-      "fullDescriptionHtml": "<p>Misc Archive offers a creative hub where sounds and technology collide. The music studio serves as a refuge for both audiophiles and artists.</p>",
+      "shortDescription": "Sound That Carries Emotion. Audio has the power to connect instantly. Misc Audibles is our dedicated space for voice-led storytelling and sound-based content creation.",
+      "fullDescriptionHtml": "<div class=\"audibles-content\"><p class=\"label\"><strong>Sound That Carries Emotion</strong></p><h2>Audio has the power to connect instantly</h2><p>Misc Audibles is our dedicated space for voice-led storytelling and sound-based content creation.</p><h3>We create audio experiences that feel authentic</h3><p>Designed to complement your brand communication, our soundscapes resonate deeply with audiences.</p><h4>Emotional Impact</h4><ul><li>Voice-driven narratives</li><li>Brand-aligned sound identity</li><li>High-quality production</li></ul><h3>Our Audibles Services</h3><ul><li><strong>Voiceovers:</strong> Professional voice talent with emotional depth.</li><li><strong>Audio Branding:</strong> Sonic logos & brand sound identities.</li><li><strong>Podcast Support:</strong> Production, editing & publishing.</li><li><strong>Sound Concepts:</strong> Immersive audio storytelling.</li></ul><div class=\"cta-block\"><h4>Ready to give your brand a voice?</h4><p>Let’s create sound that feels right.</p></div></div>",
       "features": [
-        "Audio Production",
-        "Podcast Recording",
-        "Sound Engineering",
-        "Voiceover Services"
+        "Voiceovers",
+        "Audio Branding",
+        "Podcast Support",
+        "Sound Concepts"
       ],
       "order": 5,
       "isActive": true

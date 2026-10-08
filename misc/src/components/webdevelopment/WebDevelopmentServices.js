@@ -1,13 +1,30 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
+import { getServiceBySlug } from '@/lib/api';
 
-export default function WebDevelopmentServices() {
+const defaultWebFeatures = [
+  { icon: '🧭', title: 'Clear Structure & User Experience', desc: 'We create intuitive layouts that guide users naturally through your content and offerings.' },
+  { icon: '📱', title: 'Mobile-Friendly Responsive Design', desc: 'Your website will look and function beautifully on all devices.' },
+  { icon: '📈', title: 'SEO-Ready Development', desc: 'We build with search engines in mind, helping your website rank higher.' },
+  { icon: '⚡', title: 'Performance & Loading Speed', desc: 'Fast-loading websites keep users engaged and improve conversions.' },
+  { icon: '🧩', title: 'Easy Navigation & Conversion Flow', desc: 'We design pathways that lead visitors to take action.' },
+  { icon: '🎯', title: 'Brand-Centric Design', desc: 'We build websites that help users connect with your brand message.' },
+];
+
+export default function WebDevelopmentServices({ initialService }) {
+  const [service, setService] = useState(initialService || null);
+
+  useEffect(() => {
+    getServiceBySlug('web-development').then((data) => {
+      if (data) setService(data);
+    }).catch(() => {});
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
-      document.querySelectorAll('.fade-in').forEach(el => {
+      document.querySelectorAll('.fade-in').forEach((el) => {
         if (el.getBoundingClientRect().top < window.innerHeight - 100) {
           el.classList.add('active');
         }
@@ -20,11 +37,23 @@ export default function WebDevelopmentServices() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const featureList = (service?.features && service.features.length > 0)
+    ? service.features.map((feat, i) => {
+        const fallback = defaultWebFeatures[i] || {};
+        return {
+          icon: fallback.icon || '🚀',
+          title: feat,
+          desc: fallback.desc || 'High-impact technical implementation tailored to elevate your business.',
+        };
+      })
+    : defaultWebFeatures;
+
+  const row1Features = featureList.slice(0, 3);
+  const row2Features = featureList.slice(3, 6);
+
   return (
     <>
-
       <style jsx global>{`
-
         .gradient-bg {
           background: linear-gradient(135deg, #eef2ff 0%, #fed20f 100%);
           color: #fff;
@@ -51,8 +80,6 @@ export default function WebDevelopmentServices() {
           border: none;
         }
 
-
-
         .feature-card {
           background: #f9fafb;
           border: 1px solid #eee;
@@ -60,9 +87,8 @@ export default function WebDevelopmentServices() {
           border-radius: 12px;
           height: 100%;
           transition: .3s;
-
-            display: flex;
-  flex-direction: column;
+          display: flex;
+          flex-direction: column;
         }
 
         .feature-card:hover {
@@ -105,73 +131,62 @@ export default function WebDevelopmentServices() {
           transform: none;
         }
 
-
-
-
-
-
-
         /* ================= SERVICES ALIGNMENT FIX ================= */
 
-/* Desktop & tablet */
-.services-row{
-  display: table;
-  width: 100%;
-  margin-bottom: 30px;
+        /* Desktop & tablet */
+        .services-row {
+          display: table;
+          width: 100%;
+          margin-bottom: 30px;
+        }
 
- 
-}
+        .services-col {
+          display: table-cell;
+          float: none;
+          vertical-align: top;
+          padding: 15px;
+        }
 
-.services-col{
-  display: table-cell;
-  float: none;
-  vertical-align: top;
-  padding: 15px;
-}
+        /* ================= MOBILE FIX ================= */
+        @media (max-width: 767px) {
+          .services-row {
+            display: block;
+          }
 
-/* ================= MOBILE FIX ================= */
-@media (max-width: 767px){
+          .services-col {
+            display: block;
+            width: 100%;
+            float: none;
+            padding: 12px 0;
+          }
 
-  .services-row{
-    display: block;
-  }
+          .feature-card {
+            text-align: center;
+          }
 
-  .services-col{
-    display: block;
-    width: 100%;
-    float: none;
-    padding: 12px 0;
-  }
-
-  .feature-card{
-    text-align: center;
-  }
-
-  .icon-box{
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
+          .icon-box {
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
       `}</style>
 
-      <div  />
-
       {/* HERO */}
-      <section className="gradient-bg text-center" style={{ padding: '100px 0' }} >
+      <section className="gradient-bg text-center" style={{ padding: '100px 0' }}>
         <div className="container fade-in">
-          <h1 style={{ fontWeight: '700', color:'#333'  }} >
-            Websites That Look Good and Work Better
+          <h1 style={{ fontWeight: '700', color: '#333' }}>
+            {service?.title && service.title !== 'Web Development'
+              ? service.title
+              : 'Websites That Look Good and Work Better'}
           </h1>
-          <p className="lead" style={{ maxWidth: 800, margin: '25px auto', color:'#333' }}>
-            A website is often the first interaction someone has with your brand.
-            We design and develop websites that are not only visually appealing,
-            but also functional, fast, and easy to navigate.
+          <p className="lead" style={{ maxWidth: 800, margin: '25px auto', color: '#333' }}>
+            {service?.shortDescription ||
+              'A website is often the first interaction someone has with your brand. We design and develop websites that are not only visually appealing, but also functional, fast, and easy to navigate.'}
           </p>
-          <a href="/contact" className="btn btn-lg btn-primary-custom" style={{color:"#333"}} >
+          <a href="/contact" className="btn btn-lg btn-primary-custom" style={{ color: '#333' }}>
             Get Started
           </a>{' '}
-          <a href="https://miscarchiveportfolio.com/" className="btn btn-lg btn-outline-custom" style={{color:"#333"}}>
+          <a href="https://miscarchiveportfolio.com/" className="btn btn-lg btn-outline-custom" style={{ color: '#333' }}>
             View Portfolio
           </a>
         </div>
@@ -192,70 +207,28 @@ export default function WebDevelopmentServices() {
 
           {/* ROW 1 */}
           <div className="services-row">
-            <div className=" col-xs-12 col-sm-6 col-md-4services-col fade-in">
-              <div className="feature-card">
-                <div className="icon-box">🧭</div>
-                <h4>Clear Structure & User Experience</h4>
-                <p>
-                  We create intuitive layouts that guide users naturally through
-                  your content and offerings.
-                </p>
+            {row1Features.map((feat, idx) => (
+              <div className="col-xs-12 col-sm-6 col-md-4 services-col fade-in" key={idx}>
+                <div className="feature-card">
+                  <div className="icon-box">{feat.icon}</div>
+                  <h4>{feat.title}</h4>
+                  <p>{feat.desc}</p>
+                </div>
               </div>
-            </div>
-
-            <div className="col-xs-12 col-sm-6 col-md-4services-col fade-in">
-              <div className="feature-card">
-                <div className="icon-box">📱</div>
-                <h4>Mobile-Friendly Responsive Design</h4>
-                <p>
-                  Your website will look and function beautifully on all devices.
-                </p>
-              </div>
-            </div>
-
-            <div className="col-xs-12 col-sm-6 col-md-4 services-col fade-in">
-              <div className="feature-card">
-                <div className="icon-box">📈</div>
-                <h4>SEO-Ready Development</h4>
-                <p>
-                  We build with search engines in mind, helping your website rank
-                  higher.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
 
           {/* ROW 2 */}
           <div className="services-row">
-            <div className=" col-xs-12 col-sm-6 col-md-4 services-col fade-in">
-              <div className="feature-card">
-                <div className="icon-box">⚡</div>
-                <h4>Performance & Loading Speed</h4>
-                <p>
-                  Fast-loading websites keep users engaged and improve conversions.
-                </p>
+            {row2Features.map((feat, idx) => (
+              <div className="col-xs-12 col-sm-6 col-md-4 services-col fade-in" key={idx}>
+                <div className="feature-card">
+                  <div className="icon-box">{feat.icon}</div>
+                  <h4>{feat.title}</h4>
+                  <p>{feat.desc}</p>
+                </div>
               </div>
-            </div>
-
-            <div className=" col-xs-12 col-sm-6 col-md-4 services-col fade-in">
-              <div className="feature-card">
-                <div className="icon-box">🧩</div>
-                <h4>Easy Navigation & Conversion Flow</h4>
-                <p>
-                  We design pathways that lead visitors to take action.
-                </p>
-              </div>
-            </div>
-
-            <div className=" col-xs-12 col-sm-6 col-md-4 services-col fade-in">
-              <div className="feature-card">
-                <div className="icon-box">🎯</div>
-                <h4>Brand-Centric Design</h4>
-                <p>
-                  We build websites that help users connect with your brand message.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -268,7 +241,7 @@ export default function WebDevelopmentServices() {
               background: '#fff',
               padding: 50,
               borderRadius: 16,
-              boxShadow: '0 15px 40px rgba(0,0,0,.1)'
+              boxShadow: '0 15px 40px rgba(0,0,0,.1)',
             }}
           >
             <h2 style={{ fontWeight: 700 }}>

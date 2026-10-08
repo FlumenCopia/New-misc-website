@@ -1,15 +1,32 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
+import { getServiceBySlug } from '@/lib/api';
 
-export default function Service_Content() {
+const defaultServiceCards = [
+  { icon: 'fa-search', title: 'SEO Optimization', desc: 'Improve your organic search visibility.', color: 'text-primary' },
+  { icon: 'fa-share-alt', title: 'Social Media', desc: 'Engage and grow communities.', color: 'text-muted' },
+  { icon: 'fa-bullseye', title: 'Performance Campaigns', desc: 'ROI-focused paid advertising.', color: 'text-info' },
+  { icon: 'fa-pen-fancy', title: 'Content Creation', desc: 'Story-driven brand content.', color: 'text-danger' },
+  { icon: 'fa-envelope', title: 'Email Marketing', desc: 'Lead nurturing campaigns.', color: 'text-warning' },
+  { icon: 'fa-chart-pie', title: 'Analytics & Reporting', desc: 'Actionable insights.', color: 'text-success' },
+];
+
+export default function Service_Content({ initialService }) {
+  const [service, setService] = useState(initialService || null);
+
+  useEffect(() => {
+    getServiceBySlug('digital-marketing').then((data) => {
+      if (data) setService(data);
+    }).catch(() => {});
+  }, []);
 
   useEffect(() => {
     const reveals = document.querySelectorAll('.scroll-reveal');
 
     const reveal = () => {
-      reveals.forEach(el => {
+      reveals.forEach((el) => {
         const top = el.getBoundingClientRect().top;
         if (top < window.innerHeight - 150) {
           el.classList.add('active');
@@ -22,6 +39,18 @@ export default function Service_Content() {
 
     return () => window.removeEventListener('scroll', reveal);
   }, []);
+
+  const featureCards = (service?.features && service.features.length > 0)
+    ? service.features.map((feat, i) => {
+        const fallback = defaultServiceCards[i] || {};
+        return {
+          icon: fallback.icon || 'fa-chart-line',
+          title: feat,
+          desc: fallback.desc || 'Comprehensive strategy deliverable focused on measurable results.',
+          color: fallback.color || 'text-primary',
+        };
+      })
+    : defaultServiceCards;
 
   return (
     <>
@@ -95,36 +124,34 @@ export default function Service_Content() {
       </Head>
 
       {/* HERO */}
-      <section className="hero-gradient" style={{ padding: '80px 0', background: '#f3f4f6' }} >
+      <section className="hero-gradient" style={{ padding: '80px 0', background: '#f3f4f6' }}>
         <div className="container text-center fade-in">
           <div className="row">
             <div className="col-md-8 col-md-offset-2">
               <h1 className="fw-bold mb-40">
-                Digital Marketing <br />
+                {service?.title || 'Digital Marketing'} <br />
                 <span className="gradient-text">
                   Strategy-Led. People-Focused. Results-Driven.
                 </span>
               </h1>
 
               <p className="lead text-secondary mb-40">
-                Digital marketing works best when it feels natural not forced.
-                At MiscArchive, we help businesses in Trivandrum, Kerala, and beyond
-                grow their online presence.
+                {service?.shortDescription ||
+                  'Digital marketing works best when it feels natural not forced. At MiscArchive, we help businesses in Trivandrum, Kerala, and beyond grow their online presence.'}
               </p>
 
               <div>
                 <a href='/contact'>
-                <button className="btn btn-gradient btn-lg">
-                  Get Started
-                </button></a>
-
+                  <button className="btn btn-gradient btn-lg">
+                    Get Started
+                  </button>
+                </a>
                 &nbsp;&nbsp;
                 <a href='#SERVICES'>
-                                    <button className="btn btn-gradient btn-lg">
-                  Learn More
-                </button>
+                  <button className="btn btn-gradient btn-lg">
+                    Learn More
+                  </button>
                 </a>
-
               </div>
             </div>
           </div>
@@ -137,51 +164,50 @@ export default function Service_Content() {
           <div className="text-center mb-40 scroll-reveal">
             <h2 className="fw-bold">Our Digital Marketing Approach</h2>
             <div style={{
-              width:'80px',
-              height:'4px',
-              margin:'20px auto',
-              background:'linear-gradient(90deg,#fcc50f,#fed20f)'
+              width: '80px',
+              height: '4px',
+              margin: '20px auto',
+              background: 'linear-gradient(90deg,#fcc50f,#fed20f)',
             }} />
           </div>
 
-     <div className="row">
-  <div className="col-md-4 mb-30 scroll-reveal">
-    <div className="SERVICESglass-card">
-      <div className="SERVICESglass-icon">
-        <i className="fas fa-users" />
-      </div>
-      <h4 className="fw-bold">Audience Understanding</h4>
-      <p className="text-secondary">
-        We dive deep into understanding your audience’s behavior and intent.
-      </p>
-    </div>
-  </div>
+          <div className="row">
+            <div className="col-md-4 mb-30 scroll-reveal">
+              <div className="SERVICESglass-card">
+                <div className="SERVICESglass-icon">
+                  <i className="fas fa-users" />
+                </div>
+                <h4 className="fw-bold">Audience Understanding</h4>
+                <p className="text-secondary">
+                  We dive deep into understanding your audience’s behavior and intent.
+                </p>
+              </div>
+            </div>
 
-  <div className="col-md-4 mb-30 scroll-reveal">
-    <div className="SERVICESglass-card">
-      <div className="SERVICESglass-icon">
-        <i className="fas fa-map-marker-alt" />
-      </div>
-      <h4 className="fw-bold">Location Strategy</h4>
-      <p className="text-secondary">
-        Strategies tailored for your local and regional market.
-      </p>
-    </div>
-  </div>
+            <div className="col-md-4 mb-30 scroll-reveal">
+              <div className="SERVICESglass-card">
+                <div className="SERVICESglass-icon">
+                  <i className="fas fa-map-marker-alt" />
+                </div>
+                <h4 className="fw-bold">Location Strategy</h4>
+                <p className="text-secondary">
+                  Strategies tailored for your local and regional market.
+                </p>
+              </div>
+            </div>
 
-  <div className="col-md-4 mb-30 scroll-reveal">
-    <div className="SERVICESglass-card">
-      <div className="SERVICESglass-icon">
-        <i className="fas fa-chart-line" />
-      </div>
-      <h4 className="fw-bold">Goal Alignment</h4>
-      <p className="text-secondary">
-        Every campaign supports clear business objectives.
-      </p>
-    </div>
-  </div>
-</div>
-
+            <div className="col-md-4 mb-30 scroll-reveal">
+              <div className="SERVICESglass-card">
+                <div className="SERVICESglass-icon">
+                  <i className="fas fa-chart-line" />
+                </div>
+                <h4 className="fw-bold">Goal Alignment</h4>
+                <p className="text-secondary">
+                  Every campaign supports clear business objectives.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -191,27 +217,20 @@ export default function Service_Content() {
           <div className="text-center mb-40 scroll-reveal">
             <h2 className="fw-bold">Our Digital Marketing Services</h2>
             <div style={{
-              width:'80px',
-              height:'4px',
-              margin:'20px auto',
-              background:'linear-gradient(90deg,#fcc50f,#fed20f)'
+              width: '80px',
+              height: '4px',
+              margin: '20px auto',
+              background: 'linear-gradient(90deg,#fcc50f,#fed20f)',
             }} />
           </div>
 
           <div className="row">
-            {[
-              ['fa-search','SEO Optimization','Improve your organic search visibility.','text-primary'],
-              ['fa-share-alt','Social Media','Engage and grow communities.','text-muted'],
-              ['fa-bullseye','Performance Campaigns','ROI-focused paid advertising.','text-info'],
-              ['fa-pen-fancy','Content Creation','Story-driven brand content.','text-danger'],
-              ['fa-envelope','Email Marketing','Lead nurturing campaigns.','text-warning'],
-              ['fa-chart-pie','Analytics & Reporting','Actionable insights.','text-success'],
-            ].map((s,i)=>(
+            {featureCards.map((s, i) => (
               <div className="col-md-4 mb-30 scroll-reveal" key={i}>
-                <div className="SERVICESglass-card " style={{marginBottom:'10px'}}>
-                  <i className={`fas ${s[0]} ${s[3]}`} style={{ fontSize: 26 }} />
-                  <h4 className="fw-bold mt-30">{s[1]}</h4>
-                  <p className="text-secondary">{s[2]}</p>
+                <div className="SERVICESglass-card " style={{ marginBottom: '10px' }}>
+                  <i className={`fas ${s.icon} ${s.color}`} style={{ fontSize: 26 }} />
+                  <h4 className="fw-bold mt-30">{s.title}</h4>
+                  <p className="text-secondary">{s.desc}</p>
                 </div>
               </div>
             ))}
@@ -225,21 +244,21 @@ export default function Service_Content() {
           <div
             className="text-center scroll-reveal"
             style={{
-              background:'linear-gradient(135deg,#fed20f,#fcc50f)',
-              color:'#fff',
-              padding:'60px',
-              borderRadius:'20px'
+              background: 'linear-gradient(135deg,#fed20f,#fcc50f)',
+              color: '#fff',
+              padding: '60px',
+              borderRadius: '20px',
             }}
           >
             <h2 className="fw-bold mb-30">Ready to Grow Your Digital Presence?</h2>
             <p className="lead mb-40">
               Let’s discuss how we can help your business grow.
             </p>
-           <a href='/contact'>
+            <a href='/contact'>
               <button className="btn btn-default btn-rounded">
                 Schedule a Consultation
               </button>
-           </a>
+            </a>
           </div>
         </div>
       </section>

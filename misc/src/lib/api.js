@@ -25,9 +25,9 @@ async function fetchFromCms(endpoint, options = {}) {
     const timeout = setTimeout(() => controller.abort(), 6000);
 
     const res = await fetch(url, {
+      cache: 'no-store',
       ...options,
       signal: controller.signal,
-      next: { revalidate: 10 },
       headers: {
         'Accept': 'application/json',
         ...(options.headers || {}),
@@ -69,6 +69,14 @@ export async function getServices(activeOnly = true) {
   const data = await fetchFromCms('/services');
   if (!data || !Array.isArray(data)) return null;
   return activeOnly ? data.filter((s) => s.isActive !== false) : data;
+}
+
+/**
+ * Fetch single service by slug or ID
+ */
+export async function getServiceBySlug(slug) {
+  if (!slug) return null;
+  return await fetchFromCms(`/services/${encodeURIComponent(slug)}`);
 }
 
 /**

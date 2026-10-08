@@ -1,25 +1,25 @@
-import React from 'react'
+import React from 'react';
 import Header from "@/components/common/Header";
-import QuoteSection from "@/components/home/Quote";
 import FooterSection from "@/components/common/Footer";
 import Service_Design from '@/components/services/Service_Design';
 import GraphicDesign from '@/components/GraphicsDesigning/GraphicDesign';
+import { getServiceBySlug } from '@/lib/api';
 
 export const metadata = {
-  title: 'Digital Marketing company in trivandrum, Kerala | Miscarchive',
-  description: 'Looking for the best digital marketing company in Trivandrum? Miscarchive offers expert SEO, social media marketing and more to grow your business online.',
-  keywords: 'Digital Marketing, Marketing Solutions, Web Development, SEO, Social Media Management',
+  title: 'Graphic Designing Services | Miscarchive',
+  description: 'Looking for top-notch graphic design services in Trivandrum? Miscarchive offers brand identity, marketing visuals, and digital assets.',
+  keywords: 'Graphic Designing, Brand Identity, Marketing Creatives, Visuals, Logo Design',
 };
 
-export default function page() {
+export default async function page() {
+  const service = await getServiceBySlug('graphic-designing');
+
   return (
     <div>
-        <Header/>
-        <Service_Design/>
-        {/* <QuoteSection/> */}
-<GraphicDesign />
-     
-        <FooterSection/>
+      <Header />
+      <Service_Design title={service?.title} />
+      <GraphicDesign initialService={service} />
+      <FooterSection />
     </div>
-  )
+  );
 }

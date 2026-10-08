@@ -1,23 +1,62 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getServices, getServiceBySlug, resolveMediaUrl } from '@/lib/api';
 
-const ServicesPage = () => {
+const ServicesPage = ({ initialServices, initialMainService }) => {
+  const [services, setServices] = useState(initialServices || []);
+  const [mainService, setMainService] = useState(initialMainService || null);
+
+  useEffect(() => {
+    if (!initialServices || initialServices.length === 0) {
+      getServices(true).then((data) => {
+        if (data && data.length > 0) setServices(data);
+      }).catch(() => {});
+    }
+    if (!initialMainService) {
+      getServiceBySlug('main-services').then((data) => {
+        if (data) setMainService(data);
+      }).catch(() => {});
+    }
+  }, [initialServices, initialMainService]);
+
+  const serviceMap = {};
+  if (Array.isArray(services)) {
+    services.forEach((s) => {
+      if (s && s.slug) {
+        serviceMap[s.slug] = s;
+      }
+    });
+  }
+
+  // Target service lookups from MongoDB
+  const dm = serviceMap['digital-marketing'];
+  const seo = serviceMap['seo'];
+  const web = serviceMap['web-development'];
+  const googleAds = serviceMap['sem'] || serviceMap['google-ads'];
+  const rpa = serviceMap['rpa-ai'];
+  const audible = serviceMap['miscaudibles'];
+  const branding = serviceMap['branding'];
+  const recruiting = serviceMap['recruiting'];
+
   return (
     <>
       <Head className='yellow-bg'>
-        <title>Services - Misc Archive</title>
+        <title>{mainService?.title ? `${mainService.title} - Misc Archive` : 'Services - Misc Archive'}</title>
         <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/assets/css/animate.css" />
-        {/* Include .js or other scripts if needed */}
       </Head>
 
       <header className='yellow-bg'>
         <div className="container " style={{paddingTop:"130px"}}>
           <div className="row">
             <div className="col-xs-12">
-              <h2 className="title" style={{color:"#333"}}>SERVICES</h2>
+              <h2 className="title" style={{color:"#333"}}>
+                {mainService?.title ? mainService.title.toUpperCase() : 'SERVICES'}
+              </h2>
               <h5 className="sub-title"> &nbsp;</h5>
             </div>
           </div>
@@ -30,20 +69,21 @@ const ServicesPage = () => {
             {/* DIGITAL MARKETING */}
             <div className="col-md-3 col-sm-6 col-xs-12 no-padding">
               <div className="box yellow-bg">
-                <Link href="#">
-                  
-                    <div className="table">
-                      <div className="inner">
-                        <img src="/assets/images/dm.png" alt="Digital Marketing" />
-                        <h4>DIGITAL MARKETING.</h4>
-                        <p>
-                          Misc Archive has many multidimensional strategies that aim to find,
-                          connect with, and develop relationships with customers online through
-                          various channels to persuade them to purchase and repurchase. <br /><br /><br />
-                        </p>
-                      </div>
+                <Link href={dm?.route || "/services/digital-marketing"}>
+                  <div className="table">
+                    <div className="inner">
+                      <img
+                        src={dm?.iconImage ? resolveMediaUrl(dm.iconImage) : "/assets/images/dm.png"}
+                        alt={dm?.title || "Digital Marketing"}
+                      />
+                      <h4>{dm?.title ? `${dm.title.toUpperCase()}.` : 'DIGITAL MARKETING.'}</h4>
+                      <p>
+                        {dm?.shortDescription ||
+                          "Misc Archive has many multidimensional strategies that aim to find, connect with, and develop relationships with customers online through various channels to persuade them to purchase and repurchase."}
+                        <br /><br /><br />
+                      </p>
                     </div>
-                  
+                  </div>
                 </Link>
               </div>
             </div>
@@ -51,20 +91,21 @@ const ServicesPage = () => {
             {/* SEO */}
             <div className="col-md-3 col-sm-6 col-xs-12 no-padding">
               <div className="box yellow-bg">
-                <Link href="#">
-                  
-                    <div className="table">
-                      <div className="inner">
-                        <img src="/assets/images/seo.png" alt="SEO" />
-                        <h4>SEARCH ENGINE OPTIMISATION (SEO)</h4>
-                        <p>
-                          SEO improves visibility, drives traffic, boosts sales, and converts
-                          clicks into customers. We make your site rank higher on search engines
-                          using trends and analytics. <br /><br /><br />
-                        </p>
-                      </div>
+                <Link href={seo?.route || "#"}>
+                  <div className="table">
+                    <div className="inner">
+                      <img
+                        src={seo?.iconImage ? resolveMediaUrl(seo.iconImage) : "/assets/images/seo.png"}
+                        alt={seo?.title || "SEO"}
+                      />
+                      <h4>{seo?.title ? seo.title.toUpperCase() : 'SEARCH ENGINE OPTIMISATION (SEO)'}</h4>
+                      <p>
+                        {seo?.shortDescription ||
+                          "SEO improves visibility, drives traffic, boosts sales, and converts clicks into customers. We make your site rank higher on search engines using trends and analytics."}
+                        <br /><br /><br />
+                      </p>
                     </div>
-                  
+                  </div>
                 </Link>
               </div>
             </div>
@@ -72,19 +113,20 @@ const ServicesPage = () => {
             {/* WEB DEVELOPMENT */}
             <div className="col-md-3 col-sm-6 col-xs-12 no-padding">
               <div className="box yellow-bg">
-                <Link href="#">
-                  
-                    <div className="table">
-                      <div className="inner">
-                        <img src="/assets/images/web devolepment 1.png" alt="Web Development" />
-                        <h4>WEB DEVELOPMENT</h4>
-                        <p>
-                          We create and maintain fast, responsive websites and apps tailored to your
-                          needs. Quality delivery is our priority to ensure your success online.
-                        </p>
-                      </div>
+                <Link href={web?.route || "/services/web-development"}>
+                  <div className="table">
+                    <div className="inner">
+                      <img
+                        src={web?.iconImage ? resolveMediaUrl(web.iconImage) : "/assets/images/web devolepment 1.png"}
+                        alt={web?.title || "Web Development"}
+                      />
+                      <h4>{web?.title ? web.title.toUpperCase() : 'WEB DEVELOPMENT'}</h4>
+                      <p>
+                        {web?.shortDescription ||
+                          "We create and maintain fast, responsive websites and apps tailored to your needs. Quality delivery is our priority to ensure your success online."}
+                      </p>
                     </div>
-                  
+                  </div>
                 </Link>
               </div>
             </div>
@@ -92,19 +134,21 @@ const ServicesPage = () => {
             {/* GOOGLE ADS */}
             <div className="col-md-3 col-sm-6 col-xs-12 no-padding">
               <div className="box yellow-bg">
-                <Link href="#">
-                  
-                    <div className="table">
-                      <div className="inner">
-                        <img src="/assets/images/google ad.png" alt="Google Ads" />
-                        <h4>GOOGLE ADS/PPC</h4>
-                        <p>
-                          We analyze and optimize your ad campaigns for better reach, conversion,
-                          and ROI across all Google Ads platforms.<br /><br /><br />
-                        </p>
-                      </div>
+                <Link href={googleAds?.route || "#"}>
+                  <div className="table">
+                    <div className="inner">
+                      <img
+                        src={googleAds?.iconImage ? resolveMediaUrl(googleAds.iconImage) : "/assets/images/google ad.png"}
+                        alt={googleAds?.title || "Google Ads"}
+                      />
+                      <h4>{googleAds?.title ? googleAds.title.toUpperCase() : 'GOOGLE ADS/PPC'}</h4>
+                      <p>
+                        {googleAds?.shortDescription ||
+                          "We analyze and optimize your ad campaigns for better reach, conversion, and ROI across all Google Ads platforms."}
+                        <br /><br /><br />
+                      </p>
                     </div>
-               
+                  </div>
                 </Link>
               </div>
             </div>
@@ -117,17 +161,28 @@ const ServicesPage = () => {
               <div className="box yellow-bg">
                 <div className="table">
                   <div className="inner">
-                    <img src="/assets/images/ai.png" alt="AI RPA" />
-                    <h4>RPA / AI</h4>
+                    <img
+                      src={rpa?.iconImage ? resolveMediaUrl(rpa.iconImage) : "/assets/images/ai.png"}
+                      alt={rpa?.title || "AI RPA"}
+                    />
+                    <h4>{rpa?.title ? rpa.title.toUpperCase() : 'RPA / AI'}</h4>
                     <p>
-                      RPA automates tasks and AI makes intelligent decisions—both improving
-                      efficiency and cutting costs.<br /><br /><br /><br />
+                      {rpa?.shortDescription ||
+                        "RPA automates tasks and AI makes intelligent decisions—both improving efficiency and cutting costs."}
+                      <br /><br /><br /><br />
                     </p>
                     <ul className="list5">
-                      <li>Assess current processes for automation</li>
-                      <li>Integrate AI for smarter decisions</li>
-                      <li>Customize for your business needs</li>
-                      <li>Provide support & training</li>
+                      {(rpa?.features && rpa.features.length > 0
+                        ? rpa.features
+                        : [
+                            'Assess current processes for automation',
+                            'Integrate AI for smarter decisions',
+                            'Customize for your business needs',
+                            'Provide support & training',
+                          ]
+                      ).map((item, idx) => (
+                        <li key={idx}>{item}</li>
+                      ))}
                     </ul>
                     <span className="expand btn5">EXPAND</span>
                   </div>
@@ -138,23 +193,36 @@ const ServicesPage = () => {
             {/* AUDIBLE */}
             <div className="col-md-3 col-sm-6 col-xs-12 no-padding">
               <div className="box yellow-bg">
-                <div className="table">
-                  <div className="inner">
-                    <img src="/assets/images/mic.png" alt="Audible" />
-                    <h4>AUDIBLE</h4>
-                    <p>
-                      From audiobooks to sound design, our audio services cover the full
-                      production cycle with top engineers and sound designers.<br /><br /><br /><br /><br />
-                    </p>
-                    <ul className="list6">
-                      <li>Audiobook Production</li>
-                      <li>Audio Editing</li>
-                      <li>Mixing & Mastering</li>
-                      <li>Quality Assurance</li>
-                    </ul>
-                    <span className="expand btn6">EXPAND</span>
+                <Link href={audible?.route || "/services/miscaudibles"}>
+                  <div className="table">
+                    <div className="inner">
+                      <img
+                        src={audible?.iconImage ? resolveMediaUrl(audible.iconImage) : "/assets/images/mic.png"}
+                        alt={audible?.title || "Audible"}
+                      />
+                      <h4>{audible?.title ? audible.title.toUpperCase() : 'AUDIBLE'}</h4>
+                      <p>
+                        {audible?.shortDescription ||
+                          "From audiobooks to sound design, our audio services cover the full production cycle with top engineers and sound designers."}
+                        <br /><br /><br /><br /><br />
+                      </p>
+                      <ul className="list6">
+                        {(audible?.features && audible.features.length > 0
+                          ? audible.features
+                          : [
+                              'Audiobook Production',
+                              'Audio Editing',
+                              'Mixing & Mastering',
+                              'Quality Assurance',
+                            ]
+                        ).map((item, idx) => (
+                          <li key={idx}>{item}</li>
+                        ))}
+                      </ul>
+                      <span className="expand btn6">EXPAND</span>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
 
@@ -163,17 +231,27 @@ const ServicesPage = () => {
               <div className="box yellow-bg">
                 <div className="table">
                   <div className="inner">
-                    <img src="/assets/images/branding.png" alt="Branding" />
-                    <h4>BRANDING</h4>
+                    <img
+                      src={branding?.iconImage ? resolveMediaUrl(branding.iconImage) : "/assets/images/branding.png"}
+                      alt={branding?.title || "Branding"}
+                    />
+                    <h4>{branding?.title ? branding.title.toUpperCase() : 'BRANDING'}</h4>
                     <p>
-                      We craft standout brand identities including logos, USPs, and messaging that
-                      communicates your value to your audience.
+                      {branding?.shortDescription ||
+                        "We craft standout brand identities including logos, USPs, and messaging that communicates your value to your audience."}
                     </p>
                     <ul className="list6">
-                      <li>Target Audience Analysis</li>
-                      <li>Brand Positioning</li>
-                      <li>Company Persona Development</li>
-                      <li>Logo, Color, USP, and Tagline</li>
+                      {(branding?.features && branding.features.length > 0
+                        ? branding.features
+                        : [
+                            'Target Audience Analysis',
+                            'Brand Positioning',
+                            'Company Persona Development',
+                            'Logo, Color, USP, and Tagline',
+                          ]
+                      ).map((item, idx) => (
+                        <li key={idx}>{item}</li>
+                      ))}
                     </ul>
                     <span className="expand btn6">EXPAND</span>
                   </div>
@@ -186,15 +264,26 @@ const ServicesPage = () => {
               <div className="box yellow-bg">
                 <div className="table">
                   <div className="inner">
-                    <img src="/assets/images/recruting.png" alt="Recruiting" />
-                    <h4>RECRUITING</h4>
+                    <img
+                      src={recruiting?.iconImage ? resolveMediaUrl(recruiting.iconImage) : "/assets/images/recruting.png"}
+                      alt={recruiting?.title || "Recruiting"}
+                    />
+                    <h4>{recruiting?.title ? recruiting.title.toUpperCase() : 'RECRUITING'}</h4>
                     <p>
-                      We find the right candidates using direct and third-party recruitment across
-                      multiple platforms. <br /><br />
+                      {recruiting?.shortDescription ||
+                        "We find the right candidates using direct and third-party recruitment across multiple platforms."}
+                      <br /><br />
                     </p>
                     <ul className="list6">
-                      <li>Direct Recruitment</li>
-                      <li>Third-Party Recruitment</li>
+                      {(recruiting?.features && recruiting.features.length > 0
+                        ? recruiting.features
+                        : [
+                            'Direct Recruitment',
+                            'Third-Party Recruitment',
+                          ]
+                      ).map((item, idx) => (
+                        <li key={idx}>{item}</li>
+                      ))}
                     </ul>
                     <span className="expand btn6">EXPAND</span>
                   </div>
@@ -211,12 +300,12 @@ const ServicesPage = () => {
           <div className="row">
             <div className="col-xs-12">
               <div className="content-box">
-                <h3>Discover how we can assist you!</h3>
+                <h3>{mainService?.title ? 'Discover how we can assist you!' : 'Discover how we can assist you!'}</h3>
                 <p>
-                  We're excited to learn more about your project. Reach out and let's create
-                  something amazing together.
+                  {mainService?.shortDescription ||
+                    "We're excited to learn more about your project. Reach out and let's create something amazing together."}
                 </p>
-                <a href="#" className="hamburger-menu">GET IN TOUCH</a>
+                <Link href="/contact" className="hamburger-menu">GET IN TOUCH</Link>
               </div>
             </div>
           </div>

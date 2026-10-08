@@ -1,17 +1,37 @@
 'use client';
-import Link from "next/link";
-export default function MiscAudibles() {
 
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { getServiceBySlug } from '@/lib/api';
+
+const defaultAudibleServices = [
+  ['microphone', 'Voiceovers', 'Professional voice talent with emotional depth.'],
+  ['trademark', 'Audio Branding', 'Sonic logos & brand sound identities.'],
+  ['podcast', 'Podcast Support', 'Production, editing & publishing.'],
+  ['book-open', 'Sound Concepts', 'Immersive audio storytelling.'],
+];
+
+export default function MiscAudibles({ initialService }) {
+  const [service, setService] = useState(initialService || null);
+
+  useEffect(() => {
+    getServiceBySlug('miscaudibles').then((data) => {
+      if (data) setService(data);
+    }).catch(() => {});
+  }, []);
+
+  const audibleServices = (service?.features && service.features.length > 0)
+    ? service.features.map((feat, i) => {
+        const fallback = defaultAudibleServices[i] || ['headphones', feat, 'Dedicated audio production deliverable.'];
+        return [fallback[0] || 'headphones', feat, fallback[2] || 'Professional voice and sound experience.'];
+      })
+    : defaultAudibleServices;
 
   return (
     <>
-
       <style jsx global>{`
-     
-
         .hero-gradient {
           background: linear-gradient(135deg, #f3f4f6, #f3f4f6, #f3f4f6);
-         
         }
 
         .card-gradient {
@@ -30,8 +50,6 @@ export default function MiscAudibles() {
           transform: translateY(-10px);
           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
-
-
 
         .text-gradient {
           background: linear-gradient(90deg, #fcc50f, #333);
@@ -72,19 +90,20 @@ export default function MiscAudibles() {
             box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
           }
         }
-.label-Sound {
-  background: linear-gradient(
-    to right,
-    #fcc50f 0%,
-    #fed20f 40%,
-    #fed20f 100%
-  );
 
-     color: #fff;
-}
-.section-title {
-color: #fff;
-}
+        .label-Sound {
+          background: linear-gradient(
+            to right,
+            #fcc50f 0%,
+            #fed20f 40%,
+            #fed20f 100%
+          );
+          color: #fff;
+        }
+
+        .section-title {
+          color: #fff;
+        }
 
         .pulse {
           animation: pulse 2s infinite;
@@ -140,23 +159,15 @@ color: #fff;
             <i className="fa fa-volume-up" /> Sound That Carries Emotion
           </span>
 
-
           <h1 style={{ marginTop: 30 }}>
             Audio has the power to connect{' '}
             <span className="text-gradient">instantly</span>
           </h1>
 
           <p className="lead" style={{ color: '#333', maxWidth: 700, margin: '20px auto' }}>
-            Misc Audibles is our dedicated space for voice-led storytelling and
-            sound-based content creation.
+            {service?.shortDescription ||
+              'Misc Audibles is our dedicated space for voice-led storytelling and sound-based content creation.'}
           </p>
-
-          {/* <a className="btn btn-gradient pulse">
-            <i className="fa fa-play-circle" /> Listen Demo
-          </a>
-          <a className="btn btn-outline" style={{ marginLeft: 10 }}>
-            Explore Services
-          </a> */}
 
           <div style={{ marginTop: 60 }}>
             <div className="audio-wave"></div>
@@ -184,7 +195,7 @@ color: #fff;
                 <h4 style={{ color: '#fff' }}>
                   <i className="fa fa-headphones" /> Emotional Impact
                 </h4>
-                <ul style={{ marginTop: 15, color: '#fff' }} >
+                <ul style={{ marginTop: 15, color: '#fff' }}>
                   <li>Voice-driven narratives</li>
                   <li>Brand-aligned sound identity</li>
                   <li>High-quality production</li>
@@ -199,16 +210,11 @@ color: #fff;
       <section style={{ padding: '90px 0', background: '#333' }}>
         <div className="container text-center">
           <h2 className="section-title">
-            Our <span className="text-gradient">Audibles</span> Services
+            Our <span className="text-gradient">{service?.title || 'Audibles'}</span> Services
           </h2>
 
           <div className="row" style={{ marginTop: 50, color: '#fff' }}>
-            {[
-              ['microphone', 'Voiceovers', 'Professional voice talent with emotional depth.'],
-              ['trademark', 'Audio Branding', 'Sonic logos & brand sound identities.'],
-              ['podcast', 'Podcast Support', 'Production, editing & publishing.'],
-              ['book-open', 'Sound Concepts', 'Immersive audio storytelling.'],
-            ].map(([icon, title, desc], i) => (
+            {audibleServices.map(([icon, title, desc], i) => (
               <div className="col-md-3" key={i}>
                 <div className="card-gradient">
                   <i className={`fa fa-${icon} fa-2x`} />
@@ -224,17 +230,12 @@ color: #fff;
       {/* CTA */}
       <section className="hero-gradient text-center" style={{ padding: '90px 0' }}>
         <div className="container">
-          <h2 >
+          <h2>
             Ready to give your brand a <span className="text-gradient">voice</span>?
           </h2>
           <p className="lead">Let’s create sound that feels right.</p>
 
           <form className="form-inline" style={{ marginTop: 30 }}>
-            {/* <input
-              type="email"
-              className="form-control input-lg"
-              placeholder="Email Address"
-            /> */}
             <Link href="/contact" className="btn btn-gradient btn-lg">
               Start Conversation
             </Link>

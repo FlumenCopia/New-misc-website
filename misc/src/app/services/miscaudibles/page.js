@@ -1,3 +1,9 @@
+import React from 'react';
+import Header from "@/components/common/Header";
+import FooterSection from "@/components/common/Footer";
+import MiscAudibles from '@/components/MiscAudibles/MiscAudibles';
+import { getServiceBySlug } from '@/lib/api';
+
 export const metadata = {
   title: 'Misc Audible | Miscarchive',
   description:
@@ -5,23 +11,14 @@ export const metadata = {
   keywords: 'Misc Audible, Podcast Production, Audiobook Production, Sound Design',
 };
 
-export default function page() {
+export default async function page() {
+  const service = await getServiceBySlug('miscaudibles');
+
   return (
-    <main style={{ minHeight: "100vh", background: "#0d0d0f" }}>
-      <iframe
-        src="/misc01.html"
-        title="Misc Audible"
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 9999,
-          width: "100vw",
-          height: "100vh",
-          border: 0,
-          display: "block",
-          background: "#0d0d0f",
-        }}
-      />
-    </main>
+    <div>
+      <Header />
+      <MiscAudibles initialService={service} />
+      <FooterSection />
+    </div>
   );
 }
