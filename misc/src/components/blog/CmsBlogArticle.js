@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getBlogBySlug } from '@/lib/api';
+import { getBlogBySlug, resolveMediaUrl } from '@/lib/api';
 
 function cleanContentHtml(html) {
   if (!html) return '';
@@ -61,12 +61,42 @@ export default function CmsBlogArticle({ slug, initialBlog, fallback }) {
     return <div dangerouslySetInnerHTML={{ __html: rawHtml }} />;
   }
 
+  const hasH3 = /<h3[^>]*>/i.test(rawHtml);
+  const hasImage = /<img[^>]*>/i.test(rawHtml);
+
+  const formattedDate = blog.publishDate
+    ? new Date(blog.publishDate).toLocaleDateString('en-US', {
+        month: 'long',
+        day: '2-digit',
+        year: 'numeric',
+      })
+    : '';
+
   return (
     <section className="blog">
       <div className="container mt-5 blog-mobile-padding">
         <div className="row">
           <div className="wow fadeInUp">
-            <div dangerouslySetInnerHTML={{ __html: rawHtml }} />
+            <div className="blog-post">
+              {!hasH3 && blog.title && <h3>{blog.title}</h3>}
+              {!hasH3 && formattedDate && (
+                <>
+                  <small>{formattedDate}</small>{' '}
+                  <span className="border d-inline-block my-2" style={{ width: '30px' }}></span>
+                </>
+              )}
+              {!hasImage && blog.featuredImage && (
+                <p>
+                  <img
+                    src={resolveMediaUrl(blog.featuredImage)}
+                    alt={blog.title || 'blog'}
+                    className="img-fluid w-100"
+                    style={{ maxHeight: '400px', objectFit: 'cover' }}
+                  />
+                </p>
+              )}
+              <div dangerouslySetInnerHTML={{ __html: rawHtml }} />
+            </div>
           </div>
         </div>
       </div>
