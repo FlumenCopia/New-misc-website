@@ -9,6 +9,7 @@ export interface IEnquiry extends Document {
   message: string;
   formSource:
     | "modal_sidebar"
+    | "sidebar_enquiry"
     | "contact_page"
     | "neyyattinkara"
     | "career_apply"
@@ -31,6 +32,7 @@ const EnquirySchema = new Schema<IEnquiry>(
       type: String,
       enum: [
         "modal_sidebar",
+        "sidebar_enquiry",
         "contact_page",
         "neyyattinkara",
         "career_apply",

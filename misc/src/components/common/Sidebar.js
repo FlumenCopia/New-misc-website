@@ -40,6 +40,7 @@ export default function Sidebar({ isOpen, onClose }) {
       try {
         const res = await submitEnquiry(payload);
         if (res && res.success) {
+          alert("Thank you! Your enquiry has been received successfully.");
           $("#success").fadeIn();
           formEl.reset();
           return;
@@ -52,10 +53,12 @@ export default function Sidebar({ isOpen, onClose }) {
           data: $("#submit-form").serialize(),
           method: "POST",
           success: function () {
+            alert("Thank you! Your enquiry has been received successfully.");
             $("#success").fadeIn();
             formEl.reset();
           },
           error: function () {
+            alert("Something went wrong, please try again.");
             $("#error").fadeIn();
           },
         });
