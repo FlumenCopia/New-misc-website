@@ -12,6 +12,7 @@ import FooterSection from "@/components/common/Footer";
 import WhatsAppButton from "@/components/common/WhatsappButton";
 import Faqs from "@/components/home/Faqs";
 import Footer2 from "@/components/common/Footer2";
+import { getBanners } from "@/lib/api";
 
 export const metadata = {
   title: 'Digital Marketing company in trivandrum, Kerala | Miscarchive',
@@ -19,11 +20,13 @@ export const metadata = {
   keywords: 'Digital Marketing, Marketing Solutions, Web Development, SEO, Social Media Management',
 };
 
-export default function Home() {
+export default async function Home() {
+  const initialBanners = await getBanners();
+
   return (
     <div>
      <Header/>
-     <Banner/>
+     <Banner initialBanners={initialBanners}/>
      <AboutSection/>
      <LogosSection/>
      <ServicesSection/>

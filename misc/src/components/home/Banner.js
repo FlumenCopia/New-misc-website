@@ -32,6 +32,7 @@ export default function Banner({ initialBanners }) {
         mobileImg: resolveMediaUrl(b.mobileImage || b.desktopImage),
         path: b.linkUrl || '',
         theme: b.theme || 'light',
+        description: b.description || '',
       }));
     }
     return defaultSlides;
@@ -43,9 +44,10 @@ export default function Banner({ initialBanners }) {
   const bannerRef = useRef(null);
   const router = useRouter();
 
+  // Fetch / sync banners from CMS API
   useEffect(() => {
-    if (!initialBanners) {
-      getBanners().then((data) => {
+    getBanners()
+      .then((data) => {
         if (data && data.length > 0) {
           setSlides(
             data.map((b) => ({
@@ -53,12 +55,13 @@ export default function Banner({ initialBanners }) {
               mobileImg: resolveMediaUrl(b.mobileImage || b.desktopImage),
               path: b.linkUrl || '',
               theme: b.theme || 'light',
+              description: b.description || '',
             }))
           );
         }
-      }).catch(() => {});
-    }
-  }, [initialBanners]);
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const checkScreen = () => setIsMobile(window.innerWidth <= 580);
@@ -67,12 +70,21 @@ export default function Banner({ initialBanners }) {
     return () => window.removeEventListener('resize', checkScreen);
   }, []);
 
+  // Autoplay timer: auto-advance every 5 seconds, resetting on slide change or slide count change
   useEffect(() => {
+    if (slides.length <= 1) return;
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [slides.length, current]);
+
+  // Keep current slide within bounds if slides length changes
+  useEffect(() => {
+    if (current >= slides.length && slides.length > 0) {
+      setCurrent(0);
+    }
+  }, [slides.length, current]);
 
   useEffect(() => {
     if (!bannerRef.current) return;
@@ -90,9 +102,9 @@ export default function Banner({ initialBanners }) {
 
     if (!inBanner) return;
 
-    const theme = slides[current]?.theme || 'dark';
+    const theme = slides[current]?.theme || 'light';
     body.classList.add(`nav-theme-${theme}`);
-  }, [current, inBanner]);
+  }, [current, inBanner, slides]);
 
   useEffect(() => {
     return () => {
@@ -102,19 +114,20 @@ export default function Banner({ initialBanners }) {
 
   return (
     <div className="banner-carousel" ref={bannerRef}>
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          className={`banner-slide ${index === current ? 'active' : ''}`}
-          style={{
-            backgroundImage: `url(${
-              isMobile ? slide.mobileImg : slide.desktopImg
-            })`,
-          }}
-          onClick={() => slide.path && router.push(slide.path)}
-          role="button"
-        />
-      ))}
+      {slides.map((slide, index) => {
+        const bgImg = isMobile ? (slide.mobileImg || slide.desktopImg) : slide.desktopImg;
+        return (
+          <div
+            key={index}
+            className={`banner-slide ${index === current ? 'active' : ''}`}
+            style={{
+              backgroundImage: `url("${bgImg}")`,
+            }}
+            onClick={() => slide.path && router.push(slide.path)}
+            role="button"
+          />
+        );
+      })}
 
       {/* PREV BUTTON */}
       <button

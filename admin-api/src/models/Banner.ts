@@ -3,10 +3,11 @@ import mongoose, { Document, Schema } from "mongoose";
 export interface IBanner extends Document {
   title?: string;
   subtitle?: string;
+  description?: string;
   desktopImage: string;
-  mobileImage: string;
+  mobileImage?: string;
   linkUrl: string;
-  theme: "light" | "dark";
+  theme?: "light" | "dark";
   buttonText?: string;
   order: number;
   isActive: boolean;
@@ -18,6 +19,7 @@ const BannerSchema = new Schema<IBanner>(
   {
     title: { type: String, default: "" },
     subtitle: { type: String, default: "" },
+    description: { type: String, default: "" },
     desktopImage: { type: String, required: true },
     mobileImage: { type: String, default: "" },
     linkUrl: { type: String, default: "" },
