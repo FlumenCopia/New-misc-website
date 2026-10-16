@@ -9,12 +9,12 @@ export default function AboutSection() {
           <div
             className="col-md-6 left-side"
             data-stellar-background-ratio="0.5"
-          >
-            {/* Add background/image or content if needed */}
-          </div>
+            aria-hidden="true"
+          />
 
           <div className="col-md-6 right-side">
-            <div className="table  fadeInUp">
+            <div className="table fadeInUp">
+              <div className="about-kicker">ABOUT MISCARCHIVE</div>
               <div className="inner">
                 {/* Hidden SEO heading */}
                 <h1

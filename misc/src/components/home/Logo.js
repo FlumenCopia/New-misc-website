@@ -83,10 +83,13 @@ export default function LogosSection({ initialLogos }) {
 
   return (
     <section className="logos">
-      <div className="container-fluid  fadeInUp">
+      <div className="container-fluid fadeInUp">
         <div className="row">
           <div className="col-xs-12 slider-container">
-            {/* <h2>LOGOS</h2> */}
+            <div className="logos-intro">
+              <span className="section-kicker">SELECTED CLIENTS</span>
+              <p>Good work travels. A few of the brands we&apos;ve helped move forward.</p>
+            </div>
             <Slider {...settings}>
               {logos.map((filename, index) => {
                 const src = filename.startsWith('/') || filename.startsWith('http')

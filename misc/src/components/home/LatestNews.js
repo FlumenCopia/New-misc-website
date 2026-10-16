@@ -9,6 +9,7 @@ export default function DigitalMarketingSection() {
         <div className="row">
 
           <div className="col-12 mb-4">
+            <span className="section-kicker">WHY A TEAM MATTERS</span>
             <h3><span>Digital marketing is crucial for many reasons!</span></h3>
           </div>
 

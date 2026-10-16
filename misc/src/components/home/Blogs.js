@@ -77,7 +77,10 @@ export default function BlogSection({ initialBlogs }) {
   return (
     <section className="blog py-5">
       <div className="container">
-        <h2 className="text-black mb-4">Latest News</h2>
+        <div className="blog-heading">
+          <span className="section-kicker">FROM THE ARCHIVE</span>
+          <h2 className="text-black mb-4">Latest News</h2>
+        </div>
         <div className="row">
           {blogs.map((blog) => (
             <div

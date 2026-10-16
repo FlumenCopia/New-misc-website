@@ -83,10 +83,10 @@ export default function ServicesSection({ initialServices }) {
   return (
     <section className="services py-3">
       <div className="container">
-        <div className="col-12 mb-5 text-center">
-          <h3 style={{ color: '#000', fontSize: '30px', fontWeight: '700' }}>
-            <span>Our Services</span>
-          </h3>
+        <div className="col-12 services-heading">
+          <span className="section-kicker">WHAT WE DO</span>
+          <h3><span>Our Services</span></h3>
+          <p>Strategy, storytelling and digital craft for brands with something to say.</p>
         </div>
 
         <div className="row">

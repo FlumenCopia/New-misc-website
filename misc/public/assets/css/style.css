@@ -1005,6 +1005,169 @@ header .slide-content h5{ font-size:12px;}
 	margin-bottom: 30px;
 }
 
+/* MiscArchive homepage refresh: editorial styling for content below the hero. */
+.about-us {
+  background: #f6f0e6;
+  margin: 0;
+}
+.about-us .left-side {
+  min-height: 540px;
+  height: auto;
+  background-position: center;
+  background-size: cover;
+}
+.about-us .right-side {
+  min-height: 540px;
+  height: auto;
+  background: #f6f0e6;
+}
+.about-us .right-side .table {
+  padding: clamp(42px, 7vw, 104px);
+}
+.about-kicker,
+.section-kicker {
+  color: #9c7100;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+.about-us .right-side h3 {
+  color: #151515;
+  font-size: clamp(34px, 4vw, 58px);
+  letter-spacing: -.045em;
+  line-height: .98;
+  margin: 16px 0 28px;
+  max-width: 560px;
+}
+.about-us .right-side p {
+  color: #3d3a35;
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 560px;
+}
+.about-us .right-side a {
+  display: inline-block;
+  color: #151515;
+  border-bottom-color: #febd0e;
+  margin-top: 14px;
+}
+.logos {
+  background: #fffdf8;
+  border-bottom: 1px solid #e9e1d4;
+  border-top: 1px solid #e9e1d4;
+  margin-top: 0;
+  padding: 32px 0 26px;
+}
+.logos-intro {
+  align-items: baseline;
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.logos-intro p {
+  color: #777067;
+  font-size: 13px;
+  margin: 0;
+}
+.logos figure {
+  align-items: center;
+  min-height: 58px;
+}
+.logos figure img {
+  filter: grayscale(1);
+  opacity: .66;
+  transition: filter .25s ease, opacity .25s ease;
+}
+.logos figure img:hover { filter: grayscale(0); opacity: 1; }
+.services {
+  background: #fffdf8;
+  padding: clamp(72px, 9vw, 126px) 0;
+}
+.services-heading {
+  margin-bottom: 42px;
+  text-align: left;
+}
+.services-heading h3 {
+  color: #151515;
+  font-size: clamp(38px, 5vw, 72px);
+  letter-spacing: -.055em;
+  line-height: .95;
+  margin: 14px 0 14px;
+}
+.services-heading p {
+  color: #6b665e;
+  font-size: 16px;
+  margin: 0;
+  max-width: 440px;
+}
+.services .box {
+  background: #febd0e !important;
+  border-radius: 0;
+  min-height: 380px;
+  padding: 30px 24px;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.services .box:hover { box-shadow: 8px 8px 0 #151515; transform: translateY(-6px); }
+.services .box h4 { color: #151515; font-size: 21px; margin-bottom: 16px; }
+.services .box p { color: #3b321f; font-size: 14px; line-height: 1.65; }
+.services .box img { max-height: 150px; object-fit: contain; width: 58%; }
+.services .box .expand {
+  background: #151515 url(../images/icon-expand.png) center / 48px no-repeat;
+  border-radius: 0;
+  bottom: 0;
+  height: 58px;
+  right: 0;
+  width: 58px;
+}
+.latest-news {
+  background: #151515;
+  color: #f6f0e6 !important;
+  padding: clamp(72px, 9vw, 126px) 0;
+}
+.latest-news h3 { color: #febd0e; font-size: clamp(30px, 4vw, 52px); letter-spacing: -.04em; text-align: left; }
+.latest-news .news-box { max-width: 860px; }
+.latest-news .news-box h4,
+.latest-news .news-box h5 { color: #f6f0e6; }
+.latest-news .news-box p { color: #c9c1b4; line-height: 1.8; }
+.faqs-section {
+  background: #f6f0e6 !important;
+  color: #151515 !important;
+  padding: clamp(72px, 9vw, 126px) 20px !important;
+  text-align: left !important;
+}
+.faqs-section .heading { max-width: 760px; margin-left: 0 !important; margin-right: auto !important; text-align: left !important; }
+.faqs-section .heading-title { color: #151515 !important; font-size: clamp(32px, 4vw, 58px); letter-spacing: -.05em; line-height: 1; margin-bottom: 22px !important; }
+.faqs-section .heading p { color: #625d55; line-height: 1.75; }
+.faqs-section .accordion { max-width: 900px; }
+.faqs-section .card { background: transparent !important; border: 0 !important; border-bottom: 1px solid #d8cfc0 !important; border-radius: 0 !important; margin-bottom: 0 !important; }
+.faqs-section .card-heading { background: transparent !important; color: #151515 !important; padding: 22px 0 !important; }
+.faqs-section .card-heading span:first-child { font-size: 17px; }
+.faqs-section .card-heading span:last-child { color: #9c7100; }
+.faqs-section .card-body { color: #625d55 !important; padding: 0 30px 22px 0 !important; }
+.faqs-section .card > div > p { color: #625d55; line-height: 1.7; text-align: left; }
+.blog { background: #fffdf8; padding: clamp(72px, 9vw, 126px) 0 !important; }
+.blog-heading { align-items: end; display: flex; justify-content: space-between; margin-bottom: 30px; }
+.blog-heading h2 { font-size: clamp(38px, 5vw, 70px); letter-spacing: -.055em; line-height: .95; margin: 14px 0 0 !important; }
+.blog .service-container { background: transparent; box-shadow: none; margin-top: 0; padding: 0; }
+.blog .service-image { height: 255px; }
+.blog .service-image img { border-radius: 0; height: 100% !important; object-fit: cover; }
+.blog .service-info span { color: #9c7100; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.blog .service-info h5 { font-size: 22px; line-height: 1.15; margin-top: 12px !important; }
+.blog .link { font-size: 12px; }
+
+@media only screen and (max-width: 767px) {
+  .about-us .left-side, .about-us .right-side { min-height: 360px; }
+  .about-us .right-side .table { padding: 48px 28px; }
+  .logos-intro { align-items: flex-start; flex-direction: column; gap: 8px; padding: 0 20px; }
+  .services-heading { padding: 0 15px; }
+  .services .box { min-height: 330px; }
+  .latest-news h3 { font-size: 34px; }
+  .blog-heading { align-items: flex-start; flex-direction: column; }
+}
+
 
 .career-img{
 	max-width: 30%;
