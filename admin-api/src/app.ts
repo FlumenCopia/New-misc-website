@@ -19,6 +19,7 @@ import faqsRoutes from "./routes/faqsRoutes";
 import careersRoutes from "./routes/careersRoutes";
 import enquiriesRoutes from "./routes/enquiriesRoutes";
 import mediaRoutes from "./routes/mediaRoutes";
+import { seedWebsiteData } from "./utils/seedWebsite";
 
 const app: Application = express();
 
@@ -45,6 +46,24 @@ app.get("/api/health", (_req: Request, res: Response) => {
     service: "MiscArchive Admin API",
     timestamp: new Date().toISOString(),
   });
+});
+
+// Seed endpoint for initializing authentic content
+app.post("/api/seed", async (_req: Request, res: Response) => {
+  try {
+    const summary = await seedWebsiteData({ verbose: true });
+    res.status(200).json({
+      success: true,
+      message: "Authentic website content seeded successfully",
+      summary,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: "Seeding failed",
+      error: err.message,
+    });
+  }
 });
 
 // Mount API routes

@@ -42,7 +42,13 @@ export const seedWebsiteData = async (
   };
 
   log("[Seed Website] Loading authentic seed dataset...");
-  const dataPath = path.resolve(__dirname, "../data/websiteSeedData.json");
+  let dataPath = path.resolve(__dirname, "../data/websiteSeedData.json");
+  if (!fs.existsSync(dataPath)) {
+    dataPath = path.resolve(process.cwd(), "src/data/websiteSeedData.json");
+  }
+  if (!fs.existsSync(dataPath)) {
+    dataPath = path.resolve(process.cwd(), "dist/data/websiteSeedData.json");
+  }
   if (!fs.existsSync(dataPath)) {
     throw new Error(`Seed data file not found at: ${dataPath}`);
   }
