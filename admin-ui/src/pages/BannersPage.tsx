@@ -9,16 +9,21 @@ import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
 const resolveBannerUrl = (url: string) => {
   if (!url) return '';
+  if (url.includes('/uploads/')) {
+    const uploadPath = url.substring(url.indexOf('/uploads/'));
+    const apiOrigin = import.meta.env.VITE_API_URL
+      ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '')
+      : 'https://new-misc-api.onrender.com';
+    return `${apiOrigin}${uploadPath}`;
+  }
   if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
     return url;
   }
-  if (url.startsWith('/uploads/')) {
-    const apiOrigin = import.meta.env.VITE_API_URL
-      ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '')
-      : 'http://localhost:5000';
-    return `${apiOrigin}${url}`;
+  const websiteUrl = import.meta.env.VITE_WEBSITE_URL || 'https://new-misc-website-pdfk.vercel.app';
+  if (url.startsWith('/assets/')) {
+    return `${websiteUrl}${url}`;
   }
-  return url;
+  return `${websiteUrl}/${url.replace(/^\/+/, '')}`;
 };
 
 export const BannersPage: React.FC = () => {

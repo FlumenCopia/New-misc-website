@@ -7,8 +7,8 @@ import { Modal } from '../components/common/Modal';
 import { Badge } from '../components/common/Badge';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
-const WEBSITE_BASE_URL = import.meta.env.VITE_WEBSITE_URL || 'http://localhost:3000';
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const WEBSITE_BASE_URL = import.meta.env.VITE_WEBSITE_URL || 'https://new-misc-website-pdfk.vercel.app';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://new-misc-api.onrender.com/api';
 const API_ORIGIN = API_BASE_URL.replace(/\/api\/?$/, '');
 
 /**
@@ -19,6 +19,10 @@ const API_ORIGIN = API_BASE_URL.replace(/\/api\/?$/, '');
  */
 export const resolveLogoUrl = (url?: string): string => {
   if (!url) return '';
+  if (url.includes('/uploads/')) {
+    const uploadPath = url.substring(url.indexOf('/uploads/'));
+    return `${API_ORIGIN}${uploadPath}`;
+  }
   if (
     url.startsWith('http://') ||
     url.startsWith('https://') ||
@@ -27,13 +31,10 @@ export const resolveLogoUrl = (url?: string): string => {
   ) {
     return url;
   }
-  if (url.startsWith('/uploads/')) {
-    return `${API_ORIGIN}${url}`;
-  }
   if (url.startsWith('/assets/')) {
     return `${WEBSITE_BASE_URL}${url}`;
   }
-  return url;
+  return `${WEBSITE_BASE_URL}/${url.replace(/^\/+/, '')}`;
 };
 
 export const ClientLogosPage: React.FC = () => {

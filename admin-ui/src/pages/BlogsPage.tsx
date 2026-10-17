@@ -7,6 +7,25 @@ import { Button } from '../components/common/Button';
 import { Badge } from '../components/common/Badge';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
+const resolveBlogMediaUrl = (url?: string) => {
+  if (!url) return '';
+  if (url.includes('/uploads/')) {
+    const uploadPath = url.substring(url.indexOf('/uploads/'));
+    const apiOrigin = import.meta.env.VITE_API_URL
+      ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '')
+      : 'https://new-misc-api.onrender.com';
+    return `${apiOrigin}${uploadPath}`;
+  }
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
+    return url;
+  }
+  const websiteUrl = import.meta.env.VITE_WEBSITE_URL || 'https://new-misc-website-pdfk.vercel.app';
+  if (url.startsWith('/assets/')) {
+    return `${websiteUrl}${url}`;
+  }
+  return `${websiteUrl}/${url.replace(/^\/+/, '')}`;
+};
+
 export const BlogsPage: React.FC = () => {
   const [blogs, setBlogs] = useState<any[]>([]);
   const [pagination, setPagination] = useState<any>({ page: 1, limit: 15, total: 0, totalPages: 1 });
@@ -133,7 +152,7 @@ export const BlogsPage: React.FC = () => {
                   <div className="w-14 h-10 rounded-lg bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center">
                     {b.featuredImage ? (
                       <img
-                        src={b.featuredImage}
+                        src={resolveBlogMediaUrl(b.featuredImage)}
                         alt=""
                         onError={(e) => ((e.target as HTMLElement).style.display = 'none')}
                         className="w-full h-full object-cover"

@@ -7,7 +7,7 @@ interface BrandLogoProps {
   theme?: 'on-dark' | 'on-light';
 }
 
-const WEBSITE_URL = import.meta.env.VITE_WEBSITE_URL || 'http://localhost:3000';
+const WEBSITE_URL = import.meta.env.VITE_WEBSITE_URL || 'https://new-misc-website-pdfk.vercel.app';
 
 export const BrandLogo: React.FC<BrandLogoProps> = ({
   className = '',

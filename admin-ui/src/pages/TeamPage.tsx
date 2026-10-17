@@ -7,14 +7,18 @@ import { Modal } from '../components/common/Modal';
 import { Badge } from '../components/common/Badge';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
-const API_ORIGIN = (import.meta as any).env?.VITE_API_BASE_URL
-  ? (import.meta as any).env.VITE_API_BASE_URL.replace(/\/api$/, '')
-  : 'http://localhost:5000';
+const API_ORIGIN = (import.meta as any).env?.VITE_API_URL
+  ? (import.meta as any).env.VITE_API_URL.replace(/\/api\/?$/, '')
+  : 'https://new-misc-api.onrender.com';
 
-const WEBSITE_BASE_URL = (import.meta as any).env?.VITE_WEBSITE_URL || 'http://localhost:3000';
+const WEBSITE_BASE_URL = (import.meta as any).env?.VITE_WEBSITE_URL || 'https://new-misc-website-pdfk.vercel.app';
 
 export const resolveMediaUrl = (url?: string): string => {
   if (!url) return '';
+  if (url.includes('/uploads/')) {
+    const uploadPath = url.substring(url.indexOf('/uploads/'));
+    return `${API_ORIGIN}${uploadPath}`;
+  }
   if (
     url.startsWith('http://') ||
     url.startsWith('https://') ||
@@ -23,13 +27,10 @@ export const resolveMediaUrl = (url?: string): string => {
   ) {
     return url;
   }
-  if (url.startsWith('/uploads/')) {
-    return `${API_ORIGIN}${url}`;
-  }
   if (url.startsWith('/assets/')) {
     return `${WEBSITE_BASE_URL}${url}`;
   }
-  return url;
+  return `${WEBSITE_BASE_URL}/${url.replace(/^\/+/, '')}`;
 };
 
 export const TeamPage: React.FC = () => {
