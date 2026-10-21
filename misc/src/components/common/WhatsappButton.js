@@ -18,31 +18,31 @@ const WhatsAppButton = ({ phoneNumber }) => {
 
   return (
     <a 
-    className="no-display"
+      className="no-display"
       href={whatsappLink}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
       style={{
         position: "fixed",
-        zIndex:"99999",
-        bottom: "20px",
-        right:"20px",
+        zIndex: "9999",
+        bottom: "22px",
+        right: "22px",
         backgroundColor: "#25D366",
-        color: "white",
-        // padding: "4px 12px",
+        color: "#ffffff",
         borderRadius: "50%",
-        width:'50px',
-        height:'46px',
-        fontSize: "32px",
-        textAlign: "center",
+        width: "48px",
+        height: "48px",
+        fontSize: "26px",
+        display: "flex",
         alignItems: "center",
-        boxShadow: "2px 2px 10px rgba(0,0,0,0.2)",
+        justifyContent: "center",
+        boxShadow: "0 4px 14px rgba(0, 0, 0, 0.15)",
+        textDecoration: "none",
+        transition: "transform 0.2s ease, box-shadow 0.2s ease",
       }}
     >
-      <div>
-        <i className="fa-brands fa-whatsapp"></i>
-      </div>
+      <i className="fa-brands fa-whatsapp" style={{ lineHeight: 1 }}></i>
     </a>
   );
 };

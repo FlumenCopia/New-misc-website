@@ -30,172 +30,256 @@ export default function MiscAudibles({ initialService }) {
   return (
     <>
       <style jsx global>{`
-        .hero-gradient {
-          background: linear-gradient(135deg, #f3f4f6, #f3f4f6, #f3f4f6);
+        .audibles-hero {
+          background: #faf9f6;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+          padding: 155px 0 75px 0;
+          text-align: center;
         }
 
-        .card-gradient {
-          background: linear-gradient(
-            145deg,
-            #fcc50f,
-            #fed20f
-          );
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          border-radius: 16px;
-          padding: 30px;
-          transition: 0.3s;
+        .audibles-label {
+          background: #fef3c7;
+          color: #b45309;
+          border: 1px solid rgba(245, 166, 35, 0.3);
+          border-radius: 999px;
+          padding: 8px 24px;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
         }
 
-        .card-gradient:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        .audibles-hero h1 {
+          font-family: 'Outfit', sans-serif;
+          font-size: clamp(34px, 4.2vw, 52px);
+          font-weight: 900;
+          color: #141414;
+          line-height: 1.2;
+          margin-top: 24px;
         }
 
-        .text-gradient {
-          background: linear-gradient(90deg, #fcc50f, #333);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
+        .audibles-highlight {
+          color: #f5a623;
         }
 
-        .btn-gradient {
-          background: linear-gradient(90deg, #fcc50f, #fed20f);
-          color: #fff;
-          border: none;
-          border-radius: 30px;
-          padding: 14px 30px;
-          font-weight: 600;
+        .audibles-lead {
+          font-size: 17px;
+          line-height: 1.65;
+          color: #52525b;
+          max-width: 680px;
+          margin: 18px auto 0 auto;
         }
 
-        .btn-gradient:hover {
-          opacity: 0.9;
-          color: #fff;
+        .audibles-about {
+          padding: 90px 0;
+          background: #ffffff;
         }
 
-        .btn-outline {
-          border: 1px solid #fcc50f;
-          background: transparent;
-          color: #fcc50f;
-          border-radius: 30px;
-          padding: 14px 30px;
+        .audibles-about-title {
+          font-family: 'Outfit', sans-serif;
+          font-size: clamp(28px, 3.2vw, 40px);
+          font-weight: 800;
+          color: #141414;
+          line-height: 1.25;
+          margin-bottom: 18px;
         }
 
-        @keyframes pulse {
-          0% {
-            box-shadow: 0 0 0 0 #fcc50f;
-          }
-          70% {
-            box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
-          }
-          100% {
-            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
-          }
+        .audibles-about-text {
+          font-size: 16.5px;
+          line-height: 1.7;
+          color: #52525b;
         }
 
-        .label-Sound {
-          background: linear-gradient(
-            to right,
-            #fcc50f 0%,
-            #fed20f 40%,
-            #fed20f 100%
-          );
-          color: #fff;
+        .audibles-about-card {
+          background: #faf9f6;
+          border: 1px solid rgba(0, 0, 0, 0.06);
+          border-radius: 20px;
+          padding: 34px 30px;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
         }
 
-        .section-title {
-          color: #fff;
+        .audibles-about-card h4 {
+          font-family: 'Outfit', sans-serif;
+          font-size: 20px;
+          font-weight: 800;
+          color: #141414;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 16px;
         }
 
-        .pulse {
-          animation: pulse 2s infinite;
+        .audibles-about-card h4 i {
+          color: #f5a623;
         }
 
-        .audio-wave {
-          height: 4px;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(249, 249, 112, 0.2),
-            transparent
-          );
-          overflow: hidden;
-          position: relative;
+        .audibles-about-card ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
         }
 
-        .audio-wave:after {
-          content: '';
-          position: absolute;
-          left: -100%;
-          width: 100%;
+        .audibles-about-card li {
+          font-size: 15px;
+          color: #4b5563;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .audibles-about-card li::before {
+          content: '•';
+          color: #f5a623;
+          font-size: 20px;
+          line-height: 1;
+        }
+
+        .audibles-services-section {
+          padding: 95px 0 105px 0;
+          background: #faf9f6;
+          border-top: 1px solid rgba(0, 0, 0, 0.05);
+          border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .audibles-section-title {
+          font-family: 'Outfit', sans-serif;
+          font-size: clamp(30px, 3.6vw, 44px);
+          font-weight: 900;
+          color: #141414;
+          text-align: center;
+          margin-bottom: 50px;
+        }
+
+        .audible-service-card {
+          background: #ffffff;
+          border: 1px solid rgba(0, 0, 0, 0.06);
+          border-radius: 18px;
+          padding: 32px 24px;
+          text-align: center;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
           height: 100%;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            #fcc50f,
-            transparent
-          );
-          animation: wave 1.5s infinite linear;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
-        @keyframes wave {
-          to {
-            left: 100%;
-          }
+        .audible-service-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.07);
         }
 
-        @media (max-width: 768px) {
-          .hero h1 {
-            font-size: 32px;
-          }
+        .audible-icon-wrap {
+          width: 54px;
+          height: 54px;
+          border-radius: 14px;
+          background: #fff8e7;
+          border: 1px solid rgba(245, 166, 35, 0.3);
+          color: #d97706;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 20px;
+          font-size: 20px;
+        }
+
+        .audible-service-card h4 {
+          font-family: 'Outfit', sans-serif;
+          font-size: 19px;
+          font-weight: 800;
+          color: #141414;
+          margin: 0 0 10px 0;
+        }
+
+        .audible-service-card p {
+          font-size: 14px;
+          line-height: 1.6;
+          color: #6b7280;
+          margin: 0;
+        }
+
+        .audibles-cta {
+          padding: 90px 0;
+          background: #ffffff;
+          text-align: center;
+        }
+
+        .audibles-cta h2 {
+          font-family: 'Outfit', sans-serif;
+          font-size: clamp(28px, 3.4vw, 42px);
+          font-weight: 900;
+          color: #141414;
+        }
+
+        .audibles-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          background: #f5a623;
+          color: #141414;
+          font-weight: 800;
+          font-size: 15px;
+          padding: 14px 34px;
+          border-radius: 999px;
+          text-decoration: none;
+          box-shadow: 0 6px 18px rgba(245, 166, 35, 0.25);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .audibles-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 24px rgba(245, 166, 35, 0.35);
+          color: #141414;
+          text-decoration: none;
         }
       `}</style>
 
       {/* Hero */}
-      <section className="hero-gradient text-center" style={{ padding: '100px 0' }}>
+      <section className="audibles-hero">
         <div className="container">
-          <span
-            className="label label-Sound"
-            style={{ padding: '8px 30px', display: 'inline-block', fontSize: '16px' }}
-          >
+          <span className="audibles-label">
             <i className="fa fa-volume-up" /> Sound That Carries Emotion
           </span>
 
-          <h1 style={{ marginTop: 30 }}>
+          <h1>
             Audio has the power to connect{' '}
-            <span className="text-gradient">instantly</span>
+            <span className="audibles-highlight">instantly</span>
           </h1>
 
-          <p className="lead" style={{ color: '#333', maxWidth: 700, margin: '20px auto' }}>
+          <p className="audibles-lead">
             {service?.shortDescription ||
               'Misc Audibles is our dedicated space for voice-led storytelling and sound-based content creation.'}
           </p>
-
-          <div style={{ marginTop: 60 }}>
-            <div className="audio-wave"></div>
-          </div>
         </div>
       </section>
 
       {/* About */}
-      <section style={{ padding: '90px 0', background: '#fff' }}>
+      <section className="audibles-about">
         <div className="container">
-          <div className="row">
-            <div className="col-md-6">
-              <h2 className="section-title" style={{ color: '#333' }}>
+          <div className="row" style={{ alignItems: 'center' }}>
+            <div className="col-md-6" style={{ marginBottom: 24 }}>
+              <h2 className="audibles-about-title">
                 We create audio experiences that feel{' '}
-                <span className="text-gradient">authentic</span>
+                <span className="audibles-highlight">authentic</span>
               </h2>
-              <p style={{ color: '#333' }}>
+              <p className="audibles-about-text">
                 Designed to complement your brand communication, our soundscapes
-                resonate deeply with audiences.
+                resonate deeply with audiences and build meaningful emotional recall.
               </p>
             </div>
 
-            <div className="col-md-6">
-              <div className="card-gradient">
-                <h4 style={{ color: '#fff' }}>
+            <div className="col-md-6" style={{ marginBottom: 24 }}>
+              <div className="audibles-about-card">
+                <h4>
                   <i className="fa fa-headphones" /> Emotional Impact
                 </h4>
-                <ul style={{ marginTop: 15, color: '#fff' }}>
+                <ul>
                   <li>Voice-driven narratives</li>
                   <li>Brand-aligned sound identity</li>
                   <li>High-quality production</li>
@@ -207,17 +291,19 @@ export default function MiscAudibles({ initialService }) {
       </section>
 
       {/* Services */}
-      <section style={{ padding: '90px 0', background: '#333' }}>
-        <div className="container text-center">
-          <h2 className="section-title">
-            Our <span className="text-gradient">{service?.title || 'Audibles'}</span> Services
+      <section className="audibles-services-section">
+        <div className="container">
+          <h2 className="audibles-section-title">
+            Our <span className="audibles-highlight">{service?.title || 'Audibles'}</span> Services
           </h2>
 
-          <div className="row" style={{ marginTop: 50, color: '#fff' }}>
+          <div className="row">
             {audibleServices.map(([icon, title, desc], i) => (
-              <div className="col-md-3" key={i}>
-                <div className="card-gradient">
-                  <i className={`fa fa-${icon} fa-2x`} />
+              <div className="col-md-3 col-sm-6" key={i} style={{ marginBottom: 24 }}>
+                <div className="audible-service-card">
+                  <div className="audible-icon-wrap">
+                    <i className={`fa fa-${icon}`} />
+                  </div>
                   <h4>{title}</h4>
                   <p>{desc}</p>
                 </div>
@@ -228,18 +314,16 @@ export default function MiscAudibles({ initialService }) {
       </section>
 
       {/* CTA */}
-      <section className="hero-gradient text-center" style={{ padding: '90px 0' }}>
+      <section className="audibles-cta">
         <div className="container">
           <h2>
-            Ready to give your brand a <span className="text-gradient">voice</span>?
+            Ready to give your brand a <span className="audibles-highlight">voice</span>?
           </h2>
-          <p className="lead">Let’s create sound that feels right.</p>
+          <p className="audibles-lead" style={{ marginBottom: 30 }}>Let’s create sound that feels right.</p>
 
-          <form className="form-inline" style={{ marginTop: 30 }}>
-            <Link href="/contact" className="btn btn-gradient btn-lg">
-              Start Conversation
-            </Link>
-          </form>
+          <Link href="/contact" className="audibles-btn">
+            Start Conversation →
+          </Link>
         </div>
       </section>
     </>

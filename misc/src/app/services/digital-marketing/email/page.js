@@ -1,16 +1,29 @@
-import React from 'react'
+import React from 'react';
 import Header from "@/components/common/Header";
-import QuoteSection from "@/components/home/Quote";
 import FooterSection from "@/components/common/Footer";
-import EmailContent from '@/components/services/DM-Subcategories/emailContent';
+import CommonServiceTemplate from '@/components/services/CommonServiceTemplate';
+import { getUnifiedService } from '@/lib/servicesData';
 
-export default function page() {
-    return (
-        <div>
-            <Header />
-<EmailContent />
-            {/* <QuoteSection /> */}
-            <FooterSection />
-        </div>
-    )
+export const metadata = {
+  title: 'E-mail Marketing & Automation Services | Miscarchive',
+  description:
+    'Turn leads into repeat customers with personalized, automated email marketing sequences and campaigns designed by Miscarchive.',
+  keywords: 'Email Marketing, Drip Campaigns, Lead Nurturing, Automated Workflows, Newsletter Design',
+};
+
+export default async function EmailMarketingPage() {
+  const service = await getUnifiedService('email');
+
+  return (
+    <div>
+      <Header />
+      <CommonServiceTemplate
+        service={service}
+        slug="email"
+        isSubService={true}
+        parentService={{ title: 'Digital Marketing', route: '/services/digital-marketing' }}
+      />
+      <FooterSection />
+    </div>
+  );
 }

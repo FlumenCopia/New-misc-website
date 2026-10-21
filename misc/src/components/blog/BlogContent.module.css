@@ -1,0 +1,573 @@
+/* ==========================================================================
+   MISCARCHIVE EDITORIAL PUBLICATION - BLOG LISTING (/blog)
+   ========================================================================== */
+
+.journalSection {
+  background-color: #fbf8f2;
+  color: #171717;
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 130px 28px 90px;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   A. Page Introduction (Clean Left-Aligned Editorial Header)
+   ========================================================================== */
+.pageHeader {
+  margin-bottom: 48px;
+  text-align: left;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: #d97706;
+  margin-bottom: 12px;
+}
+
+.mainTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(34px, 4.4vw, 54px);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #171717;
+  letter-spacing: -0.025em;
+  margin: 0 0 16px 0;
+  max-width: 860px;
+}
+
+.headerDescription {
+  font-size: 18px;
+  line-height: 1.65;
+  color: #55565c;
+  margin: 0 0 28px 0;
+  max-width: 780px;
+}
+
+/* Category Filter Nav */
+.categoryNav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ede8df;
+}
+
+.categoryBtn {
+  background: #ffffff;
+  border: 1.5px solid #e7e3da;
+  color: #44403c;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 7px 18px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.categoryBtn:hover {
+  border-color: #d97706;
+  color: #d97706;
+}
+
+.categoryBtnActive {
+  background: #171717;
+  color: #ffffff;
+  border-color: #171717;
+}
+
+.categoryBtnActive:hover {
+  background: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+/* ==========================================================================
+   B. Featured Article (Two-Column Composition)
+   ========================================================================== */
+.featuredSection {
+  margin-bottom: 64px;
+}
+
+.featuredArticle {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 40px;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid rgba(230, 224, 214, 0.95);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.featuredArticle:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.featuredImageLink {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  overflow: hidden;
+  display: block;
+  background: #f4efe6;
+}
+
+.featuredImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.featuredArticle:hover .featuredImage {
+  transform: scale(1.03);
+}
+
+.featuredContent {
+  padding: 12px 16px 12px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.featuredCategoryRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.featuredCategory {
+  font-size: 12px;
+  font-weight: 800;
+  color: #d97706;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.featuredBadge {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #78716c;
+  background: #f5f0e8;
+  padding: 3px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.6px;
+}
+
+.featuredTitleLink {
+  text-decoration: none;
+}
+
+.featuredTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(24px, 2.6vw, 34px);
+  font-weight: 800;
+  line-height: 1.22;
+  color: #171717;
+  margin: 0 0 14px 0;
+  letter-spacing: -0.02em;
+  transition: color 0.2s ease;
+}
+
+.featuredTitleLink:hover .featuredTitle {
+  color: #d97706;
+}
+
+.featuredExcerpt {
+  font-size: 16px;
+  line-height: 1.65;
+  color: #55565c;
+  margin: 0 0 20px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.featuredMetaRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: #78716c;
+  margin-bottom: 22px;
+}
+
+.metaDot {
+  color: #a8a29e;
+}
+
+.readArticleLink {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #171717;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.readArticleLink:hover {
+  color: #d97706;
+  transform: translateX(3px);
+}
+
+/* ==========================================================================
+   C. Latest Articles (Balanced 3-Column Desktop Grid)
+   ========================================================================== */
+.latestSection {
+  margin-bottom: 64px;
+}
+
+.sectionHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 32px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ede8df;
+}
+
+.sectionTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #171717;
+  margin: 0;
+}
+
+.articleCount {
+  font-size: 14px;
+  color: #78716c;
+  font-weight: 500;
+}
+
+.articlesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.articleCard {
+  background: #ffffff;
+  border: 1px solid rgba(230, 224, 214, 0.9);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.articleCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.cardImageLink {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  display: block;
+  background: #f4efe6;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.articleCard:hover .cardImage {
+  transform: scale(1.04);
+}
+
+.cardBody {
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cardCategory {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #d97706;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.cardTitleLink {
+  text-decoration: none;
+}
+
+.cardTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #171717;
+  line-height: 1.35;
+  margin: 0 0 10px 0;
+  transition: color 0.2s ease;
+}
+
+.cardTitleLink:hover .cardTitle {
+  color: #d97706;
+}
+
+.cardExcerpt {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #55565c;
+  margin: 0 0 16px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid #f4f0e8;
+  font-size: 12.5px;
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #78716c;
+}
+
+.cardReadLink {
+  font-size: 13px;
+  font-weight: 700;
+  color: #171717;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cardReadLink:hover {
+  color: #d97706;
+}
+
+/* ==========================================================================
+   D. Pagination / Load More Button
+   ========================================================================== */
+.loadMoreRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+.loadMoreBtn {
+  background: #ffffff;
+  border: 1.5px solid #dcd7ce;
+  color: #171717;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 32px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.loadMoreBtn:hover {
+  border-color: #171717;
+  background: #faf8f5;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   E. Restrained Newsletter CTA (Connects Naturally to Footer)
+   ========================================================================== */
+.newsletterSection {
+  margin-top: 80px;
+}
+
+.newsletterBox {
+  background: #ffffff;
+  border: 1px solid rgba(230, 224, 214, 0.95);
+  border-radius: 18px;
+  padding: 44px 48px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.newsletterTextCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.newsletterEyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: #d97706;
+  margin-bottom: 8px;
+}
+
+.newsletterTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #171717;
+  margin: 0 0 10px 0;
+  line-height: 1.25;
+}
+
+.newsletterSubtitle {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #55565c;
+  margin: 0;
+}
+
+.newsletterForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formInputGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.formInput {
+  flex: 1;
+  background: #faf8f5;
+  border: 1.5px solid #e7e3da;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #171717;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.formInput:focus {
+  border-color: #d97706;
+  box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.15);
+  background: #ffffff;
+}
+
+.formBtn {
+  background: #f5a623;
+  color: #111111;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(245, 166, 35, 0.25);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.formBtn:hover {
+  background: #e69818;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(245, 166, 35, 0.35);
+}
+
+.newsletterSuccessNotice {
+  font-size: 13px;
+  font-weight: 600;
+  color: #15803d;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-top: 6px;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .container {
+    padding-top: 110px;
+  }
+
+  .featuredArticle {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .featuredContent {
+    padding: 0;
+  }
+
+  .articlesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .newsletterBox {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 32px 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-top: 96px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .mainTitle {
+    font-size: 30px;
+  }
+
+  .headerDescription {
+    font-size: 16px;
+  }
+
+  .articlesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formInputGroup {
+    flex-direction: column;
+  }
+
+  .formBtn {
+    width: 100%;
+  }
+}

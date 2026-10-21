@@ -1,0 +1,1007 @@
+/* ==========================================================================
+   MISCARCHIVE EDITORIAL PUBLICATION - ARTICLE TEMPLATE
+   ========================================================================== */
+
+.pageWrapper {
+  background-color: #fbf8f2;
+  color: #171717;
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.articleContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 130px 28px 80px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   1. Article Header (Left-aligned Editorial Typography)
+   ========================================================================== */
+.articleHeader {
+  margin-bottom: 36px;
+  text-align: left;
+}
+
+.breadcrumbsRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: #78716c;
+  margin-bottom: 18px;
+}
+
+.breadcrumbLink {
+  color: #78716c;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbLink:hover {
+  color: #d97706;
+}
+
+.breadcrumbSep {
+  color: #a8a29e;
+  font-size: 12px;
+}
+
+.breadcrumbCurrent {
+  color: #171717;
+  font-weight: 600;
+}
+
+.categoryKicker {
+  display: inline-block;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #d97706;
+  margin-bottom: 14px;
+}
+
+.articleMainTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(32px, 4.2vw, 52px);
+  font-weight: 800;
+  line-height: 1.18;
+  color: #171717;
+  letter-spacing: -0.025em;
+  margin: 0 0 18px 0;
+  max-width: 1040px;
+}
+
+.articleLeadExcerpt {
+  font-size: 19px;
+  line-height: 1.6;
+  color: #55565c;
+  margin: 0 0 24px 0;
+  max-width: 900px;
+  font-weight: 400;
+}
+
+.articleMetaRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.authorBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #171717;
+  font-weight: 600;
+}
+
+.authorAvatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #fff4d8;
+  color: #d97706;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 1px 3px rgba(245, 166, 35, 0.2);
+}
+
+.authorName {
+  color: #171717;
+  font-size: 13.5px;
+}
+
+.metaDot {
+  color: #a8a29e;
+}
+
+.metaDate,
+.metaReadTime {
+  color: #55565c;
+  font-size: 13.5px;
+}
+
+.headerDivider {
+  height: 1px;
+  background: #ede8df;
+  margin: 28px 0 0;
+}
+
+/* ==========================================================================
+   2. Hero Image (Wide Aspect Ratio)
+   ========================================================================== */
+.heroImageWrapper {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 36px 0 52px;
+  border: 1px solid rgba(220, 215, 205, 0.7);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+  background: #ffffff;
+  aspect-ratio: 16 / 9;
+  max-height: 520px;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ==========================================================================
+   3. Two-Column Editorial Row: Reading Column + Secondary Sidebar
+   ========================================================================== */
+.editorialRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 56px;
+  align-items: start;
+  margin-bottom: 48px;
+}
+
+.readingColumn {
+  max-width: 760px;
+  width: 100%;
+}
+
+.editorialSidebar {
+  width: 100%;
+}
+
+.stickySidebarWrapper {
+  position: sticky;
+  top: 110px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* ==========================================================================
+   Card 1: Table of Contents (IN THIS ARTICLE) - Clean, Unnumbered
+   ========================================================================== */
+.tocCard {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px 20px;
+  border: 1px solid rgba(230, 224, 214, 0.95);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+}
+
+.tocHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  cursor: default;
+}
+
+.tocTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  color: #171717;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.tocChevron {
+  display: none;
+  font-size: 14px;
+  color: #6b7280;
+  transition: transform 0.25s ease;
+  user-select: none;
+}
+
+.tocChevronOpen {
+  transform: rotate(180deg);
+}
+
+.tocList {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.tocItem {
+  display: flex;
+  align-items: center;
+  padding: 9px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-left: 2px solid transparent;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tocItem:hover {
+  background: #fdf8ee;
+  border-left-color: #f5a623;
+}
+
+.tocItemActive {
+  background: #fdf5e2;
+  border-left-color: #d97706;
+}
+
+.tocText {
+  font-size: 13px;
+  font-weight: 600;
+  color: #44403c;
+  line-height: 1.35;
+  transition: color 0.2s ease;
+}
+
+.tocItemActive .tocText {
+  color: #171717;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Card 2: Marketing Insights (Newsletter)
+   ========================================================================== */
+.newsletterCard {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px 20px;
+  border: 1px solid rgba(230, 224, 214, 0.95);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+}
+
+.newsletterTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #171717;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.2px;
+}
+
+.newsletterDesc {
+  font-size: 12.8px;
+  line-height: 1.5;
+  color: #55565c;
+  margin: 0 0 14px 0;
+}
+
+.newsletterForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.newsletterInput {
+  width: 100%;
+  background: #faf8f5;
+  border: 1.5px solid #e7e3da;
+  border-radius: 9px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #171717;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.newsletterInput:focus {
+  border-color: #d97706;
+  box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.15);
+  background: #ffffff;
+}
+
+.newsletterInput::placeholder {
+  color: #9ca3af;
+}
+
+.newsletterBtn {
+  background: #f5a623;
+  color: #111111;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 10px;
+  border-radius: 9px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(245, 166, 35, 0.25);
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.newsletterBtn:hover {
+  background: #e69818;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 166, 35, 0.35);
+}
+
+.newsletterSuccess {
+  font-size: 12px;
+  font-weight: 600;
+  color: #15803d;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-top: 6px;
+}
+
+/* ==========================================================================
+   4. Article Body Typography & Drop Cap (Opening Paragraph ONLY)
+   ========================================================================== */
+.articleContent {
+  color: #4a4b50;
+  font-size: 17.5px;
+  line-height: 1.85;
+}
+
+.articleContent p {
+  margin-bottom: 24px;
+  color: #4a4b50;
+}
+
+/* RESTRAINED EDITORIAL DROP CAP ON OPENING PARAGRAPH ONLY */
+.articleContent :global(.blogLeadIntro > p:first-child::first-letter),
+.leadIntroBox > p:first-child::first-letter {
+  font-family: Georgia, 'Playfair Display', serif;
+  font-size: 52px;
+  line-height: 44px;
+  float: left;
+  margin: 2px 8px 0 0;
+  color: #d97706;
+  font-weight: 700;
+}
+
+.articleContent h2,
+.articleContent h3,
+.articleContent h4 {
+  color: #171717;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  margin-top: 48px;
+  margin-bottom: 14px;
+  position: relative;
+  scroll-margin-top: 110px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.articleContent h2 {
+  font-size: 29px;
+  line-height: 1.28;
+}
+
+.articleContent h3 {
+  font-size: 23px;
+  line-height: 1.32;
+}
+
+.articleContent h4 {
+  font-size: 19px;
+  line-height: 1.35;
+}
+
+/* Hide any remaining 1 2 3 badges */
+.sectionBadge,
+.articleContent :global(.blogSectionBadge),
+.numberedCardIndex,
+.articleContent :global(.blogNumberedBadge) {
+  display: none !important;
+}
+
+/* Section Header Underline Accent */
+.sectionHeadingWrapper,
+.articleContent :global(.blogSectionHeader) {
+  margin-top: 48px;
+  margin-bottom: 18px;
+  scroll-margin-top: 110px;
+}
+
+.sectionTitle,
+.articleContent :global(.blogSectionTitle) {
+  font-size: 26px;
+  font-weight: 800;
+  color: #171717;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.sectionBar,
+.articleContent :global(.blogSectionBar) {
+  display: block;
+  width: 34px;
+  height: 3.5px;
+  background: #f5a623;
+  border-radius: 2px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+/* Clean Editorial Point Cards */
+.numberedCardsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 24px 0 36px;
+}
+
+.numberedCard,
+.articleContent :global(.blogNumberedCard) {
+  background: #ffffff;
+  border: 1px solid rgba(230, 224, 214, 0.95);
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin: 18px 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.numberedCard:hover,
+.articleContent :global(.blogNumberedCard:hover) {
+  transform: translateY(-2px);
+  border-color: rgba(245, 166, 35, 0.55);
+}
+
+.numberedCardTitle,
+.articleContent :global(.blogNumberedTitle) {
+  font-size: 17.5px;
+  font-weight: 800;
+  color: #171717;
+  margin: 0 0 6px 0;
+  line-height: 1.35;
+}
+
+.numberedCardDesc,
+.articleContent :global(.blogNumberedText),
+.articleContent :global(.blogNumberedText p) {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #55565c;
+  margin-bottom: 8px;
+}
+
+.numberedCardDesc:last-child,
+.articleContent :global(.blogNumberedText p:last-child) {
+  margin-bottom: 0;
+}
+
+/* Editorial Divider */
+.editorialDivider,
+.articleContent :global(.blogDivider) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 44px 0;
+  gap: 16px;
+}
+
+.dividerLine,
+.articleContent :global(.blogDividerLine) {
+  flex: 1;
+  height: 1px;
+  background: #ede8df;
+}
+
+.dividerDot,
+.articleContent :global(.blogDividerDot) {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f5a623;
+}
+
+/* ==========================================================================
+   5. End of Article: Takeaway, FILED UNDER, and Editorial Author Card
+   ========================================================================== */
+.articleFooterMeta {
+  margin-top: 48px;
+}
+
+/* Closing Takeaway */
+.takeawayBlock {
+  margin-bottom: 32px;
+}
+
+.takeawayLead {
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: #55565c;
+  margin-bottom: 14px;
+}
+
+.takeawayBold {
+  font-family: 'Outfit', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #171717;
+  margin: 0 0 10px 0;
+  line-height: 1.32;
+}
+
+.takeawayNote {
+  font-size: 16px;
+  color: #55565c;
+  margin: 0 0 32px 0;
+}
+
+/* FILED UNDER Section */
+.filedUnderSection {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 28px 0;
+  flex-wrap: wrap;
+}
+
+.filedUnderTitle {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #78716c;
+  text-transform: uppercase;
+}
+
+.filedUnderDivider {
+  color: #d6d3cd;
+  font-size: 14px;
+}
+
+.filedUnderPills {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filedUnderPill {
+  background: #fef3d6;
+  color: #171717;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  display: inline-block;
+  transition: background 0.2s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+
+.filedUnderPill:hover {
+  background: #fee7b0;
+  transform: translateY(-1px);
+}
+
+/* Author Box - Exact Match to Screenshot */
+.editorialAuthorCard {
+  background: #ffffff;
+  border: 1px solid rgba(245, 166, 35, 0.32);
+  border-radius: 16px;
+  padding: 24px 28px;
+  display: grid;
+  grid-template-columns: 1fr 1px 220px;
+  align-items: center;
+  gap: 26px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+  margin: 28px 0 44px;
+}
+
+.authorCardLeft {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.authorAvatarCircle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fff4d8;
+  color: #171717;
+  font-size: 22px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(245, 166, 35, 0.35);
+  flex-shrink: 0;
+}
+
+.authorTextContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorEyebrow {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #d97706;
+  margin-bottom: 2px;
+  display: block;
+}
+
+.authorNameTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: #171717;
+  margin: 0 0 4px 0;
+}
+
+.authorDescription {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #55565c;
+  margin: 0;
+}
+
+.authorCardDivider {
+  width: 1px;
+  height: 56px;
+  background: #ede8df;
+}
+
+.authorCardRight {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.authorCardRight:hover {
+  transform: translateX(3px);
+}
+
+.moreIconCircle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff4d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.moreTextGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.moreEyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #78716c;
+  display: block;
+}
+
+.moreLinkTitle {
+  font-size: 14px;
+  font-weight: 800;
+  color: #171717;
+  display: block;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Center Amber Bar Divider (Exact Reference)
+   ========================================================================== */
+.centerBarDivider {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+  margin: 44px 0 52px;
+}
+
+/* ==========================================================================
+   6. "YOU MIGHT ALSO LIKE" Related Articles Section (Exact Reference)
+   ========================================================================== */
+.relatedSection {
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.relatedHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 32px;
+}
+
+.relatedTitlesCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.relatedEyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #d97706;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.relatedTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: #171717;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.viewAllArticlesBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #171717;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.viewAllArticlesBtn:hover {
+  color: #d97706;
+  transform: translateX(3px);
+}
+
+.viewAllArrowCircle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff4d8;
+  color: #d97706;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(245, 166, 35, 0.15);
+}
+
+.viewAllTrailingArrow {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.relatedArticlesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.relatedCardItem {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.relatedCardImageLink {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  overflow: hidden;
+  display: block;
+  margin-bottom: 14px;
+  background: #f4efe6;
+}
+
+.relatedCardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.relatedCardItem:hover .relatedCardImage {
+  transform: scale(1.04);
+}
+
+.relatedCardCategory {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #d97706;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.relatedCardTitleLink {
+  text-decoration: none;
+}
+
+.relatedCardHeading {
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #171717;
+  line-height: 1.35;
+  margin: 0 0 12px 0;
+  transition: color 0.2s ease;
+}
+
+.relatedCardTitleLink:hover .relatedCardHeading {
+  color: #d97706;
+}
+
+.relatedCardMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.metaIconGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metaDivider {
+  color: #d6d3cd;
+}
+
+/* Split Sections (used in articles with side-by-side text/image) */
+.splitSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.splitSectionReverse {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.splitTextCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionImageWrapper {
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(230, 224, 214, 0.9);
+  background: #ffffff;
+}
+
+.sectionImage {
+  width: 100%;
+  height: auto;
+  max-height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .splitSection,
+  .splitSectionReverse {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .articleContainer {
+    padding-top: 110px;
+  }
+
+  .editorialRow {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .readingColumn {
+    max-width: 100%;
+  }
+
+  .editorialSidebar {
+    order: 2;
+  }
+
+  .stickySidebarWrapper {
+    position: static;
+  }
+
+  .editorialAuthorCard {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .authorCardDivider {
+    display: none;
+  }
+
+  .relatedArticlesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .articleContainer {
+    padding-top: 96px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .articleMainTitle {
+    font-size: 28px;
+  }
+
+  .articleLeadExcerpt {
+    font-size: 16.5px;
+  }
+
+  .heroImageWrapper {
+    margin: 24px 0 36px;
+    border-radius: 12px;
+  }
+
+  .relatedHeaderRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .relatedArticlesGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,423 @@
+/* Scoped CSS Module for the Redesigned Enquiry Form Drawer */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.52);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 100000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.32s ease, visibility 0.32s ease;
+}
+
+.overlayVisible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(480px, 100vw);
+  height: 100vh;
+  height: 100dvh;
+  background: #ffffff;
+  z-index: 100001;
+  box-shadow: -12px 0 45px rgba(0, 0, 0, 0.22);
+  transform: translateX(100%);
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.drawerOpen {
+  transform: translateX(0);
+}
+
+.scrollArea {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 46px 40px 38px;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+/* Custom sleek scrollbar */
+.scrollArea::-webkit-scrollbar {
+  width: 5px;
+}
+.scrollArea::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollArea::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+}
+
+/* Decorative Background SVGs */
+.topGraphic {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 195px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.bottomGraphic {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 260px;
+  height: 200px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Close Button (Circular Black with White '✕') */
+.closeBtn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #111111;
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 25;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+}
+
+.closeBtn:hover {
+  background: #000000;
+  transform: scale(1.08);
+}
+
+.closeBtn:active {
+  transform: scale(0.94);
+}
+
+.closeIcon {
+  width: 16px;
+  height: 16px;
+  stroke: #ffffff;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+
+/* Header Typography */
+.headerBlock {
+  position: relative;
+  z-index: 5;
+  margin-top: 6px;
+  margin-bottom: 22px;
+}
+
+.title {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #111827;
+  letter-spacing: -0.5px;
+}
+
+.titleHighlight {
+  color: #f5a623;
+  margin-left: 7px;
+}
+
+.titleBar {
+  width: 40px;
+  height: 3.5px;
+  background: #f5a623;
+  border-radius: 2px;
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: #4b5563;
+  max-width: 330px;
+}
+
+/* Form Layout */
+.form {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  width: 100%;
+}
+
+.fieldGroup {
+  position: relative;
+  width: 100%;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 13px 18px;
+  font-size: 14px;
+  color: #1f2937;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: #f5a623;
+  box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.16);
+  background: #ffffff;
+}
+
+/* Custom Select styling with dropdown arrow */
+.selectWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 44px;
+  cursor: pointer;
+}
+
+.select:invalid,
+.select option[value=""] {
+  color: #9ca3af;
+}
+
+.select option {
+  color: #1f2937;
+  padding: 10px;
+}
+
+.selectChevron {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  stroke: #4b5563;
+  stroke-width: 2.2;
+  fill: none;
+  transition: transform 0.2s ease;
+}
+
+.selectWrapper:focus-within .selectChevron {
+  stroke: #f5a623;
+}
+
+/* Textarea */
+.textarea {
+  min-height: 108px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* Submit Button (Pill shape, amber/golden background with bold dark text) */
+.submitBtn {
+  margin-top: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 48px;
+  padding: 14px 24px;
+  background: #f5a623;
+  color: #111111;
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 16px rgba(245, 166, 35, 0.32);
+  transition: background-color 0.2s ease, transform 0.18s ease, box-shadow 0.2s ease;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: #e69816;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(245, 166, 35, 0.44);
+}
+
+.submitBtn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submitBtn:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Spinner */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2.2px solid rgba(17, 17, 17, 0.25);
+  border-top-color: #111111;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Success Card */
+.successCard {
+  position: relative;
+  z-index: 5;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 24px 20px;
+  text-align: center;
+  margin-top: 10px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.successIconWrap {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #16a34a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.successTitle {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #166534;
+}
+
+.successText {
+  margin: 0 0 16px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #15803d;
+}
+
+.resetBtn {
+  background: #ffffff;
+  border: 1px solid #86efac;
+  color: #166534;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetBtn:hover {
+  background: #dcfce7;
+  border-color: #4ade80;
+}
+
+/* Error Banner */
+.errorBanner {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.45;
+  margin-bottom: 6px;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .scrollArea {
+    padding: 36px 24px 32px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .closeBtn {
+    top: 18px;
+    right: 18px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .topGraphic {
+    width: 180px;
+    height: 140px;
+  }
+
+  .bottomGraphic {
+    width: 190px;
+    height: 150px;
+  }
+}

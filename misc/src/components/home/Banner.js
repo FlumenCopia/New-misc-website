@@ -16,18 +16,21 @@ const defaultSlides = [
     path: '/Neyyattinkara',
     theme: 'light',
   },
+  // 3rd banner commented out as requested
+  /*
   {
     desktopImg: '/assets/images/flumenxbanner.webp',
     mobileImg: '/assets/images/flumenx-mobilebanner.webp',
     path: 'https://flumenx.com/',
     theme: 'dark',
   },
+  */
 ];
 
 export default function Banner({ initialBanners }) {
   const [slides, setSlides] = useState(() => {
     if (initialBanners && initialBanners.length > 0) {
-      return initialBanners.map((b) => ({
+      return initialBanners.slice(0, 2).map((b) => ({
         desktopImg: resolveMediaUrl(b.desktopImage),
         mobileImg: resolveMediaUrl(b.mobileImage || b.desktopImage),
         path: b.linkUrl || '',
@@ -44,13 +47,13 @@ export default function Banner({ initialBanners }) {
   const bannerRef = useRef(null);
   const router = useRouter();
 
-  // Fetch / sync banners from CMS API
+  // Fetch / sync banners from CMS API (limit to first 2 banners)
   useEffect(() => {
     getBanners()
       .then((data) => {
         if (data && data.length > 0) {
           setSlides(
-            data.map((b) => ({
+            data.slice(0, 2).map((b) => ({
               desktopImg: resolveMediaUrl(b.desktopImage),
               mobileImg: resolveMediaUrl(b.mobileImage || b.desktopImage),
               path: b.linkUrl || '',
@@ -70,13 +73,16 @@ export default function Banner({ initialBanners }) {
     return () => window.removeEventListener('resize', checkScreen);
   }, []);
 
-  // Autoplay timer: auto-advance every 5 seconds, resetting on slide change or slide count change
+  // Dynamic Autoplay timer:
+  // - 1st banner (main banner, current === 0): wait 5s (5000ms) before scrolling to 2nd banner
+  // - 2nd banner (current === 1): wait 2s (2000ms) before scrolling back to main banner
   useEffect(() => {
     if (slides.length <= 1) return;
-    const interval = setInterval(() => {
+    const delay = current === 0 ? 5000 : 2000;
+    const timer = setTimeout(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(interval);
+    }, delay);
+    return () => clearTimeout(timer);
   }, [slides.length, current]);
 
   // Keep current slide within bounds if slides length changes

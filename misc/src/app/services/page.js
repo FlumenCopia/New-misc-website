@@ -1,9 +1,8 @@
 import React from 'react';
 import Header from "@/components/common/Header";
-import QuoteSection from "@/components/home/Quote";
 import FooterSection from "@/components/common/Footer";
 import ServicesPage from '@/components/services/ServicesPage';
-import { getServices, getServiceBySlug } from '@/lib/api';
+import { getServices, getServiceBySlug, getSettings } from '@/lib/api';
 
 export const metadata = {
   title: 'Our Services | Miscarchive',
@@ -12,16 +11,17 @@ export const metadata = {
 };
 
 export default async function page() {
-  const [services, mainService] = await Promise.all([
+  const [services, mainService, settings] = await Promise.all([
     getServices(true),
     getServiceBySlug('main-services'),
+    getSettings(),
   ]);
 
   return (
     <div>
-      <Header />
+      <Header settings={settings} />
       <ServicesPage initialServices={services} initialMainService={mainService} />
-      <FooterSection />
+      <FooterSection settings={settings} />
     </div>
   );
 }

@@ -1,0 +1,637 @@
+/* ==========================================================================
+   SERVICES PAGE (/services) - MODERN DESIGN SYSTEM WITH NEW CARD DESIGN
+   ========================================================================== */
+
+.pageWrapper {
+  position: relative;
+  width: 100%;
+  background-color: #ffffff;
+  color: #111827;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow: hidden;
+}
+
+/* =========================================
+   PAGE HERO BANNER (REDESIGNED)
+   ========================================= */
+
+.heroBanner {
+  position: relative;
+  width: 100%;
+  padding-top: 155px;
+  padding-bottom: 55px;
+  background: #faf9f6;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  text-align: left;
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.breadcrumbHome {
+  color: #71717a;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.breadcrumbHome:hover {
+  color: #f5a623;
+}
+
+.breadcrumbSeparator {
+  color: #f5a623;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.breadcrumbActive {
+  color: #f5a623;
+}
+
+/* Hero Title */
+.heroTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1.1;
+  color: #141414;
+  letter-spacing: -0.5px;
+  margin: 0 0 16px 0;
+}
+
+.heroHighlight {
+  color: #f5a623;
+  margin-left: 10px;
+  text-shadow: none;
+}
+
+/* Subtitle / Tagline */
+.heroSubtitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: #52525b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* =========================================
+   SERVICES SECTION (3-COLUMN GRID)
+   ========================================= */
+
+.servicesSection {
+  position: relative;
+  width: 100%;
+  padding: 40px 0 100px 0;
+  background-color: #ffffff;
+  z-index: 2;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  z-index: 2;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+/* =========================================
+   NEW SERVICE CARD DESIGN (WITH PHOTO & 01 WATERMARK)
+   ========================================= */
+
+.card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  color: inherit;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+}
+
+/* Top Image Area with 01 Watermark */
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .cardImage {
+  transform: scale(1.06);
+}
+
+/* Large Translucent Watermark on top-left of image */
+.numberWatermark {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  z-index: 2;
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(44px, 3.8vw, 54px);
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+/* Card Body below the photo */
+.cardBody {
+  padding: 26px 28px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Card Title */
+.cardTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #09090b;
+  margin: 0 0 12px 0;
+  transition: color 0.25s ease;
+}
+
+.card:hover .cardTitle {
+  color: #FFA000;
+}
+
+/* Card Description */
+.cardDescription {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #4b5563;
+  margin: 0 0 24px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-weight: 400;
+}
+
+/* Card Footer with READ MORE & Circular Arrow */
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.readMoreLink {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #FFA000;
+  text-decoration: none;
+  border-bottom: 2px solid #FFA000;
+  padding-bottom: 2px;
+  transition: opacity 0.2s ease;
+}
+
+.arrowCircleBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFC107 0%, #FFA000 100%);
+  box-shadow: 0 4px 12px rgba(255, 160, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111827;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover .arrowCircleBtn {
+  transform: scale(1.08) translateX(2px);
+  box-shadow: 0 6px 16px rgba(255, 160, 0, 0.45);
+}
+
+/* =========================================
+   ASSIST / CONSULTATION CTA SECTION (REDESIGNED)
+   ========================================= */
+
+.assistSection {
+  position: relative;
+  width: 100%;
+  padding: 100px 0 110px 0;
+  background-color: #faf9f6;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.assistContainer {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Left Content */
+.assistContent {
+  position: relative;
+  z-index: 3;
+}
+
+
+.assistTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1.15;
+  color: #141414;
+  letter-spacing: -0.5px;
+  margin: 0 0 20px 0;
+}
+
+.assistHighlight {
+  color: #fdbb14;
+  display: block;
+}
+
+.assistDescription {
+  font-size: 17px;
+  line-height: 1.6;
+  color: #52525b;
+  max-width: 500px;
+  margin-bottom: 30px;
+  font-weight: 400;
+}
+
+/* CTA Button */
+.assistCtaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px 12px 28px;
+  border-radius: 9999px;
+  background: #fdbb14;
+  color: #141414;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(245, 166, 35, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.assistCtaBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(245, 166, 35, 0.35);
+  color: #141414;
+  text-decoration: none;
+}
+
+.assistCtaArrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #141414;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 3 Feature Items Row */
+.assistFeaturesRow {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-top: 38px;
+  flex-wrap: wrap;
+}
+
+.assistFeatureItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.assistFeatureIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fdf3d6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.assistFeatureText {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.assistFeatureText strong {
+  font-size: 14px;
+  font-weight: 800;
+  color: #141414;
+  line-height: 1.25;
+}
+
+.assistFeatureText span {
+  font-size: 13px;
+  font-weight: 500;
+  color: #666666;
+  line-height: 1.25;
+}
+
+/* ================= RIGHT VISUAL ================= */
+.assistVisualWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.assistImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 440px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.06);
+  background: #f3f4f6;
+  z-index: 2;
+}
+
+.assistImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+}
+
+/* Floating Badges */
+.cardGrowth {
+  position: absolute;
+  left: -25px;
+  top: 38%;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 12px 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 4;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  white-space: nowrap;
+}
+
+.cardGrowthIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardGrowthText {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.cardGrowthText strong {
+  font-size: 13px;
+  font-weight: 800;
+  color: #141414;
+  line-height: 1.25;
+}
+
+.cardGrowthText span {
+  font-size: 12px;
+  font-weight: 500;
+  color: #666666;
+  line-height: 1.25;
+}
+
+.cardIdeas {
+  position: absolute;
+  right: -25px;
+  top: 18%;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 12px 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 4;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  white-space: nowrap;
+}
+
+.cardIdeasIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #fdf3d6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.cardIdeasText {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 700;
+  color: #141414;
+  line-height: 1.35;
+}
+
+.cardPlane {
+  position: absolute;
+  right: 20px;
+  bottom: 25px;
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: #fdbb14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(245, 166, 35, 0.25);
+  z-index: 4;
+}
+
+/* =========================================
+   RESPONSIVE (TABLET & MOBILE)
+   ========================================= */
+
+@media (max-width: 1024px) {
+  .heroBanner {
+    padding: 130px 0 60px 0;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .assistContainer {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .assistContent {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .assistTitle {
+    font-size: 40px;
+  }
+
+  .cardGrowth {
+    left: 0;
+  }
+
+  .cardIdeas {
+    right: 0;
+  }
+
+  .assistDotMatrixLeft,
+  .assistDotMatrixRight {
+    display: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .heroBanner {
+    padding: 110px 0 50px 0;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .imageWrapper {
+    height: 200px;
+  }
+
+  .cardBody {
+    padding: 22px 20px 24px 20px;
+  }
+
+  .cardTitle {
+    font-size: 20px;
+  }
+
+  .assistSection {
+    padding: 70px 0 80px 0;
+  }
+
+  .assistContainer {
+    padding: 0 20px;
+  }
+
+  .assistTitle {
+    font-size: 32px;
+  }
+
+  .assistDescription {
+    font-size: 15px;
+  }
+
+  .assistFeaturesRow {
+    gap: 20px;
+  }
+
+  .assistImageWrapper {
+    height: 340px;
+  }
+
+  .cardGrowth,
+  .cardIdeas {
+    position: static;
+    margin: 10px 0;
+    display: inline-flex;
+  }
+
+  .assistVisualWrapper {
+    flex-direction: column;
+  }
+}
+

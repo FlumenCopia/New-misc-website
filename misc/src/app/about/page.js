@@ -1,12 +1,12 @@
 
 
-import React from 'react'
+import React from 'react';
 import Header from "@/components/common/Header";
-import QuoteSection from "@/components/home/Quote";
 import FooterSection from "@/components/common/Footer";
 import AboutUs from '@/components/about/About_about';
 import AboutBanner from '@/components/about/AboutBanner';
 import LogosSection from '@/components/home/Logo';
+import { getClientLogos, getSettings, getTeamMembers } from "@/lib/api";
 
 export const metadata = {
   title: 'Learn More About Us | Miscarchive',
@@ -14,16 +14,20 @@ export const metadata = {
   keywords: 'Digital Marketing, Marketing Solutions, Web Development, SEO, Social Media Management',
 };
 
+export default async function page() {
+  const [initialSettings, initialLogos, initialTeam] = await Promise.all([
+    getSettings(),
+    getClientLogos(),
+    getTeamMembers(),
+  ]);
 
-export default function page() {
   return (
     <div>
-        <Header/>
-        <AboutBanner/>
-        <AboutUs/>
-        <LogosSection/>
-        {/* <QuoteSection/> */}
-        <FooterSection/>
+        <Header settings={initialSettings} />
+        <AboutBanner />
+        <AboutUs initialTeam={initialTeam} />
+        <LogosSection initialLogos={initialLogos} />
+        <FooterSection settings={initialSettings} />
     </div>
-  )
+  );
 }

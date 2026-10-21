@@ -1,0 +1,106 @@
+.banner {
+  position: relative;
+  width: 100%;
+  padding-top: 155px;
+  padding-bottom: 75px;
+  background: #faf9f6;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.contentWrapper {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+}
+
+/* ================= BREADCRUMBS ================= */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.breadcrumbHome {
+  color: #71717a;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.breadcrumbHome:hover {
+  color: #f5a623;
+}
+
+.breadcrumbSeparator {
+  color: #f5a623;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.breadcrumbActive {
+  color: #f5a623;
+}
+
+/* ================= TITLE & TAGLINE ================= */
+.title {
+  font-size: 56px;
+  font-weight: 900;
+  color: #141414;
+  line-height: 1.1;
+  margin: 0 0 14px 0;
+  letter-spacing: -0.5px;
+}
+
+.highlight {
+  color: #f5a623;
+  margin-left: 10px;
+}
+
+.subtitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: #52525b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 991px) {
+  .banner {
+    padding-top: 135px;
+    padding-bottom: 60px;
+  }
+
+  .title {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 650px) {
+  .banner {
+    padding-top: 120px;
+    padding-bottom: 45px;
+  }
+
+  .title {
+    font-size: 34px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+}

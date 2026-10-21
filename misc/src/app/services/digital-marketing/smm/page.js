@@ -1,16 +1,29 @@
-import React from 'react'
+import React from 'react';
 import Header from "@/components/common/Header";
-import QuoteSection from "@/components/home/Quote";
 import FooterSection from "@/components/common/Footer";
-import SmmContent from '@/components/services/DM-Subcategories/SmmContent';
+import CommonServiceTemplate from '@/components/services/CommonServiceTemplate';
+import { getUnifiedService } from '@/lib/servicesData';
 
-export default function page() {
-    return (
-        <div>
-            <Header />
-            <SmmContent />
-            {/* <QuoteSection /> */}
-            <FooterSection />
-        </div>
-    )
+export const metadata = {
+  title: 'Social Media Marketing (SMM) Services | Miscarchive',
+  description:
+    'Grow brand awareness and build loyal communities with Miscarchive social media marketing services across Instagram, LinkedIn, Facebook, and more.',
+  keywords: 'SMM, Social Media Marketing, Instagram Growth, LinkedIn Marketing, Social Ads, Content Strategy',
+};
+
+export default async function SmmPage() {
+  const service = await getUnifiedService('smm');
+
+  return (
+    <div>
+      <Header />
+      <CommonServiceTemplate
+        service={service}
+        slug="smm"
+        isSubService={true}
+        parentService={{ title: 'Digital Marketing', route: '/services/digital-marketing' }}
+      />
+      <FooterSection />
+    </div>
+  );
 }

@@ -5,6 +5,10 @@
 import React, { useState, useEffect } from 'react';
 import { getTeamMembers, resolveMediaUrl } from '@/lib/api';
 
+import AboutSection from '@/components/home/Aboutus';
+
+import MeetOurFounders from '@/components/about/MeetOurFounders';
+
 const DEFAULT_TEAM = [
   {
     name: 'Anoop D Anil',
@@ -20,11 +24,6 @@ const DEFAULT_TEAM = [
     name: 'Rohini A Pillai',
     designation: 'Co-Founder, COO',
     photoImage: '/assets/images/anju.webp',
-  },
-  {
-    name: 'Akhil G V',
-    designation: 'Vice President, Creative Head',
-    photoImage: '/assets/images/akhil (1).webp',
   },
 ];
 
@@ -43,59 +42,17 @@ const AboutUs = ({ initialTeam }) => {
 
   return (
     <>
-      <section className="about-us">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-6 left-side" data-stellar-background-ratio="0.5">
-              {/* Background Image or Left Content can be handled via CSS */}
-            </div>
-            <div className="col-md-6 right-side">
-              <div className="table fadeInUp">
-                <div className="inner">
-                  <h3>ABOUT <span>MiscArchive</span></h3>
-                  <p>
-                    Our goal is to emerge as the first and excellent choice for enterprise-wide solutions as
-                    a Branding agency and a broadcasting partner in Trivandrum with our team of closely-knit
-                    yet enthusiastic individuals.
-                  </p>
-                  <p>
-                    At MiscArchive, we provide high-quality or innovative value-added solutions within the
-                    domains of digital marketing services, Web Designing, Web Development, Social Media
-                    management, and other comparable miscellaneous services. We assist our clients through
-                    expert-level ideation, comprehensive project execution, seamless work experience, easy
-                    interactive team collaboration, and overall team transparency for absolutely everyone
-                    involved.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <AboutSection
+        tag="ABOUT US"
+        title="ABOUT MiscArchive"
+        paragraphs={[
+          `Our goal is to emerge as the first and excellent choice for enterprise-wide solutions as a Branding agency and a broadcasting partner in Trivandrum with our team of closely-knit yet enthusiastic individuals.`,
+          `At MiscArchive, we provide high-quality or innovative value-added solutions within the domains of digital marketing services, Web Designing, Web Development, Social Media management, and other comparable miscellaneous services. We assist our clients through expert-level ideation, comprehensive project execution, seamless work experience, easy interactive team collaboration, and overall team transparency for absolutely everyone involved.`,
+        ]}
+        showButton={false}
+      />
 
-      {team && team.length > 0 && (
-        <section className="team-members">
-          <div style={{ padding: '100px 0' }}></div>
-          <div className="container fadeInUp">
-            <div className="row">
-              {team.map((member, idx) => (
-                <div className="col-md-3 col-sm-3" key={member._id || idx}>
-                  <figure>
-                    <img
-                      src={resolveMediaUrl(member.photoImage || member.image) || member.photoImage || member.image}
-                      alt={member.name}
-                    />
-                    <figcaption>
-                      <h3>{member.name}</h3>
-                      <h6>{member.designation || member.role}</h6>
-                    </figcaption>
-                  </figure>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      <MeetOurFounders team={team} />
     </>
   );
 };

@@ -1,21 +1,23 @@
-import React from 'react'
+import React from 'react';
 import Header from "@/components/common/Header";
-import QuoteSection from "@/components/home/Quote";
 import FooterSection from "@/components/common/Footer";
 import ContactContent from '@/components/contact/ContactContent';
+import { getSettings } from "@/lib/api";
 
 export const metadata = {
-  title: 'Get in Touch with Us | Miscarchive',
-  description: 'Looking for the best digital marketing company in Trivandrum? Miscarchive offers expert SEO, social media marketing and more to grow your business online.',
-  keywords: 'Digital Marketing, Marketing Solutions, Web Development, SEO, Social Media Management',
+  title: 'Contact Us | Miscarchive Digital Agency',
+  description: 'Have a project in mind or want to know more about our services? Drop us a message and our team will get back to you shortly.',
+  keywords: 'Contact Miscarchive, Digital Marketing Trivandrum, Web Development, SEO Kerala',
 };
 
-export default function page() {
+export default async function page() {
+  const settings = await getSettings();
+
   return (
     <div>
-        <Header/>
-        <ContactContent/>
-        <FooterSection/>
+      <Header settings={settings} />
+      <ContactContent initialSettings={settings} />
+      <FooterSection settings={settings} />
     </div>
-  )
+  );
 }

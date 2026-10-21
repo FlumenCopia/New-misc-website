@@ -1,6 +1,48 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  scrollbar-color: #ffb900 #f7f5ef;
+  scrollbar-width: thin;
+}
+
+/* Miscarchive — Custom scrollbar */
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f7f5ef;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    #ffcc00 0%,
+    #ffab00 55%,
+    #ff9100 100%
+  );
+  border: 2px solid #f7f5ef;
+  border-radius: 999px;
+  min-height: 40px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #ffb900 0%,
+    #ff8f00 100%
+  );
+}
+
+::-webkit-scrollbar-corner {
+  background: #f7f5ef;
+}
+
+/* Keep horizontal scrolling unobtrusive */
+::-webkit-scrollbar:horizontal {
+  height: 8px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,6 +75,33 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus,
+a:active,
+a:focus-visible,
+button:focus,
+button:active,
+button:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.main-navbar a,
+.main-navbar a:hover,
+.main-navbar a:focus,
+.main-navbar a:active,
+.main-navbar a:focus-visible,
+.main-navbar button,
+.main-navbar button:hover,
+.main-navbar button:focus,
+.main-navbar button:active,
+.main-navbar button:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 @media (prefers-color-scheme: dark) {

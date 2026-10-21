@@ -1,0 +1,507 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* ==========================================================================
+   SECTION 1: DIGITAL MARKETING IS CRUCIAL FOR MANY REASONS (3-COLUMN x 2-ROW)
+   ========================================================================== */
+
+.crucialSection {
+  position: relative;
+  width: 100%;
+  background-color: #ffffff;
+  overflow: hidden;
+  padding: 100px 0 110px 0;
+  color: #111827;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  z-index: 2;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+
+.heading {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2.4rem, 4.4vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #09090b;
+  margin: 0;
+}
+
+.highlightText {
+  color: #FFA000;
+  background: linear-gradient(135deg, #FFB300 0%, #FF8F00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  font-weight: 800;
+}
+
+/* 3x2 Grid for Crucial Reasons */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  position: relative;
+}
+
+.gridItem {
+  position: relative;
+  padding: 40px 36px;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  background: transparent;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.gridItem:hover {
+  background-color: rgba(254, 243, 199, 0.15);
+  border-radius: 16px;
+}
+
+.gridItem:not(:nth-child(3n)) {
+  border-right: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.gridItem:nth-child(-n + 3) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.numberCol {
+  display: flex;
+  align-items: baseline;
+  flex-shrink: 0;
+  gap: 6px;
+}
+
+.numberText {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(44px, 3.8vw, 54px);
+  font-weight: 600;
+  line-height: 1;
+  color: #b45309;
+  opacity: 0.55;
+  letter-spacing: -0.04em;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.gridItem:hover .numberText {
+  opacity: 0.9;
+  transform: scale(1.04);
+}
+
+.slash {
+  font-family: 'Outfit', sans-serif;
+  font-size: 26px;
+  font-weight: 300;
+  color: #FFA000;
+  opacity: 0.75;
+  transform: rotate(12deg);
+  display: inline-block;
+}
+
+.itemContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #09090b;
+  margin: 0 0 10px 0;
+}
+
+.itemDescription {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14.5px;
+  line-height: 1.68;
+  color: #4b5563;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* ==========================================================================
+   SECTION 2: DRAWBACKS OF NOT HAVING A DIGITAL MARKETING TEAM (2-COLUMN x 3-ROW)
+   ========================================================================== */
+
+.drawbacksSection {
+  position: relative;
+  width: 100%;
+  background-color: #faf8f5;
+  overflow: hidden;
+  padding: 110px 0 120px 0;
+  color: #111827;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.drawbacksHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.drawbacksHeading {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2.4rem, 4.4vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #09090b;
+  margin: 0;
+}
+
+/* 2-Column Grid matching the mockup */
+.drawbacksGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  position: relative;
+}
+
+.drawbackCell {
+  position: relative;
+  padding: 40px 48px;
+  display: flex;
+  align-items: flex-start;
+  gap: 26px;
+  background: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.drawbackCell:hover {
+  background-color: rgba(254, 243, 199, 0.16);
+  border-radius: 16px;
+}
+
+/* Vertical Hairline Divider between Left and Right Columns */
+.drawbackCell:nth-child(odd) {
+  border-right: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+/* Horizontal Hairline Dividers between Rows */
+.drawbackCell:nth-child(-n + 4) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+/* Large Number on Left */
+.drawbackNumber {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(50px, 4.2vw, 62px);
+  font-weight: 500;
+  line-height: 1;
+  color: #9ca3af;
+  opacity: 0.65;
+  letter-spacing: -0.03em;
+  flex-shrink: 0;
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.drawbackCell:hover .drawbackNumber {
+  color: #FFA000;
+  opacity: 0.9;
+}
+
+.drawbackContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.drawbackTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #09090b;
+  margin: 0 0 10px 0;
+}
+
+.drawbackDescription {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14.5px;
+  line-height: 1.68;
+  color: #4b5563;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* ==========================================================================
+   SECTION 3: WHY CHOOSE MISCARCHIVE (2-COLUMN x 4-ROW WITH HORIZONTAL DIVIDERS)
+   ========================================================================== */
+
+.whyChooseSection {
+  position: relative;
+  width: 100%;
+  background-color: #ffffff;
+  overflow: hidden;
+  padding: 110px 0 120px 0;
+  color: #111827;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.whyChooseHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.whyChooseHeading {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2.4rem, 4.4vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #09090b;
+  margin: 0;
+}
+
+.whyChooseHighlight {
+  color: #FFA000;
+  display: inline-block;
+}
+
+.whyChooseIntro {
+  max-width: 860px;
+  margin: 28px auto 60px auto;
+  text-align: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #4b5563;
+}
+
+.whyChooseIntro strong {
+  color: #09090b;
+  font-weight: 700;
+}
+
+/* 2-Column Grid with ONLY Horizontal Dividers, matching the mockup */
+.whyChooseGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 72px;
+  row-gap: 0;
+  position: relative;
+}
+
+.whyChooseCell {
+  position: relative;
+  padding: 44px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  background: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease;
+}
+
+/* Remove bottom border from the last row (items 7 and 8) */
+.whyChooseCell:nth-last-child(-n + 2) {
+  border-bottom: none;
+}
+
+/* Large Silver/Grey Number on Left */
+.whyChooseNumber {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(52px, 4.4vw, 64px);
+  font-weight: 500;
+  line-height: 0.95;
+  color: #cbd5e1;
+  letter-spacing: -0.03em;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.whyChooseCell:hover .whyChooseNumber {
+  color: #FFA000;
+  transform: scale(1.04);
+}
+
+.whyChooseContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.whyChooseTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #09090b;
+  margin: 0 0 10px 0;
+}
+
+.whyChooseDescription {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14.5px;
+  line-height: 1.68;
+  color: #4b5563;
+  margin: 0;
+  font-weight: 400;
+}
+
+.closingBox {
+  margin-top: 70px;
+  padding: 32px 40px;
+  border-radius: 18px;
+  background: #faf8f5;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  text-align: center;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.closingText {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #1f2937;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* =========================================
+   RESPONSIVE LAYOUT (TABLETS & MOBILE)
+   ========================================= */
+
+@media (max-width: 1024px) {
+  .crucialSection,
+  .drawbacksSection,
+  .whyChooseSection {
+    padding: 80px 0 90px 0;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gridItem:not(:nth-child(3n)) {
+    border-right: none;
+  }
+
+  .gridItem:nth-child(odd) {
+    border-right: 1px solid rgba(0, 0, 0, 0.07);
+  }
+
+  .gridItem:nth-child(-n + 3) {
+    border-bottom: none;
+  }
+
+  .gridItem:not(:nth-last-child(-n + 2)) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  }
+
+  .drawbacksGrid,
+  .whyChooseGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .drawbackCell:nth-child(odd) {
+    border-right: none;
+  }
+
+  .drawbackCell:not(:last-child),
+  .whyChooseCell:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .whyChooseCell:last-child {
+    border-bottom: none;
+  }
+
+  .decorTopRight,
+  .decorBottomLeft {
+    display: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .crucialSection,
+  .drawbacksSection,
+  .whyChooseSection {
+    padding: 60px 0 70px 0;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .header,
+  .drawbacksHeader,
+  .whyChooseHeader {
+    margin-bottom: 40px;
+  }
+
+  .heading,
+  .drawbacksHeading,
+  .whyChooseHeading {
+    font-size: 2.2rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gridItem {
+    padding: 30px 16px;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07) !important;
+  }
+
+  .gridItem:last-child {
+    border-bottom: none !important;
+  }
+
+  .drawbackCell,
+  .whyChooseCell {
+    padding: 28px 10px;
+    gap: 18px;
+  }
+
+  .numberText,
+  .drawbackNumber,
+  .whyChooseNumber {
+    font-size: 40px;
+  }
+
+  .itemTitle,
+  .drawbackTitle,
+  .whyChooseTitle {
+    font-size: 18px;
+  }
+
+  .itemDescription,
+  .drawbackDescription,
+  .whyChooseDescription {
+    font-size: 14px;
+  }
+
+  .closingBox {
+    padding: 24px 20px;
+    margin-top: 40px;
+  }
+}

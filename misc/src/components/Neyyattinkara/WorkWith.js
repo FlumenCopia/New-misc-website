@@ -1,100 +1,84 @@
 "use client";
 
+import React from "react";
+import Link from "next/link";
+import styles from "@/components/home/CrucialReasons.module.css";
+
+const AUDIENCES = [
+  {
+    num: "01",
+    title: "Startups & Entrepreneurs",
+    description: "Helping new ventures build a strong foundation from day one.",
+  },
+  {
+    num: "02",
+    title: "Small & Medium Businesses",
+    description: "Empowering growing companies to scale their digital presence.",
+  },
+  {
+    num: "03",
+    title: "Established Brands",
+    description: "Reinforcing market leadership with innovative digital strategies.",
+  },
+  {
+    num: "04",
+    title: "Local Businesses",
+    description: "Supporting neighborhood enterprises to expand their reach.",
+  },
+];
+
 export default function WorkWith() {
   return (
-    <section className="who-we-work-with">
-      <div className="container">
-
-        {/* Header */}
-        <div className="text-center section-header fade-in">
-          <h2 className="section-title">Who We Work With</h2>
-          <p className="section-subtitle">
-            We partner with businesses at every stage of their journey.
-          </p>
+    <section className={styles.crucialSection} id="who-we-work-with">
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h2 className={styles.heading}>
+            Who We <span className={styles.highlightText}>Work With</span>
+          </h2>
         </div>
 
-        {/* Grid */}
-        <div className="row">
-
-          <div className="col-xs-12 col-sm-6 col-md-3 fade-in">
-            <div className="work-card text-center">
-              <div className="icon-circle">
-                                       <i className="fas fa-lightbulb text-3xl text-purple-600"></i>
-
+        <div className={styles.grid} style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
+          {AUDIENCES.map((item) => (
+            <div key={item.num} className={styles.gridItem}>
+              <div className={styles.numberCol}>
+                <span className={styles.numberText}>{item.num}</span>
+                <span className={styles.slash}>/</span>
               </div>
-              <h3>Startups & Entrepreneurs</h3>
-              <p>
-                Helping new ventures build a strong foundation from day one.
-              </p>
-            </div>
-          </div>
-
-          <div
-            className="col-xs-12 col-sm-6 col-md-3 fade-in"
-            style={{ animationDelay: "0.1s" }}
-          >
-            <div className="work-card text-center">
-              <div className="icon-circle">
-                <i className="fa fa-building"></i>
+              <div className={styles.itemContent}>
+                <h3 className={styles.itemTitle}>{item.title}</h3>
+                <p className={styles.itemDescription}>{item.description}</p>
               </div>
-              <h3>Small & Medium Businesses</h3>
-              <p>
-                Empowering growing companies to scale their digital presence.
-              </p>
             </div>
-          </div>
-
-          <div
-            className="col-xs-12 col-sm-6 col-md-3 fade-in"
-            style={{ animationDelay: "0.2s" }}
-          >
-            <div className="work-card text-center">
-              <div className="icon-circle">
-                <i className="fa fa-crown"></i>
-              </div>
-              <h3>Established Brands</h3>
-              <p>
-                Reinforcing market leadership with innovative digital strategies.
-              </p>
-            </div>
-          </div>
-
-          <div
-            className="col-xs-12 col-sm-6 col-md-3 fade-in"
-            style={{ animationDelay: "0.3s" }}
-          >
-            <div className="work-card text-center">
-              <div className="icon-circle">
-                <i className="fa fa-shopping-bag"></i>
-              </div>
-              <h3>Local Businesses</h3>
-              <p>
-                Supporting neighborhood enterprises to expand their reach.
-              </p>
-            </div>
-          </div>
-
+          ))}
         </div>
 
-        {/* CTA */}
-        <div
-          className="text-center section-cta fade-in"
-          style={{ animationDelay: "0.4s" }}
-        >
-          <p className="cta-text">
-            If growth is your goal, we're the right partner.
+        {/* Closing Action Banner Reusing closingBox */}
+        <div className={styles.closingBox} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '24px', flexWrap: 'wrap', textAlign: 'left', marginTop: '48px' }}>
+          <p className={styles.closingText} style={{ margin: 0, fontSize: '18px', fontWeight: '700', color: '#111827' }}>
+            If growth is your goal, we&apos;re the right partner.
           </p>
 
-          <div className="cta-buttons">
-            {/* <a href="#" className="btn btn-primary btn-lg">
-              Enquire Now
-            </a> */}
-            <a href="/contact" className="btn btn-outline btn-lg">
-              Schedule a Consultation
-            </a>
-          </div>
+          <Link
+            href="/contact"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '10px',
+              backgroundColor: '#FFA000',
+              color: '#111827',
+              fontSize: '14px',
+              fontWeight: '700',
+              padding: '13px 28px',
+              borderRadius: '9999px',
+              textDecoration: 'none',
+              boxShadow: '0 4px 14px rgba(255, 160, 0, 0.25)',
+              transition: 'all 0.25s ease',
+            }}
+          >
+            <span>Schedule a Consultation</span>
+            <span>→</span>
+          </Link>
         </div>
-
       </div>
     </section>
   );

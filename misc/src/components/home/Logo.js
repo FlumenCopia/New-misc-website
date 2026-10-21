@@ -1,11 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import React, { useEffect, useState } from 'react';
 import { getClientLogos, resolveMediaUrl } from '@/lib/api';
+import styles from './Logo.module.css';
 
+// Exact preserved original client logos catalog
 const defaultLogos = [
   'promag-logo.png',
   'icatch-logo.png',
@@ -39,73 +38,69 @@ const defaultLogos = [
   'flyers.jpg',
 ];
 
-export default function LogosSection({ initialLogos }) {
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: { slidesToShow: 4 },
-      },
-      {
-        breakpoint: 768,
-        settings: { slidesToShow: 3 },
-      },
-      {
-        breakpoint: 480,
-        settings: { slidesToShow: 2 },
-      },
-    ],
-  };
+function getLogoSrc(item) {
+  if (!item) return '';
+  const str = typeof item === 'string' ? item : item.logoImage || item.image || item.logo || item.url || '';
+  if (!str) return '';
+  if (str.startsWith('http://') || str.startsWith('https://') || str.startsWith('data:')) return str;
+  if (str.startsWith('/')) return resolveMediaUrl(str);
+  return `/assets/images/${str}`;
+}
 
+function getLogoAlt(item, index) {
+  if (item && typeof item === 'object') {
+    if (item.clientName) return `${item.clientName} Logo`;
+    if (item.altText) return item.altText;
+  }
+  return `Client Partner Logo ${index + 1}`;
+}
+
+export default function LogosSection({ initialLogos }) {
   const [logos, setLogos] = useState(() => {
     if (initialLogos && initialLogos.length > 0) {
-      return initialLogos.map((l) => l.logoImage || l);
+      return initialLogos;
     }
     return defaultLogos;
   });
 
   useEffect(() => {
-    if (!initialLogos) {
-      getClientLogos().then((data) => {
-        if (data && data.length > 0) {
-          setLogos(data.map((l) => l.logoImage || l));
-        }
-      }).catch(() => {});
+    if (!initialLogos || initialLogos.length === 0) {
+      getClientLogos()
+        .then((data) => {
+          if (data && data.length > 0) {
+            setLogos(data);
+          }
+        })
+        .catch(() => {});
     }
   }, [initialLogos]);
 
+  const activeLogos = logos && logos.length > 0 ? logos : defaultLogos;
+  // Duplicate logos array to produce a seamless, gapless 360-degree infinite marquee loop
+  const marqueeLogos = [...activeLogos, ...activeLogos];
+
   return (
-    <section className="logos">
-      <div className="container-fluid  fadeInUp">
-        <div className="row">
-          <div className="col-xs-12 slider-container">
-            {/* <h2>LOGOS</h2> */}
-            <Slider {...settings}>
-              {logos.map((filename, index) => {
-                const src = filename.startsWith('/') || filename.startsWith('http')
-                  ? resolveMediaUrl(filename)
-                  : `/assets/images/${filename}`;
-                return (
-                  <div className="item" key={index}>
-                    <figure style={{ display: 'flex', justifyContent: 'center' }}>
-                      <img
-                        src={src}
-                        alt={`Logo ${index}`}
-                        style={{ width: '60%', height: 'auto' }}
-                      />
-                    </figure>
-                  </div>
-                );
-              })}
-            </Slider>
-          </div>
+    <section className={styles.marqueeSection} id="clients-marquee" aria-label="Our Trusted Clients & Partners">
+      {/* Smooth Continuous Infinite Marquee Track with Edge Fade Masks */}
+      <div className={styles.marqueeContainer}>
+        <div className={styles.marqueeTrack}>
+          {marqueeLogos.map((item, index) => {
+            const src = getLogoSrc(item);
+            const alt = getLogoAlt(item, index % activeLogos.length);
+            const key = typeof item === 'string' ? `${item}-${index}` : `${item._id || item.clientName || index}-${index}`;
+
+            return (
+              <div className={styles.logoItem} key={key}>
+                <img
+                  src={src}
+                  alt={alt}
+                  loading="eager"
+                  decoding="async"
+                  className={styles.logoImage}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
