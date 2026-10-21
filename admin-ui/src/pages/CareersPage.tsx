@@ -180,7 +180,7 @@ export const CareersPage: React.FC = () => {
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               placeholder="Digital Marketing Executive"
-              className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-[#1abc9c]"
+              className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
             />
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -190,7 +190,7 @@ export const CareersPage: React.FC = () => {
                 type="text"
                 value={formData.department}
                 onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-[#1abc9c]"
+                className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
               />
             </div>
             <div>
@@ -199,7 +199,7 @@ export const CareersPage: React.FC = () => {
                 type="text"
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-[#1abc9c]"
+                className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
               />
             </div>
           </div>
@@ -210,7 +210,7 @@ export const CareersPage: React.FC = () => {
               value={formData.descriptionHtml}
               onChange={(e) => setFormData({ ...formData, descriptionHtml: e.target.value })}
               placeholder="Provide a brief summary of the role, core responsibilities, or qualification requirements..."
-              className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-[#1abc9c] resize-y"
+              className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500 resize-y"
             />
           </div>
           <div>
@@ -218,7 +218,7 @@ export const CareersPage: React.FC = () => {
             <select
               value={formData.status}
               onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-              className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-[#1abc9c]"
+              className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
             >
               <option value="open">Open / Actively Hiring</option>
               <option value="closed">Closed / Filled</option>

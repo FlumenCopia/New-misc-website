@@ -15,7 +15,7 @@ const TOWNS = [
   "Sasthamangalam",
 ];
 
-export default function Neyyattinkaratemplate() {
+export default function Neyyattinkaratemplate({ heroHeading, heroSubheading }) {
   return (
     <section className={styles.heroSection} aria-label="Neyyattinkara Regional Launch">
       <div className={styles.heroContainer}>
@@ -24,11 +24,15 @@ export default function Neyyattinkaratemplate() {
           <span className={styles.eyebrow}>Regional Expansion</span>
 
           <h1 className={styles.heroHeadline}>
-            MISC ARCHIVE ARRIVES IN <span className={styles.highlight}>NEYYATTINKARA</span>
+            {heroHeading ? (
+              heroHeading
+            ) : (
+              <>MISC ARCHIVE ARRIVES IN <span className={styles.highlight}>NEYYATTINKARA</span></>
+            )}
           </h1>
 
           <div className={styles.heroAccentText}>
-            Your trusted partner for digital growth, creative strategy, and brand building, now closer to you.
+            {heroSubheading || "Your trusted partner for digital growth, creative strategy, and brand building, now closer to you."}
           </div>
 
           <p className={styles.heroSecondaryText}>

@@ -139,6 +139,28 @@ export async function getBlogBySlug(slug) {
 }
 
 /**
+ * Fetch single website page metadata and sections by slug or route
+ */
+export async function getPageBySlug(slug) {
+  if (!slug) return null;
+  return await fetchFromCms(`/pages/${encodeURIComponent(slug)}`);
+}
+
+/**
+ * Fetch portfolio projects
+ */
+export async function getProjects() {
+  return await fetchFromCms('/projects?published=true');
+}
+
+/**
+ * Fetch navigation menu links
+ */
+export async function getNavigation(placement = 'header') {
+  return await fetchFromCms(`/navigation?placement=${encodeURIComponent(placement)}&active=true`);
+}
+
+/**
  * Submit contact or sidebar enquiry
  */
 export async function submitEnquiry(payload) {

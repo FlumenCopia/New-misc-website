@@ -5,12 +5,14 @@ import {
   createTestimonial,
   updateTestimonial,
   deleteTestimonial,
+  reorderTestimonials,
 } from "../controllers/testimonialsController";
 import { authenticate } from "../middleware/authMiddleware";
 
 const router = Router();
 
 router.get("/", getTestimonials);
+router.patch("/reorder", authenticate, reorderTestimonials);
 router.get("/:id", getTestimonialById);
 router.post("/", authenticate, createTestimonial);
 router.put("/:id", authenticate, updateTestimonial);

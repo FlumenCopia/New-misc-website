@@ -6,6 +6,10 @@ import { Banner } from "../models/Banner";
 import { Career } from "../models/Career";
 import { TeamMember } from "../models/TeamMember";
 import { ClientLogo } from "../models/ClientLogo";
+import { WebsitePage } from "../models/WebsitePage";
+import { Project } from "../models/Project";
+import { Faq } from "../models/Faq";
+import { Testimonial } from "../models/Testimonial";
 
 export const getDashboardStats = async (
   _req: Request,
@@ -23,6 +27,10 @@ export const getDashboardStats = async (
       totalCareers,
       totalTeam,
       totalLogos,
+      totalPages,
+      totalProjects,
+      totalFaqs,
+      totalTestimonials,
       recentEnquiries,
       recentBlogs,
     ] = await Promise.all([
@@ -36,6 +44,10 @@ export const getDashboardStats = async (
       Career.countDocuments(),
       TeamMember.countDocuments(),
       ClientLogo.countDocuments(),
+      WebsitePage.countDocuments(),
+      Project.countDocuments(),
+      Faq.countDocuments(),
+      Testimonial.countDocuments(),
       Enquiry.find().sort({ createdAt: -1 }).limit(5),
       Blog.find().sort({ createdAt: -1 }).limit(5).select("title slug publishDate isPublished category"),
     ]);
@@ -57,6 +69,10 @@ export const getDashboardStats = async (
         careers: totalCareers,
         teamMembers: totalTeam,
         clientLogos: totalLogos,
+        pages: totalPages,
+        projects: totalProjects,
+        faqs: totalFaqs,
+        testimonials: totalTestimonials,
       },
       recentEnquiries,
       recentBlogs,

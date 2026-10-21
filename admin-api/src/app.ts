@@ -19,6 +19,9 @@ import faqsRoutes from "./routes/faqsRoutes";
 import careersRoutes from "./routes/careersRoutes";
 import enquiriesRoutes from "./routes/enquiriesRoutes";
 import mediaRoutes from "./routes/mediaRoutes";
+import pagesRoutes from "./routes/pagesRoutes";
+import projectsRoutes from "./routes/projectsRoutes";
+import navigationRoutes from "./routes/navigationRoutes";
 import { seedWebsiteData } from "./utils/seedWebsite";
 
 const app: Application = express();
@@ -82,6 +85,9 @@ app.use("/api/faqs", faqsRoutes);
 app.use("/api/careers", careersRoutes);
 app.use("/api/enquiries", enquiriesRoutes);
 app.use("/api/media", mediaRoutes);
+app.use("/api/pages", pagesRoutes);
+app.use("/api/projects", projectsRoutes);
+app.use("/api/navigation", navigationRoutes);
 
 // 404 Route Handler
 app.use((req: Request, res: Response) => {

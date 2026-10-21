@@ -94,7 +94,7 @@ export const SettingsPage: React.FC = () => {
                 type="text"
                 value={settings?.siteName || ''}
                 onChange={(e) => setSettings({ ...settings, siteName: e.target.value })}
-                className="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-[#1abc9c]"
+                className="w-full bg-white border border-slate-300 rounded-md px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
               />
             </div>
             <div>
@@ -103,7 +103,7 @@ export const SettingsPage: React.FC = () => {
                 type="text"
                 value={settings?.tagline || ''}
                 onChange={(e) => setSettings({ ...settings, tagline: e.target.value })}
-                className="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-[#1abc9c]"
+                className="w-full bg-white border border-slate-300 rounded-md px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
               />
             </div>
           </div>

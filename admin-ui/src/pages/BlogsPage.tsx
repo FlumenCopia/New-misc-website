@@ -97,7 +97,7 @@ export const BlogsPage: React.FC = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-wrap items-center gap-3 bg-white p-3.5 rounded-xl border border-slate-200 shadow-xs">
+      <div className="flex flex-wrap items-center gap-3 bg-white p-3.5 rounded-lg border border-slate-200 shadow-xs">
         <div className="relative flex-1 min-w-[240px]">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -105,7 +105,7 @@ export const BlogsPage: React.FC = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by article title or slug..."
-            className="w-full bg-white border border-slate-300 rounded-lg pl-9 pr-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-[#1abc9c]"
+            className="w-full bg-white border border-slate-300 rounded-md pl-9 pr-4 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
           />
         </div>
 
@@ -114,7 +114,7 @@ export const BlogsPage: React.FC = () => {
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none focus:border-[#1abc9c]"
+            className="bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand-500"
           >
             <option value="all">All Status</option>
             <option value="published">Published</option>
@@ -124,7 +124,7 @@ export const BlogsPage: React.FC = () => {
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none focus:border-[#1abc9c]"
+            className="bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand-500"
           >
             <option value="">All Categories</option>
             {categories.map((c) => (

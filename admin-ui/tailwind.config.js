@@ -7,38 +7,37 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Flat Able Deep Navy Slate (Navbar & Sidebar)
-        flatnavy: {
-          950: '#121824',
-          900: '#1b2434', // Signature Flat Able dark navy background
-          850: '#202b3e',
-          800: '#26344b',
-          700: '#334464',
-          600: '#425780',
+        // MiscArchive Dark Charcoal Brand Slate (Sidebar & Header)
+        charcoal: {
+          950: '#090a0b',
+          900: '#111315', // Premium dark charcoal background
+          850: '#16191d',
+          800: '#1f2328',
+          700: '#2b3138',
+          600: '#3d444e',
         },
-        // Flat Able Signature Sea-Green / Emerald-Teal
+        // MiscArchive Warm Yellow / Orange Primary
         brand: {
-          50: '#e8f8f5',
-          100: '#d1f2eb',
-          200: '#a3e4d7',
-          300: '#76d7c4',
-          400: '#48c9b0',
-          500: '#1abc9c', // Primary Flat Able signature teal
-          600: '#16a085', // Hover state
-          700: '#117a65',
-          800: '#0e6655',
-          900: '#0b5345',
+          50: '#fffbeb',
+          100: '#fef3c7',
+          200: '#fde68a',
+          300: '#fcd34d',
+          400: '#fbbf24',
+          500: '#FFA000', // MiscArchive authentic warm amber/orange
+          600: '#e68a00', // Hover state
+          700: '#b45309',
+          800: '#92400e',
+          900: '#78350f',
         },
-        // Flat Able Coral Red Accent
-        coral: {
-          50: '#fff1f1',
-          100: '#ffe1e1',
-          500: '#ff5252',
-          600: '#e04545',
+        // MiscArchive Warm Neutral Canvas Background
+        canvas: '#faf9f6',
+        cream: {
+          50: '#fdfdfc',
+          100: '#faf9f6',
+          200: '#f3efe6',
+          300: '#e8e2d5',
         },
-        // Clean Canvas Background
-        canvas: '#f4f7f6',
-        // Restored Standard Clean Slate
+        // Clean Neutral Slate
         slate: {
           50: '#f8fafc',
           100: '#f1f5f9',
@@ -54,8 +53,8 @@ export default {
         },
       },
       boxShadow: {
-        'brand': '0 4px 14px 0 rgba(26, 188, 156, 0.35)',
-        'brand-sm': '0 2px 8px 0 rgba(26, 188, 156, 0.25)',
+        'brand': '0 4px 14px 0 rgba(255, 160, 0, 0.25)',
+        'brand-sm': '0 2px 8px 0 rgba(255, 160, 0, 0.18)',
       },
     },
   },

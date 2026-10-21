@@ -6,6 +6,10 @@ import { AdminLayout } from './components/layout/AdminLayout';
 // Pages
 import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { PagesPage } from './pages/PagesPage';
+import { LocationsPage } from './pages/LocationsPage';
+import { ProjectsPage } from './pages/ProjectsPage';
+import { NavigationPage } from './pages/NavigationPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { BannersPage } from './pages/BannersPage';
 import { ServicesPage } from './pages/ServicesPage';
@@ -31,6 +35,10 @@ export const App: React.FC = () => {
           {/* Protected Admin Routes */}
           <Route element={<AdminLayout />}>
             <Route path="/" element={<DashboardPage />} />
+            <Route path="/pages" element={<PagesPage />} />
+            <Route path="/locations" element={<LocationsPage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/navigation" element={<NavigationPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/banners" element={<BannersPage />} />
             <Route path="/services" element={<ServicesPage />} />

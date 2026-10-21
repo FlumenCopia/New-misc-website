@@ -12,3 +12,6 @@ export * from "./Faq";
 export * from "./Career";
 export * from "./Enquiry";
 export * from "./MediaAsset";
+export * from "./WebsitePage";
+export * from "./Project";
+export * from "./NavigationMenu";

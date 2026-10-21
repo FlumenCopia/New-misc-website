@@ -23,7 +23,7 @@ export const AdminLayout: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#f4f7f6] text-slate-900 flex flex-col">
+    <div className="min-h-screen bg-canvas text-slate-900 flex flex-col">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="lg:pl-64 flex flex-col min-h-screen">
         <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />

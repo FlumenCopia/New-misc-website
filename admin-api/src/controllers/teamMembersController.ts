@@ -64,3 +64,21 @@ export const deleteTeamMember = async (req: Request, res: Response): Promise<voi
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const reorderTeamMembers = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { items } = req.body;
+    if (Array.isArray(items)) {
+      const ops = items.map((item) => ({
+        updateOne: {
+          filter: { _id: item.id },
+          update: { order: item.order },
+        },
+      }));
+      await TeamMember.bulkWrite(ops);
+    }
+    res.status(200).json({ success: true, message: "Team members reordered successfully." });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};

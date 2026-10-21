@@ -265,7 +265,7 @@ export const ClientLogosPage: React.FC = () => {
           {/* 1. Logo Name / Description */}
           <div>
             <label className="block text-[13px] font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-              Logo Name / Description <span className="text-[#1abc9c]">*</span>
+              Logo Name / Description <span className="text-brand-600">*</span>
             </label>
             <input
               type="text"
@@ -273,7 +273,7 @@ export const ClientLogosPage: React.FC = () => {
               value={formData.clientName}
               onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
               placeholder="e.g. Brand or Client Name"
-              className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#1abc9c] transition-colors shadow-xs"
+              className="w-full bg-white border border-slate-300 rounded-md px-3.5 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 transition-colors shadow-xs"
             />
             <p className="text-[12.5px] text-slate-600 mt-1">
               Used to identify and describe the client logo.
@@ -283,7 +283,7 @@ export const ClientLogosPage: React.FC = () => {
           {/* 2. Logo Image (Upload + Preview + Change + Remove) */}
           <div>
             <label className="block text-[13px] font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-              Logo Image <span className="text-[#1abc9c]">*</span>
+              Logo Image <span className="text-brand-600">*</span>
             </label>
 
             {/* Hidden File Input */}

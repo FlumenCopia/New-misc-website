@@ -258,7 +258,7 @@ export const TeamPage: React.FC = () => {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Anoop D Anil"
-                className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-[#1abc9c]"
+                className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
               />
             </div>
             <div>
@@ -269,7 +269,7 @@ export const TeamPage: React.FC = () => {
                 value={formData.designation}
                 onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
                 placeholder="Managing Director"
-                className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-[#1abc9c]"
+                className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
               />
             </div>
           </div>
@@ -298,7 +298,7 @@ export const TeamPage: React.FC = () => {
 
             {formData.photoImage ? (
               /* Photo Preview Card */
-              <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-4 flex items-center justify-between gap-4">
+              <div className="rounded-lg border border-slate-200 bg-slate-50/60 p-4 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <div className="w-14 h-14 rounded-full bg-white border-2 border-slate-200 overflow-hidden flex-shrink-0 shadow-sm flex items-center justify-center">
                     <img
@@ -352,21 +352,21 @@ export const TeamPage: React.FC = () => {
               /* Upload Dropzone / Button */
               <div
                 onClick={() => fileInputRef.current?.click()}
-                className={`border-2 border-dashed rounded-xl p-5 text-center cursor-pointer transition-all ${
+                className={`border-2 border-dashed rounded-lg p-5 text-center cursor-pointer transition-all ${
                   isUploading
-                    ? 'border-[#1abc9c] bg-[#1abc9c]/5 cursor-wait'
-                    : 'border-slate-300 hover:border-[#1abc9c] hover:bg-slate-50'
+                    ? 'border-brand-500 bg-brand-50/50 cursor-wait'
+                    : 'border-slate-300 hover:border-brand-500 hover:bg-slate-50'
                 }`}
               >
                 {isUploading ? (
                   <div className="flex flex-col items-center justify-center gap-2 py-2">
-                    <Loader2 className="w-6 h-6 text-[#1abc9c] animate-spin" />
+                    <Loader2 className="w-6 h-6 text-brand-600 animate-spin" />
                     <span className="text-xs font-semibold text-slate-700">Uploading photo...</span>
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center gap-1.5">
                     <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 mb-1">
-                      <Upload className="w-5 h-5 text-[#1abc9c]" />
+                      <Upload className="w-5 h-5 text-brand-600" />
                     </div>
                     <span className="text-xs font-semibold text-slate-800">
                       Click to upload member photo
@@ -384,7 +384,7 @@ export const TeamPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowManualUrl(!showManualUrl)}
-                className="text-[11.5px] text-slate-500 hover:text-[#1abc9c] transition-colors underline"
+                className="text-[11.5px] text-slate-500 hover:text-brand-600 transition-colors underline"
               >
                 {showManualUrl ? 'Hide manual image URL' : 'Or enter custom image URL / path'}
               </button>
@@ -397,7 +397,7 @@ export const TeamPage: React.FC = () => {
                   value={formData.photoImage}
                   onChange={(e) => setFormData({ ...formData, photoImage: e.target.value })}
                   placeholder="/assets/images/team/member-1.jpg or https://..."
-                  className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs font-mono text-slate-900 focus:outline-none focus:border-[#1abc9c]"
+                  className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-xs font-mono text-slate-900 focus:outline-none focus:border-brand-500"
                 />
               </div>
             )}

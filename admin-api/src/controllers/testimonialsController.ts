@@ -64,3 +64,21 @@ export const deleteTestimonial = async (req: Request, res: Response): Promise<vo
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const reorderTestimonials = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { items } = req.body;
+    if (Array.isArray(items)) {
+      const ops = items.map((item) => ({
+        updateOne: {
+          filter: { _id: item.id },
+          update: { order: item.order },
+        },
+      }));
+      await Testimonial.bulkWrite(ops);
+    }
+    res.status(200).json({ success: true, message: "Testimonials reordered successfully." });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};

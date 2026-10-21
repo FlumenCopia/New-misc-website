@@ -44,7 +44,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       />
       {showBadge && (
         <span
-          className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-md bg-[#1abc9c] text-white shadow-xs"
+          className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-md bg-brand-500 text-charcoal-950 shadow-xs"
         >
           CMS
         </span>

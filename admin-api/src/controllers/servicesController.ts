@@ -83,3 +83,21 @@ export const deleteService = async (req: Request, res: Response): Promise<void> 
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const reorderServices = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { items } = req.body;
+    if (Array.isArray(items)) {
+      const ops = items.map((item) => ({
+        updateOne: {
+          filter: { _id: item.id },
+          update: { order: item.order },
+        },
+      }));
+      await Service.bulkWrite(ops);
+    }
+    res.status(200).json({ success: true, message: "Services reordered successfully." });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
