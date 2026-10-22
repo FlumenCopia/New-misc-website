@@ -83,7 +83,7 @@ export const MediaLibraryPage: React.FC = () => {
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Media Asset Library</h1>
           <p className="text-xs text-slate-500 mt-1">
-            Upload and organize images, logos, banners, and documents.
+            Upload and organize high-resolution images, logos, banners, and documents (Max 10 MB per file).
           </p>
         </div>
         <div>

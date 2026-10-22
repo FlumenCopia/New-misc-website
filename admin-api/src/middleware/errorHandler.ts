@@ -8,6 +8,18 @@ export const errorHandler = (
 ): void => {
   console.error(`[API Error] ${req.method} ${req.url}:`, err);
 
+  // Multer File Upload Errors
+  if (err.name === "MulterError" || err.code === "LIMIT_FILE_SIZE") {
+    const isSize = err.code === "LIMIT_FILE_SIZE";
+    res.status(400).json({
+      success: false,
+      message: isSize
+        ? "File size exceeds the 10 MB limit. Please choose an image smaller than 10 MB."
+        : `File upload error: ${err.message}`,
+    });
+    return;
+  }
+
   // Mongoose CastError (e.g. invalid ObjectId format)
   if (err.name === "CastError") {
     res.status(400).json({

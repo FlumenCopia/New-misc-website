@@ -13,7 +13,32 @@ export const getProjects = async (req: Request, res: Response): Promise<void> =>
     if (req.query.category) {
       filter.category = req.query.category;
     }
-    const projects = await Project.find(filter).sort({ order: 1, createdAt: -1 });
+
+    // Check if pagination query params are supplied
+    if (req.query.page || req.query.limit) {
+      const page = Math.max(parseInt(req.query.page as string) || 1, 1);
+      const limit = Math.min(Math.max(parseInt(req.query.limit as string) || 20, 1), 100);
+      const skip = (page - 1) * limit;
+
+      const [projects, total] = await Promise.all([
+        Project.find(filter).sort({ order: 1, createdAt: -1 }).skip(skip).limit(limit).lean(),
+        Project.countDocuments(filter),
+      ]);
+
+      res.status(200).json({
+        success: true,
+        data: projects,
+        pagination: {
+          page,
+          limit,
+          total,
+          totalPages: Math.ceil(total / limit),
+        },
+      });
+      return;
+    }
+
+    const projects = await Project.find(filter).sort({ order: 1, createdAt: -1 }).lean();
     res.status(200).json({ success: true, count: projects.length, data: projects });
   } catch (error: any) {
     res.status(500).json({ success: false, message: error.message });

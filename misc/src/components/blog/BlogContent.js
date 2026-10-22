@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { getBlogs, resolveMediaUrl, submitEnquiry } from '@/lib/api';
 import styles from './BlogContent.module.css';
@@ -246,6 +246,8 @@ export default function BlogContent({ initialBlogs }) {
 
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [visibleCount, setVisibleCount] = useState(10); // 1 featured + 9 grid items
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const observerTargetRef = useRef(null);
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterStatus, setNewsletterStatus] = useState(null);
   const [newsletterLoading, setNewsletterLoading] = useState(false);
@@ -305,8 +307,42 @@ export default function BlogContent({ initialBlogs }) {
   const hasMore = visibleCount < filteredPosts.length;
 
   const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + 9);
+    if (isLoadingMore) return;
+    setIsLoadingMore(true);
+    setTimeout(() => {
+      setVisibleCount((prev) => prev + 9);
+      setIsLoadingMore(false);
+    }, 300);
   };
+
+  // Automatic Infinite Scroll with IntersectionObserver
+  useEffect(() => {
+    if (!hasMore || typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0] && entries[0].isIntersecting && !isLoadingMore) {
+          setIsLoadingMore(true);
+          setTimeout(() => {
+            setVisibleCount((prev) => prev + 9);
+            setIsLoadingMore(false);
+          }, 350);
+        }
+      },
+      { rootMargin: '300px' }
+    );
+
+    const currentEl = observerTargetRef.current;
+    if (currentEl) {
+      observer.observe(currentEl);
+    }
+
+    return () => {
+      if (currentEl) {
+        observer.unobserve(currentEl);
+      }
+    };
+  }, [hasMore, isLoadingMore]);
 
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
@@ -457,16 +493,26 @@ export default function BlogContent({ initialBlogs }) {
               ))}
             </div>
 
-            {/* D. Pagination / Load More */}
-            {hasMore && (
-              <div className={styles.loadMoreRow}>
+            {/* D. Infinite Scroll Sentinel & Loader */}
+            {hasMore ? (
+              <div ref={observerTargetRef} className={styles.infiniteScrollRow}>
+                <div className={styles.infiniteLoaderBadge}>
+                  <span className={styles.loadingPulseSpinner} />
+                  <span>Loading more articles...</span>
+                </div>
                 <button
                   type="button"
                   onClick={handleLoadMore}
-                  className={styles.loadMoreBtn}
+                  className={styles.loadMoreFallbackBtn}
+                  aria-label="Load more articles manually"
                 >
-                  Load More Articles ({filteredPosts.length - visibleCount} remaining)
+                  Load More ({filteredPosts.length - visibleCount} remaining)
                 </button>
+              </div>
+            ) : (
+              <div className={styles.allLoadedNotice}>
+                <span className={styles.checkIcon}>✓</span>
+                <span>You’ve viewed all {filteredPosts.length} articles</span>
               </div>
             )}
           </section>

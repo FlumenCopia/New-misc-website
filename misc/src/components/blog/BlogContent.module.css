@@ -378,31 +378,90 @@
 }
 
 /* ==========================================================================
-   D. Pagination / Load More Button
+   D. Infinite Scroll & Loader
    ========================================================================== */
-.loadMoreRow {
+.infiniteScrollRow {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  margin-top: 48px;
+  margin-top: 56px;
+  gap: 16px;
 }
 
-.loadMoreBtn {
+.infiniteLoaderBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(245, 166, 35, 0.3);
+  padding: 10px 22px;
+  border-radius: 9999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #78350f;
+  box-shadow: 0 4px 14px rgba(245, 166, 35, 0.08);
+}
+
+.loadingPulseSpinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2.5px solid #fef3d6;
+  border-top-color: #d97706;
+  animation: infiniteSpin 0.75s linear infinite;
+  display: inline-block;
+}
+
+@keyframes infiniteSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loadMoreFallbackBtn {
   background: #ffffff;
   border: 1.5px solid #dcd7ce;
-  color: #171717;
+  color: #44403c;
   font-family: inherit;
-  font-size: 14px;
-  font-weight: 700;
-  padding: 12px 32px;
-  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.loadMoreBtn:hover {
-  border-color: #171717;
+.loadMoreFallbackBtn:hover {
+  border-color: #d97706;
+  color: #d97706;
   background: #faf8f5;
-  transform: translateY(-1px);
+}
+
+.allLoadedNotice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 56px;
+  padding: 14px 24px;
+  background: #fdfbf7;
+  border: 1px solid #ede8df;
+  border-radius: 9999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #78716c;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.checkIcon {
+  color: #15803d;
+  font-weight: 800;
 }
 
 /* ==========================================================================

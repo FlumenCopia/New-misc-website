@@ -42,6 +42,17 @@ export async function apiRequest<T = any>(
     headers.set('Authorization', `Bearer ${token}`);
   }
 
+  // If body is FormData, check file sizes under 10 MB limit
+  if (options.body instanceof FormData) {
+    const maxBytes = 10 * 1024 * 1024; // 10 MB
+    for (const [, value] of (options.body as any).entries()) {
+      if (typeof File !== 'undefined' && value instanceof File && value.size > maxBytes) {
+        const sizeMb = (value.size / (1024 * 1024)).toFixed(1);
+        throw new Error(`File "${value.name}" (${sizeMb} MB) exceeds the 10 MB limit. Please select an image under 10 MB.`);
+      }
+    }
+  }
+
   // If body is not FormData, default to application/json
   if (!(options.body instanceof FormData) && !headers.has('Content-Type')) {
     headers.set('Content-Type', 'application/json');

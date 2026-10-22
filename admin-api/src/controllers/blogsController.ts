@@ -4,8 +4,8 @@ import { Blog } from "../models/Blog";
 
 export const getBlogs = async (req: Request, res: Response): Promise<void> => {
   try {
-    const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 20;
+    const page = Math.max(parseInt(req.query.page as string) || 1, 1);
+    const limit = Math.min(Math.max(parseInt(req.query.limit as string) || 20, 1), 100);
     const skip = (page - 1) * limit;
 
     const filter: any = {};
@@ -33,7 +33,8 @@ export const getBlogs = async (req: Request, res: Response): Promise<void> => {
         .sort({ publishDate: -1, createdAt: -1 })
         .skip(skip)
         .limit(limit)
-        .select("-contentHtml"), // Exclude full HTML body from listing for performance
+        .select("-contentHtml") // Exclude full HTML body from listing for performance
+        .lean(),
       Blog.countDocuments(filter),
     ]);
 

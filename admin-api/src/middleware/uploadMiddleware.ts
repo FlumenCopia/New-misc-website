@@ -26,19 +26,32 @@ const fileFilter = (
   file: Express.Multer.File,
   cb: multer.FileFilterCallback
 ) => {
-  const allowedExtensions = /jpeg|jpg|png|gif|webp|svg|ico|pdf/;
+  const allowedExtensions = /jpeg|jpg|png|gif|webp|svg|ico|pdf|avif/;
   const ext = path.extname(file.originalname).toLowerCase().slice(1);
   const mime = file.mimetype.toLowerCase();
 
-  if (allowedExtensions.test(ext) || mime.startsWith("image/")) {
+  const allowedMimeTypes = [
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "image/webp",
+    "image/svg+xml",
+    "image/x-icon",
+    "image/vnd.microsoft.icon",
+    "image/avif",
+    "application/pdf",
+  ];
+
+  if (allowedExtensions.test(ext) && (allowedMimeTypes.includes(mime) || mime.startsWith("image/"))) {
     cb(null, true);
   } else {
-    cb(new Error("Only image files and PDFs are permitted."));
+    cb(new Error("Invalid file type. Only high-resolution images (JPG, PNG, WebP, AVIF, SVG, GIF) and PDFs under 10 MB are permitted."));
   }
 };
 
 export const upload = multer({
   storage,
-  limits: { fileSize: 20 * 1024 * 1024 }, // 20 MB limit
+  limits: { fileSize: 10 * 1024 * 1024 }, // Enforce 10 MB upload limit
   fileFilter,
 });
+

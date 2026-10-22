@@ -5,8 +5,8 @@ import { MediaAsset } from "../models/MediaAsset";
 
 export const getMediaAssets = async (req: Request, res: Response): Promise<void> => {
   try {
-    const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 24;
+    const page = Math.max(parseInt(req.query.page as string) || 1, 1);
+    const limit = Math.min(Math.max(parseInt(req.query.limit as string) || 24, 1), 100);
     const skip = (page - 1) * limit;
 
     const filter: any = {};
@@ -18,7 +18,7 @@ export const getMediaAssets = async (req: Request, res: Response): Promise<void>
     }
 
     const [assets, total] = await Promise.all([
-      MediaAsset.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit),
+      MediaAsset.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
       MediaAsset.countDocuments(filter),
     ]);
 
