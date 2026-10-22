@@ -5,6 +5,8 @@ node_modules/
 # Next.js & Build Outputs
 .next/
 */.next/
+.netlify/
+*/.netlify/
 dist/
 */dist/
 build/
