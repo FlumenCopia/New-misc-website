@@ -70,7 +70,7 @@ export default function CommonBlogTemplate({ slug, initialBlog = null, fallback 
         const item = tocList[i];
         const el = document.getElementById(item.id);
         if (el && el.offsetTop <= scrollPosition) {
-          setActiveTocId(item.id);
+          setActiveTocId((prev) => (prev === item.id ? prev : item.id));
           break;
         }
       }
@@ -188,7 +188,7 @@ export default function CommonBlogTemplate({ slug, initialBlog = null, fallback 
             </article>
 
             {/* End of Article: Takeaway, FILED UNDER, and Author Card */}
-            <footer className={styles.articleFooterMeta}>
+            <div className={styles.articleFooterMeta}>
               {/* Takeaway Block */}
               <div className={styles.takeawayBlock}>
                 <p className={styles.takeawayLead}>
@@ -242,7 +242,7 @@ export default function CommonBlogTemplate({ slug, initialBlog = null, fallback 
                   </div>
                 </Link>
               </div>
-            </footer>
+            </div>
           </div>
 
           {/* Secondary Sticky Sidebar */}

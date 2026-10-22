@@ -907,11 +907,11 @@ height: 500px ;
 
 
 /* FOOTER */
-footer{ width:100%; float:left; padding:100px 0; background:#febd0e; color:#fff;}
-footer .logo{ height:20px; margin-bottom:30px;}
-footer *{ -moz-transition: all 0.2s ease; -o-transition: all 0.2s ease; -ms-transition: all 0.2s ease; transition: all 0.2s ease;}
-footer p{ line-height:22px; font-weight:500;}
-footer h4{ font-weight:700; margin-top:0; margin-bottom:30px;}
+footer.legacy-footer{ width:100%; float:left; padding:100px 0; background:#febd0e; color:#fff;}
+footer.legacy-footer .logo{ height:20px; margin-bottom:30px;}
+footer.legacy-footer *{ -moz-transition: all 0.2s ease; -o-transition: all 0.2s ease; -ms-transition: all 0.2s ease; transition: all 0.2s ease;}
+footer.legacy-footer p{ line-height:22px; font-weight:500;}
+footer.legacy-footer h4{ font-weight:700; margin-top:0; margin-bottom:30px;}
 footer .gallery{ width:100%; float:left; margin-left:-5px;}
 footer .gallery li{ width:33.33333%; float:left; padding:5px;}
 footer .gallery li img{ width:100%; float:left;}

@@ -531,34 +531,48 @@
    5. End of Article: Takeaway, FILED UNDER, and Editorial Author Card
    ========================================================================== */
 .articleFooterMeta {
-  margin-top: 48px;
+  margin-top: 52px;
+  background: transparent !important;
+  float: none !important;
+  padding: 0 !important;
+  color: inherit !important;
+  width: 100% !important;
+  clear: both;
 }
 
-/* Closing Takeaway */
+/* Closing Takeaway Card */
 .takeawayBlock {
-  margin-bottom: 32px;
+  margin-bottom: 36px;
+  background: #ffffff;
+  border: 1px solid rgba(245, 166, 35, 0.25);
+  border-left: 4px solid #f5a623;
+  border-radius: 4px 16px 16px 4px;
+  padding: 28px 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
 }
 
 .takeawayLead {
-  font-size: 16.5px;
-  line-height: 1.65;
+  font-size: 16px;
+  line-height: 1.6;
   color: #55565c;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .takeawayBold {
   font-family: 'Outfit', sans-serif;
-  font-size: 22px;
+  font-size: 21px;
   font-weight: 800;
   color: #171717;
   margin: 0 0 10px 0;
-  line-height: 1.32;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
 }
 
 .takeawayNote {
-  font-size: 16px;
-  color: #55565c;
-  margin: 0 0 32px 0;
+  font-size: 15px;
+  color: #d97706;
+  font-weight: 600;
+  margin: 0;
 }
 
 /* FILED UNDER Section */
@@ -566,7 +580,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  margin: 28px 0;
+  margin: 32px 0;
   flex-wrap: wrap;
 }
 
@@ -591,34 +605,36 @@
 }
 
 .filedUnderPill {
-  background: #fef3d6;
-  color: #171717;
+  background: #fef7e6;
+  color: #78350f;
+  border: 1px solid rgba(245, 166, 35, 0.22);
   font-size: 13px;
   font-weight: 600;
   padding: 6px 16px;
   border-radius: 9999px;
   display: inline-block;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
   text-decoration: none;
 }
 
 .filedUnderPill:hover {
   background: #fee7b0;
+  border-color: rgba(245, 166, 35, 0.45);
   transform: translateY(-1px);
 }
 
-/* Author Box - Exact Match to Screenshot */
+/* Author Box - Clean Editorial Card */
 .editorialAuthorCard {
   background: #ffffff;
-  border: 1px solid rgba(245, 166, 35, 0.32);
+  border: 1px solid rgba(230, 224, 214, 0.9);
   border-radius: 16px;
   padding: 24px 28px;
   display: grid;
   grid-template-columns: 1fr 1px 220px;
   align-items: center;
   gap: 26px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
-  margin: 28px 0 44px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.02);
+  margin: 32px 0 48px;
 }
 
 .authorCardLeft {
