@@ -13,6 +13,7 @@ export interface IEnquiry extends Document {
     | "contact_page"
     | "neyyattinkara"
     | "career_apply"
+    | "career_application"
     | "general";
   status: "new" | "in_progress" | "replied" | "archived";
   notes: string;
@@ -36,6 +37,7 @@ const EnquirySchema = new Schema<IEnquiry>(
         "contact_page",
         "neyyattinkara",
         "career_apply",
+        "career_application",
         "general",
       ],
       default: "general",

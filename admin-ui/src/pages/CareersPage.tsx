@@ -75,8 +75,16 @@ export const CareersPage: React.FC = () => {
   const fetchApplications = async () => {
     setAppsLoading(true);
     try {
-      const res = await apiRequest('/enquiries?formSource=career_application&limit=100');
-      if (res.success) setApplications(res.data);
+      const res = await apiRequest('/enquiries?limit=100');
+      if (res.success && Array.isArray(res.data)) {
+        const careerApps = res.data.filter(
+          (e: any) =>
+            e.formSource === 'career_apply' ||
+            e.formSource === 'career_application' ||
+            (e.service && e.service.toLowerCase().startsWith('career application'))
+        );
+        setApplications(careerApps);
+      }
     } catch (e) {
       console.warn('Could not load applications:', e);
     } finally {

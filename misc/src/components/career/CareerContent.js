@@ -89,7 +89,7 @@ export default function CareerContent({ initialCareers }) {
         phone: formData.phone,
         service: `Career Application: ${applyingJob.title}`,
         message: messageContent,
-        formSource: 'career_application',
+        formSource: 'career_apply',
       });
 
       setSubmitSuccess(true);

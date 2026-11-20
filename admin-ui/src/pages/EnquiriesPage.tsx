@@ -12,6 +12,7 @@ export const EnquiriesPage: React.FC = () => {
   const [pagination, setPagination] = useState<any>({ page: 1, limit: 15, total: 0, totalPages: 1 });
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState('all');
+  const [sourceFilter, setSourceFilter] = useState('all');
   const [search, setSearch] = useState('');
   const [selectedEnquiry, setSelectedEnquiry] = useState<any | null>(null);
   const [statusToUpdate, setStatusToUpdate] = useState('');
@@ -20,13 +21,14 @@ export const EnquiriesPage: React.FC = () => {
 
   useEffect(() => {
     fetchEnquiries(1);
-  }, [statusFilter, search]);
+  }, [statusFilter, sourceFilter, search]);
 
   const fetchEnquiries = async (page = 1) => {
     setLoading(true);
     try {
       let query = `?page=${page}&limit=15`;
       if (statusFilter !== 'all') query += `&status=${statusFilter}`;
+      if (sourceFilter !== 'all') query += `&formSource=${sourceFilter}`;
       if (search) query += `&search=${encodeURIComponent(search)}`;
 
       const res = await apiRequest(`/enquiries${query}`);
@@ -121,11 +123,23 @@ export const EnquiriesPage: React.FC = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:border-slate-800"
           >
-            <option value="all">All Enquiries</option>
+            <option value="all">All Statuses</option>
             <option value="new">New (Unread)</option>
             <option value="in_progress">In Progress</option>
             <option value="replied">Replied</option>
             <option value="archived">Archived</option>
+          </select>
+
+          <select
+            value={sourceFilter}
+            onChange={(e) => setSourceFilter(e.target.value)}
+            className="bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-700 focus:outline-none focus:border-slate-800"
+          >
+            <option value="all">All Inbound Sources</option>
+            <option value="career_apply">Career Applications</option>
+            <option value="contact_page">Contact Page Leads</option>
+            <option value="modal_sidebar">Header / Sidebar Leads</option>
+            <option value="neyyattinkara">Neyyattinkara Hub Leads</option>
           </select>
         </div>
       </div>
