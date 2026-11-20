@@ -98,6 +98,19 @@ export const SubServicesPage: React.FC = () => {
     }
   };
 
+  const handleToggleActive = async (sub: any) => {
+    try {
+      const newStatus = !sub.isActive;
+      await apiRequest(`/sub-services/${sub._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ isActive: newStatus }),
+      });
+      fetchData();
+    } catch (err: any) {
+      alert(err.message || 'Error updating sub-service status');
+    }
+  };
+
   if (loading) return <LoadingSpinner size="lg" className="min-h-[50vh]" />;
 
   return (
@@ -133,9 +146,16 @@ export const SubServicesPage: React.FC = () => {
             <td className="px-6 py-4 text-xs font-mono text-slate-300">{sub.slug}</td>
             <td className="px-6 py-4 text-xs font-mono text-slate-400">{sub.route || '—'}</td>
             <td className="px-6 py-4">
-              <Badge variant={sub.isActive ? 'success' : 'neutral'}>
-                {sub.isActive ? 'Active' : 'Draft'}
-              </Badge>
+              <button
+                type="button"
+                onClick={() => handleToggleActive(sub)}
+                className="cursor-pointer focus:outline-none transition-transform active:scale-95"
+                title={`Click to set ${sub.isActive ? 'Draft / Hidden' : 'Active'}`}
+              >
+                <Badge variant={sub.isActive ? 'success' : 'neutral'}>
+                  {sub.isActive ? 'Active' : 'Draft'}
+                </Badge>
+              </button>
             </td>
             <td className="px-6 py-4">
               <div className="flex items-center gap-2">
@@ -225,6 +245,18 @@ export const SubServicesPage: React.FC = () => {
               onChange={(e) => setFormData({ ...formData, shortDescription: e.target.value })}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500"
             />
+          </div>
+
+          <div>
+            <label className="block text-xs text-slate-400 mb-1">Display Status</label>
+            <select
+              value={formData.isActive ? 'active' : 'draft'}
+              onChange={(e) => setFormData({ ...formData, isActive: e.target.value === 'active' })}
+              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500 font-medium"
+            >
+              <option value="active">Active (Visible in menus and service pages)</option>
+              <option value="draft">Draft / Inactive (Hidden)</option>
+            </select>
           </div>
 
           <div className="flex justify-end gap-3 pt-4 border-t border-slate-700">

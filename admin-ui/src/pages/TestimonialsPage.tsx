@@ -97,6 +97,19 @@ export const TestimonialsPage: React.FC = () => {
     }
   };
 
+  const handleToggleActive = async (item: any) => {
+    try {
+      const newStatus = !item.isActive;
+      await apiRequest(`/testimonials/${item._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ isActive: newStatus }),
+      });
+      fetchTestimonials();
+    } catch (err: any) {
+      alert(err.message || 'Error updating testimonial status');
+    }
+  };
+
   if (loading) return <LoadingSpinner size="lg" className="min-h-[50vh]" />;
 
   return (
@@ -133,9 +146,16 @@ export const TestimonialsPage: React.FC = () => {
             </td>
             <td className="px-6 py-4 text-xs text-slate-500 max-w-sm truncate">{t.feedback}</td>
             <td className="px-6 py-4">
-              <Badge variant={t.isActive ? 'success' : 'neutral'}>
-                {t.isActive ? 'Active' : 'Hidden'}
-              </Badge>
+              <button
+                type="button"
+                onClick={() => handleToggleActive(t)}
+                className="cursor-pointer focus:outline-none transition-transform active:scale-95"
+                title={`Click to set ${t.isActive ? 'Inactive / Hidden' : 'Active'}`}
+              >
+                <Badge variant={t.isActive ? 'success' : 'neutral'}>
+                  {t.isActive ? 'Active' : 'Hidden'}
+                </Badge>
+              </button>
             </td>
             <td className="px-6 py-4">
               <div className="flex items-center gap-2">
@@ -189,6 +209,28 @@ export const TestimonialsPage: React.FC = () => {
                 type="text"
                 value={formData.company}
                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-amber-500 shadow-xs"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Display Status</label>
+              <select
+                value={formData.isActive ? 'active' : 'inactive'}
+                onChange={(e) => setFormData({ ...formData, isActive: e.target.value === 'active' })}
+                className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-amber-500 shadow-xs font-medium"
+              >
+                <option value="active">Active (Visible on public site)</option>
+                <option value="inactive">Inactive / Hidden</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Display Order</label>
+              <input
+                type="number"
+                value={formData.order}
+                onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
                 className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-amber-500 shadow-xs"
               />
             </div>

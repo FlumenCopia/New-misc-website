@@ -450,6 +450,25 @@
   overflow-y: auto;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
   animation: modalIn 0.22s ease-out;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.modalBox::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modalBox::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modalBox::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+.modalBox::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 
 @keyframes modalIn {

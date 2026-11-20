@@ -87,6 +87,19 @@ export const FaqsPage: React.FC = () => {
     }
   };
 
+  const handleToggleActive = async (faq: any) => {
+    try {
+      const newStatus = !faq.isActive;
+      await apiRequest(`/faqs/${faq._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ isActive: newStatus }),
+      });
+      fetchFaqs();
+    } catch (err: any) {
+      alert(err.message || 'Error updating FAQ status');
+    }
+  };
+
   if (loading) return <LoadingSpinner size="lg" className="min-h-[50vh]" />;
 
   return (
@@ -119,9 +132,16 @@ export const FaqsPage: React.FC = () => {
             <td className="px-6 py-4 text-xs font-mono text-slate-300">{faq.category}</td>
             <td className="px-6 py-4 text-xs font-semibold text-white">{faq.order}</td>
             <td className="px-6 py-4">
-              <Badge variant={faq.isActive ? 'success' : 'neutral'}>
-                {faq.isActive ? 'Active' : 'Hidden'}
-              </Badge>
+              <button
+                type="button"
+                onClick={() => handleToggleActive(faq)}
+                className="cursor-pointer focus:outline-none transition-transform active:scale-95"
+                title={`Click to set ${faq.isActive ? 'Inactive / Hidden' : 'Active'}`}
+              >
+                <Badge variant={faq.isActive ? 'success' : 'neutral'}>
+                  {faq.isActive ? 'Active' : 'Inactive'}
+                </Badge>
+              </button>
             </td>
             <td className="px-6 py-4">
               <div className="flex items-center gap-2">
@@ -174,6 +194,17 @@ export const FaqsPage: React.FC = () => {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
+              <label className="block text-xs text-slate-400 mb-1">Display Status</label>
+              <select
+                value={formData.isActive ? 'active' : 'inactive'}
+                onChange={(e) => setFormData({ ...formData, isActive: e.target.value === 'active' })}
+                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500 font-medium"
+              >
+                <option value="active">Active (Visible on public site)</option>
+                <option value="inactive">Inactive / Hidden</option>
+              </select>
+            </div>
+            <div>
               <label className="block text-xs text-slate-400 mb-1">Category</label>
               <input
                 type="text"
@@ -183,15 +214,15 @@ export const FaqsPage: React.FC = () => {
                 className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500"
               />
             </div>
-            <div>
-              <label className="block text-xs text-slate-400 mb-1">Display Order</label>
-              <input
-                type="number"
-                value={formData.order}
-                onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500"
-              />
-            </div>
+          </div>
+          <div>
+            <label className="block text-xs text-slate-400 mb-1">Display Order</label>
+            <input
+              type="number"
+              value={formData.order}
+              onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
+              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500"
+            />
           </div>
           <div className="flex justify-end gap-3 pt-4 border-t border-slate-700">
             <Button type="button" variant="ghost" onClick={() => setIsModalOpen(false)}>

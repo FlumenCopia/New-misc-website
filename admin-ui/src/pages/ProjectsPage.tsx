@@ -179,6 +179,19 @@ export const ProjectsPage: React.FC = () => {
     }
   };
 
+  const handleTogglePublish = async (proj: ProjectItem) => {
+    try {
+      const newStatus = !proj.isPublished;
+      await apiRequest(`/projects/${proj._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ isPublished: newStatus }),
+      });
+      fetchProjects();
+    } catch (err: any) {
+      alert(err.message || 'Error updating project status');
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
@@ -288,9 +301,16 @@ export const ProjectsPage: React.FC = () => {
               </td>
 
               <td className="px-5 py-3.5">
-                <Badge variant={proj.isPublished ? 'success' : 'neutral'}>
-                  {proj.isPublished ? 'Published' : 'Draft'}
-                </Badge>
+                <button
+                  type="button"
+                  onClick={() => handleTogglePublish(proj)}
+                  className="cursor-pointer focus:outline-none transition-transform active:scale-95"
+                  title={`Click to set ${proj.isPublished ? 'Draft / Hidden' : 'Published'}`}
+                >
+                  <Badge variant={proj.isPublished ? 'success' : 'neutral'}>
+                    {proj.isPublished ? 'Published' : 'Draft'}
+                  </Badge>
+                </button>
               </td>
 
               <td className="px-5 py-3.5">
@@ -452,8 +472,21 @@ export const ProjectsPage: React.FC = () => {
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-              <div className="flex items-center gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Display Status
+                </label>
+                <select
+                  value={formData.isPublished ? 'published' : 'draft'}
+                  onChange={(e) => setFormData({ ...formData, isPublished: e.target.value === 'published' })}
+                  className="w-full px-3 py-2 border rounded-md font-medium text-sm text-slate-800"
+                >
+                  <option value="published">Published (Visible on Portfolio & Homepage)</option>
+                  <option value="draft">Draft / Inactive (Hidden)</option>
+                </select>
+              </div>
+              <div className="flex items-center gap-2 pt-5">
                 <input
                   type="checkbox"
                   id="isFeatured"
@@ -462,20 +495,7 @@ export const ProjectsPage: React.FC = () => {
                   className="w-4 h-4 text-brand-500 rounded border-slate-300"
                 />
                 <label htmlFor="isFeatured" className="text-sm font-semibold text-slate-800 cursor-pointer">
-                  Feature in Homepage / Top Showcase
-                </label>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  id="isPublished"
-                  checked={formData.isPublished}
-                  onChange={(e) => setFormData({ ...formData, isPublished: e.target.checked })}
-                  className="w-4 h-4 text-brand-500 rounded border-slate-300"
-                />
-                <label htmlFor="isPublished" className="text-sm font-semibold text-slate-800 cursor-pointer">
-                  Publish (Visible to Visitors)
+                  Feature in Homepage Showcase
                 </label>
               </div>
             </div>

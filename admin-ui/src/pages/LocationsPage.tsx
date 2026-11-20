@@ -199,6 +199,19 @@ export const LocationsPage: React.FC = () => {
     }
   };
 
+  const handleTogglePublished = async (loc: LocationPageItem) => {
+    try {
+      const newStatus = !loc.isPublished;
+      await apiRequest(`/pages/${loc._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ isPublished: newStatus }),
+      });
+      fetchLocations();
+    } catch (err: any) {
+      alert(err.message || 'Error updating location status');
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
@@ -237,9 +250,16 @@ export const LocationsPage: React.FC = () => {
                         <MapPin className="w-4 h-4" />
                       </div>
                       <h2 className="text-xl font-bold text-slate-900">{loc.title}</h2>
-                      <Badge variant={loc.isPublished ? 'success' : 'neutral'}>
-                        {loc.isPublished ? 'Live on Website' : 'Draft'}
-                      </Badge>
+                      <button
+                        type="button"
+                        onClick={() => handleTogglePublished(loc)}
+                        className="cursor-pointer focus:outline-none transition-transform active:scale-95"
+                        title={`Click to set ${loc.isPublished ? 'Draft / Inactive' : 'Live on Website'}`}
+                      >
+                        <Badge variant={loc.isPublished ? 'success' : 'neutral'}>
+                          {loc.isPublished ? 'Live on Website' : 'Draft'}
+                        </Badge>
+                      </button>
                       <span className="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
                         {loc.route}
                       </span>
@@ -531,6 +551,20 @@ export const LocationsPage: React.FC = () => {
                 placeholder="/uploads/... or /assets/images/..."
                 helperText="Cover image for this location landing page and social sharing previews."
               />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Publish Status
+              </label>
+              <select
+                value={formData.isPublished ? 'published' : 'draft'}
+                onChange={(e) => setFormData({ ...formData, isPublished: e.target.value === 'published' })}
+                className="w-full px-3 py-2 border rounded-md font-medium text-sm text-slate-800"
+              >
+                <option value="published">Live on Website (Publicly Accessible)</option>
+                <option value="draft">Draft / Hidden</option>
+              </select>
             </div>
 
             <div className="pt-4 border-t border-slate-200 flex justify-end gap-3">

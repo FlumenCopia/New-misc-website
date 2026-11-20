@@ -145,6 +145,19 @@ export const NavigationPage: React.FC = () => {
     }
   };
 
+  const handleToggleActive = async (item: NavItem) => {
+    try {
+      const newStatus = !item.isActive;
+      await apiRequest(`/navigation/${item._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ isActive: newStatus }),
+      });
+      fetchNavItems();
+    } catch (err: any) {
+      alert(err.message || 'Failed to update menu item status.');
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
@@ -246,9 +259,16 @@ export const NavigationPage: React.FC = () => {
               </td>
 
               <td className="px-5 py-3.5">
-                <Badge variant={item.isActive ? 'success' : 'neutral'}>
-                  {item.isActive ? 'Active' : 'Hidden'}
-                </Badge>
+                <button
+                  type="button"
+                  onClick={() => handleToggleActive(item)}
+                  className="cursor-pointer focus:outline-none transition-transform active:scale-95"
+                  title={`Click to set ${item.isActive ? 'Inactive / Hidden' : 'Active'}`}
+                >
+                  <Badge variant={item.isActive ? 'success' : 'neutral'}>
+                    {item.isActive ? 'Active' : 'Hidden'}
+                  </Badge>
+                </button>
               </td>
 
               <td className="px-5 py-3.5">
