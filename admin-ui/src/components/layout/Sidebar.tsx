@@ -14,6 +14,7 @@ import {
   Settings,
   LogOut,
   UserCheck,
+  Briefcase,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { BrandLogo } from '../common/BrandLogo';
@@ -52,8 +53,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     {
       title: 'System & Inbound',
       items: [
+        { name: 'Job Applications', path: '/careers?tab=applications', icon: UserCheck },
+        { name: 'Careers & Openings', path: '/careers', icon: Briefcase },
         { name: 'Contact Enquiries', path: '/enquiries', icon: Inbox },
-        { name: 'Careers', path: '/careers', icon: UserCheck },
         { name: 'Global Settings', path: '/settings', icon: Settings },
       ],
     },
