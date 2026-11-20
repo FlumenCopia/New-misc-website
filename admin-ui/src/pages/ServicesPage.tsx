@@ -6,6 +6,7 @@ import { Button } from '../components/common/Button';
 import { Modal } from '../components/common/Modal';
 import { Badge } from '../components/common/Badge';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
+import { ImageUploadField } from '../components/common/ImageUploadField';
 
 export const ServicesPage: React.FC = () => {
   const [services, setServices] = useState<any[]>([]);
@@ -88,6 +89,19 @@ export const ServicesPage: React.FC = () => {
     }
   };
 
+  const handleToggleActive = async (service: any) => {
+    try {
+      const newStatus = !service.isActive;
+      await apiRequest(`/services/${service._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ isActive: newStatus }),
+      });
+      fetchServices();
+    } catch (err: any) {
+      alert(err.message || 'Error updating service status');
+    }
+  };
+
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this service? Associated sub-services will also be removed.')) return;
     try {
@@ -131,9 +145,16 @@ export const ServicesPage: React.FC = () => {
             <td className="px-6 py-4 text-xs font-mono text-slate-400">{s.route || `/services/${s.slug}`}</td>
             <td className="px-6 py-4 text-xs font-semibold text-white">{s.order}</td>
             <td className="px-6 py-4">
-              <Badge variant={s.isActive ? 'success' : 'neutral'}>
-                {s.isActive ? 'Active' : 'Draft'}
-              </Badge>
+              <button
+                type="button"
+                onClick={() => handleToggleActive(s)}
+                className="cursor-pointer focus:outline-none transition-transform active:scale-95"
+                title={`Click to set ${s.isActive ? 'Draft / Hidden' : 'Active'}`}
+              >
+                <Badge variant={s.isActive ? 'success' : 'neutral'}>
+                  {s.isActive ? 'Active' : 'Draft'}
+                </Badge>
+              </button>
             </td>
             <td className="px-6 py-4">
               <div className="flex items-center gap-2">
@@ -199,6 +220,16 @@ export const ServicesPage: React.FC = () => {
           </div>
 
           <div>
+            <ImageUploadField
+              label="Service Icon / Feature Image"
+              value={formData.iconImage}
+              onChange={(url) => setFormData({ ...formData, iconImage: url })}
+              placeholder="/uploads/... or /assets/images/dm.png"
+              helperText="Icon or graphic displayed on the services grid card."
+            />
+          </div>
+
+          <div>
             <label className="block text-xs text-slate-400 mb-1">Short Description</label>
             <textarea
               rows={2}
@@ -210,6 +241,17 @@ export const ServicesPage: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
+              <label className="block text-xs text-slate-400 mb-1">Display Status</label>
+              <select
+                value={formData.isActive ? 'active' : 'draft'}
+                onChange={(e) => setFormData({ ...formData, isActive: e.target.value === 'active' })}
+                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500 font-medium"
+              >
+                <option value="active">Active (Live on Website & Dropdown)</option>
+                <option value="draft">Draft / Inactive (Hidden)</option>
+              </select>
+            </div>
+            <div>
               <label className="block text-xs text-slate-400 mb-1">Display Order</label>
               <input
                 type="number"
@@ -217,17 +259,6 @@ export const ServicesPage: React.FC = () => {
                 onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
                 className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500"
               />
-            </div>
-            <div className="flex items-center pt-6">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={formData.isActive}
-                  onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                  className="rounded bg-slate-900 border-slate-700 text-amber-500"
-                />
-                <span className="text-xs text-slate-300">Active</span>
-              </label>
             </div>
           </div>
 

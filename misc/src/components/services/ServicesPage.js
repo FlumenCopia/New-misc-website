@@ -2,101 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { getServices, getServiceBySlug } from '@/lib/api';
+import { getServices, getServiceBySlug, resolveMediaUrl } from '@/lib/api';
 import styles from './ServicesPage.module.css';
-
-const defaultAllServices = [
-  {
-    num: '01',
-    title: 'Digital Marketing',
-    slug: 'digital-marketing',
-    route: '/services/digital-marketing',
-    image: '/assets/images/services/service-card-02.webp',
-    description:
-      'Digital marketing works best when it feels natural, not forced. At MiscArchive, we help businesses in Trivandrum, Kerala, and beyond grow their online presence.',
-  },
-  {
-    num: '02',
-    title: 'Web Development',
-    slug: 'web-development',
-    route: '/services/web-development',
-    image: '/assets/images/services/service-card-03.webp',
-    description:
-      'Websites That Look Good and Work Better. We design and develop websites that are visually stunning, fast, and engineered for high conversions.',
-  },
-  {
-    num: '03',
-    title: 'Graphic Designing',
-    slug: 'graphic-designing',
-    route: '/services/graphic-designing',
-    image: '/assets/images/services/service-card-04.webp',
-    description:
-      "Visuals that speak without explaining. We create unique brand identities and marketing creatives that improve your business's online visibility.",
-  },
-  {
-    num: '04',
-    title: 'Branding',
-    slug: 'branding',
-    route: '/services/branding',
-    image: '/assets/images/services/service-card-05.webp',
-    description:
-      "We're dedicated to helping you shape your brand identity and elevate your market impact through cohesive strategy and distinctive design.",
-  },
-  {
-    num: '05',
-    title: 'Search Engine Optimisation (SEO)',
-    slug: 'seo',
-    route: '/services/digital-marketing/seo',
-    image: '/assets/images/services/service-card-06.webp',
-    description:
-      'SEO improves visibility, drives qualified inbound traffic, and converts clicks into customers using ethical, data-backed strategies.',
-  },
-  {
-    num: '06',
-    title: 'Misc Audible',
-    slug: 'miscaudibles',
-    route: '/services/miscaudibles',
-    image: '/assets/images/services/service-card-07.webp',
-    description:
-      'From podcasts and audiobooks to sonic branding, our audio services cover the full production cycle with top audio engineers.',
-  },
-  {
-    num: '07',
-    title: 'RPA / AI Solutions',
-    slug: 'rpa-ai',
-    route: '/services/rpa-ai',
-    image: '/assets/images/services/service-card-08.webp',
-    description:
-      'RPA automates repetitive workflows and AI delivers intelligent decision-making—both boosting efficiency and cutting operational costs.',
-  },
-  {
-    num: '08',
-    title: 'Mobile App Development',
-    slug: 'mobile-app-development',
-    route: '/services/mobile-app-development',
-    image: '/assets/images/services/service-card-01.webp',
-    description:
-      'Native iOS, Android, and cross-platform Flutter apps engineered for fluid performance, delightful interactions, and scalable backends.',
-  },
-  {
-    num: '09',
-    title: 'Recruiting & Staffing',
-    slug: 'recruiting',
-    route: '/services/recruiting',
-    image: '/assets/images/services/service-card-09.webp',
-    description:
-      'Connecting visionary companies with top-tier talent across digital marketing, software development, creative design, and executive leadership.',
-  },
-  {
-    num: '10',
-    title: 'Event Management',
-    slug: 'event-management',
-    route: '/services/event-management',
-    image: '/assets/images/services/service-card-01.webp',
-    description:
-      'End-to-end corporate event planning, brand launch activations, and experiential marketing designed to create lasting impressions.',
-  },
-];
 
 const ServicesPage = ({ initialServices, initialMainService }) => {
   const [services, setServices] = useState(
@@ -121,40 +28,27 @@ const ServicesPage = ({ initialServices, initialMainService }) => {
     }
   }, [initialServices, initialMainService]);
 
-  // Dynamically resolve services from backend data if present, or fallback to default catalog
+  // Dynamically resolve services from backend data
   const displayServices = (() => {
     if (services && services.length > 0) {
-      const activeItems = services.filter((s) => s.slug !== 'main-services');
+      const activeItems = services.filter((s) => s.slug !== 'main-services' && s.isActive !== false);
       if (activeItems.length > 0) {
         return activeItems.map((item, idx) => {
-          const matchedDef = defaultAllServices.find(
-            (def) => def.slug === item.slug || (def.title && def.title.toLowerCase() === item.title?.toLowerCase())
-          );
           const fallbackImg = `/assets/images/services/service-card-${((idx % 9) + 1).toString().padStart(2, '0')}.webp`;
-          const resolvedImg =
-            (item.iconImage &&
-            !item.iconImage.includes('devolepment') &&
-            !item.iconImage.includes('dm.png') &&
-            !item.iconImage.includes('seo.png')
-              ? item.iconImage
-              : null) ||
-            item.coverImage ||
-            item.image ||
-            matchedDef?.image ||
-            fallbackImg;
+          const resolvedImg = resolveMediaUrl(item.image || item.coverImage || item.iconImage) || fallbackImg;
 
           return {
             num: (idx + 1).toString().padStart(2, '0'),
-            title: item.title || matchedDef?.title || 'Service',
-            slug: item.slug || matchedDef?.slug || '',
-            route: item.route || (item.slug ? `/services/${item.slug}` : matchedDef?.route || '/services'),
+            title: item.title || 'Service',
+            slug: item.slug || '',
+            route: item.route || (item.slug ? `/services/${item.slug}` : '/services'),
             image: resolvedImg,
-            description: item.shortDescription || item.description || matchedDef?.description || '',
+            description: item.shortDescription || item.description || '',
           };
         });
       }
     }
-    return defaultAllServices;
+    return [];
   })();
 
   return (

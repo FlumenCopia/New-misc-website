@@ -19,7 +19,7 @@ export default async function page() {
 
   return (
     <div>
-      <Header settings={settings} />
+      <Header settings={settings} services={services} />
       <ServicesPage initialServices={services} initialMainService={mainService} />
       <FooterSection settings={settings} />
     </div>

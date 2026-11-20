@@ -6,6 +6,7 @@ import { Button } from '../components/common/Button';
 import { Modal } from '../components/common/Modal';
 import { Badge } from '../components/common/Badge';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
+import { ImageUploadField } from '../components/common/ImageUploadField';
 
 export const TestimonialsPage: React.FC = () => {
   const [testimonials, setTestimonials] = useState<any[]>([]);
@@ -118,19 +119,19 @@ export const TestimonialsPage: React.FC = () => {
         emptyMessage="No testimonials registered."
       >
         {testimonials.map((t) => (
-          <tr key={t._id} className="hover:bg-slate-800/40 transition-colors">
-            <td className="px-6 py-4 text-sm font-semibold text-white">{t.clientName}</td>
-            <td className="px-6 py-4 text-xs text-slate-300">
+          <tr key={t._id} className="hover:bg-slate-50 transition-colors">
+            <td className="px-6 py-4 text-sm font-semibold text-slate-900">{t.clientName}</td>
+            <td className="px-6 py-4 text-xs text-slate-600">
               {t.designation} {t.company ? `• ${t.company}` : ''}
             </td>
             <td className="px-6 py-4">
-              <div className="flex items-center text-amber-400 gap-0.5 text-xs">
+              <div className="flex items-center text-amber-500 gap-0.5 text-xs">
                 {Array.from({ length: t.rating || 5 }).map((_, i) => (
                   <Star key={i} className="w-3 h-3 fill-current" />
                 ))}
               </div>
             </td>
-            <td className="px-6 py-4 text-xs text-slate-400 max-w-sm truncate">{t.feedback}</td>
+            <td className="px-6 py-4 text-xs text-slate-500 max-w-sm truncate">{t.feedback}</td>
             <td className="px-6 py-4">
               <Badge variant={t.isActive ? 'success' : 'neutral'}>
                 {t.isActive ? 'Active' : 'Hidden'}
@@ -140,13 +141,13 @@ export const TestimonialsPage: React.FC = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => handleOpenModal(t)}
-                  className="p-1 text-slate-400 hover:text-white hover:bg-slate-700 rounded transition-colors"
+                  className="p-1 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded transition-colors"
                 >
                   <Edit2 className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => handleDelete(t._id)}
-                  className="p-1 text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded transition-colors"
+                  className="p-1 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded transition-colors"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -163,47 +164,56 @@ export const TestimonialsPage: React.FC = () => {
       >
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs text-slate-400 mb-1">Client Name *</label>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Client Name *</label>
             <input
               type="text"
               required
               value={formData.clientName}
               onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500"
+              className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-amber-500 shadow-xs"
             />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Designation</label>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Designation</label>
               <input
                 type="text"
                 value={formData.designation}
                 onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500"
+                className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-amber-500 shadow-xs"
               />
             </div>
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Company</label>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Company</label>
               <input
                 type="text"
                 value={formData.company}
                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500"
+                className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-amber-500 shadow-xs"
               />
             </div>
           </div>
           <div>
-            <label className="block text-xs text-slate-400 mb-1">Feedback Quote *</label>
+            <ImageUploadField
+              label="Client Avatar / Photo"
+              value={formData.avatarImage}
+              onChange={(url) => setFormData({ ...formData, avatarImage: url })}
+              placeholder="/uploads/... or /assets/..."
+              helperText="Client headshot or corporate avatar photo."
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Feedback Quote *</label>
             <textarea
               rows={3}
               required
               value={formData.feedback}
               onChange={(e) => setFormData({ ...formData, feedback: e.target.value })}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500"
+              className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-amber-500 shadow-xs"
             />
           </div>
-          <div className="flex justify-end gap-3 pt-4 border-t border-slate-700">
-            <Button type="button" variant="ghost" onClick={() => setIsModalOpen(false)}>
+          <div className="flex justify-end gap-3 pt-4 border-t border-slate-200">
+            <Button type="button" variant="secondary" onClick={() => setIsModalOpen(false)}>
               Cancel
             </Button>
             <Button type="submit" variant="primary">

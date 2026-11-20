@@ -9,31 +9,13 @@ import AboutSection from '@/components/home/Aboutus';
 
 import MeetOurFounders from '@/components/about/MeetOurFounders';
 
-const DEFAULT_TEAM = [
-  {
-    name: 'Anoop D Anil',
-    designation: 'Vice President, CFO',
-    photoImage: '/assets/images/sunny.webp',
-  },
-  {
-    name: 'Anoop Krishna',
-    designation: 'CEO, FOUNDER',
-    photoImage: '/assets/images/anoop.webp',
-  },
-  {
-    name: 'Rohini A Pillai',
-    designation: 'Co-Founder, COO',
-    photoImage: '/assets/images/anju.webp',
-  },
-];
-
 const AboutUs = ({ initialTeam }) => {
-  const [team, setTeam] = useState(initialTeam && initialTeam.length > 0 ? initialTeam : DEFAULT_TEAM);
+  const [team, setTeam] = useState(Array.isArray(initialTeam) ? initialTeam : []);
 
   useEffect(() => {
     let isMounted = true;
     getTeamMembers(true).then((data) => {
-      if (isMounted && data && Array.isArray(data) && data.length > 0) {
+      if (isMounted && data && Array.isArray(data)) {
         setTeam(data);
       }
     }).catch(() => {});

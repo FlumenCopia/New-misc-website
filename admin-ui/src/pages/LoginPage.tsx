@@ -6,8 +6,8 @@ import { Button } from '../components/common/Button';
 import { BrandLogo } from '../components/common/BrandLogo';
 
 export const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState('admin@miscarchive.com');
-  const [password, setPassword] = useState('admin123456');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -61,7 +61,7 @@ export const LoginPage: React.FC = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@miscarchive.com"
+                placeholder="Enter your email"
                 className="w-full bg-white border border-slate-300 rounded-md pl-9 pr-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500 shadow-xs"
               />
             </div>
@@ -92,13 +92,6 @@ export const LoginPage: React.FC = () => {
             Sign In to Console
           </Button>
         </form>
-
-        <div className="mt-7 pt-5 border-t border-slate-100 text-center">
-          <p className="text-[11.5px] text-slate-500">
-            Default credentials: <span className="text-slate-800 font-mono font-medium">admin@miscarchive.com</span> /{' '}
-            <span className="text-slate-800 font-mono font-medium">admin123456</span>
-          </p>
-        </div>
       </div>
     </div>
   );

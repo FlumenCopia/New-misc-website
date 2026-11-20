@@ -1,4 +1,6 @@
-const API_URL = process.env.NEXT_PUBLIC_CMS_API_URL || 'http://localhost:5000/api';
+const API_URL = typeof window !== 'undefined'
+  ? (process.env.NEXT_PUBLIC_CMS_API_URL || '/api')
+  : (process.env.CMS_INTERNAL_API_URL || 'http://127.0.0.1:5050/api');
 
 /**
  * Helper to safely resolve media asset URLs
@@ -9,8 +11,7 @@ export function resolveMediaUrl(url) {
     return url;
   }
   if (url.startsWith('/uploads/')) {
-    const origin = API_URL.replace(/\/api\/?$/, '');
-    return `${origin}${url}`;
+    return url;
   }
   return url;
 }

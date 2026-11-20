@@ -4,41 +4,21 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getBanners, resolveMediaUrl } from '@/lib/api';
 
-const defaultSlides = [
-  {
-    desktopImg: '/assets/images/Bannermisc.jpg',
-    mobileImg: '/assets/images/MISC-PHONE-BANNER3.jpg',
-    theme: 'light',
-  },
-  {
-    desktopImg: '/assets/images/yeti-web3.jpeg',
-    mobileImg: '/assets/images/yeti-mobile2.jpeg',
-    path: '/Neyyattinkara',
-    theme: 'light',
-  },
-  // 3rd banner commented out as requested
-  /*
-  {
-    desktopImg: '/assets/images/flumenxbanner.webp',
-    mobileImg: '/assets/images/flumenx-mobilebanner.webp',
-    path: 'https://flumenx.com/',
-    theme: 'dark',
-  },
-  */
-];
-
 export default function Banner({ initialBanners }) {
   const [slides, setSlides] = useState(() => {
-    if (initialBanners && initialBanners.length > 0) {
-      return initialBanners.slice(0, 2).map((b) => ({
-        desktopImg: resolveMediaUrl(b.desktopImage),
-        mobileImg: resolveMediaUrl(b.mobileImage || b.desktopImage),
-        path: b.linkUrl || '',
-        theme: b.theme || 'light',
-        description: b.description || '',
-      }));
+    if (initialBanners && Array.isArray(initialBanners) && initialBanners.length > 0) {
+      const active = initialBanners.filter((b) => b.isActive !== false);
+      if (active.length > 0) {
+        return active.map((b) => ({
+          desktopImg: resolveMediaUrl(b.desktopImage),
+          mobileImg: resolveMediaUrl(b.mobileImage || b.desktopImage),
+          path: b.linkUrl || '',
+          theme: b.theme || 'light',
+          description: b.description || '',
+        }));
+      }
     }
-    return defaultSlides;
+    return [];
   });
 
   const [current, setCurrent] = useState(0);
@@ -47,20 +27,23 @@ export default function Banner({ initialBanners }) {
   const bannerRef = useRef(null);
   const router = useRouter();
 
-  // Fetch / sync banners from CMS API (limit to first 2 banners)
+  // Fetch / sync banners from CMS API dynamically without artificial limits
   useEffect(() => {
     getBanners()
       .then((data) => {
-        if (data && data.length > 0) {
-          setSlides(
-            data.slice(0, 2).map((b) => ({
-              desktopImg: resolveMediaUrl(b.desktopImage),
-              mobileImg: resolveMediaUrl(b.mobileImage || b.desktopImage),
-              path: b.linkUrl || '',
-              theme: b.theme || 'light',
-              description: b.description || '',
-            }))
-          );
+        if (data && Array.isArray(data) && data.length > 0) {
+          const active = data.filter((b) => b.isActive !== false);
+          if (active.length > 0) {
+            setSlides(
+              active.map((b) => ({
+                desktopImg: resolveMediaUrl(b.desktopImage),
+                mobileImg: resolveMediaUrl(b.mobileImage || b.desktopImage),
+                path: b.linkUrl || '',
+                theme: b.theme || 'light',
+                description: b.description || '',
+              }))
+            );
+          }
         }
       })
       .catch(() => {});
@@ -117,6 +100,10 @@ export default function Banner({ initialBanners }) {
       document.body.classList.remove('nav-theme-dark', 'nav-theme-light');
     };
   }, []);
+
+  if (slides.length === 0) {
+    return null;
+  }
 
   return (
     <div className="banner-carousel" ref={bannerRef}>

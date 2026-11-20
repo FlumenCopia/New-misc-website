@@ -4,40 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { getClientLogos, resolveMediaUrl } from '@/lib/api';
 import styles from './Logo.module.css';
 
-// Exact preserved original client logos catalog
-const defaultLogos = [
-  'promag-logo.png',
-  'icatch-logo.png',
-  'C L 01.webp',
-  'C L 02.webp',
-  'C L 03.webp',
-  'C L 05.webp',
-  'bulletclub.png',
-  'bm.png',
-  'jsml.png',
-  'pounchik.png',
-  'lemonsole_final.jpg',
-  'wisdom.jpg',
-  'kompeterzen.jpg',
-  'nanoos_final.jpg',
-  'swarasaakhi.jpg',
-  'math.jpg',
-  'ananthapuri.jpg',
-  'miscaudiable.jpg',
-  'misc web logos-01.jpg',
-  'misc web logos-02.jpg',
-  'misc web logos-03.jpg',
-  'misc web logos-04.jpg',
-  'misc web logos-05.jpg',
-  'misc web logos-06.jpg',
-  'misc web logos-07.jpg',
-  'misc web logos-08.jpg',
-  'misc web logos-09.jpg',
-  'misc web logos-10.jpg',
-  'ssnss.jpg',
-  'flyers.jpg',
-];
-
 function getLogoSrc(item) {
   if (!item) return '';
   const str = typeof item === 'string' ? item : item.logoImage || item.image || item.logo || item.url || '';
@@ -57,25 +23,27 @@ function getLogoAlt(item, index) {
 
 export default function LogosSection({ initialLogos }) {
   const [logos, setLogos] = useState(() => {
-    if (initialLogos && initialLogos.length > 0) {
-      return initialLogos;
+    if (initialLogos && Array.isArray(initialLogos) && initialLogos.length > 0) {
+      return initialLogos.filter((l) => l && l.isActive !== false);
     }
-    return defaultLogos;
+    return [];
   });
 
   useEffect(() => {
     if (!initialLogos || initialLogos.length === 0) {
       getClientLogos()
         .then((data) => {
-          if (data && data.length > 0) {
-            setLogos(data);
+          if (data && Array.isArray(data) && data.length > 0) {
+            setLogos(data.filter((l) => l && l.isActive !== false));
           }
         })
         .catch(() => {});
     }
   }, [initialLogos]);
 
-  const activeLogos = logos && logos.length > 0 ? logos : defaultLogos;
+  const activeLogos = logos.filter((l) => l && l.isActive !== false);
+  if (activeLogos.length === 0) return null;
+
   // Duplicate logos array to produce a seamless, gapless 360-degree infinite marquee loop
   const marqueeLogos = [...activeLogos, ...activeLogos];
 

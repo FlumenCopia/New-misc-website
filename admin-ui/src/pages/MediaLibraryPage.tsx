@@ -3,6 +3,7 @@ import { UploadCloud, Trash2, Copy, Check, Image as ImageIcon, File, Search } fr
 import { apiRequest } from '../api/client';
 import { Button } from '../components/common/Button';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
+import { resolveMediaUrl } from '../components/common/ImageUploadField';
 
 export const MediaLibraryPage: React.FC = () => {
   const [assets, setAssets] = useState<any[]>([]);
@@ -146,7 +147,7 @@ export const MediaLibraryPage: React.FC = () => {
                 <div className="aspect-square bg-slate-50 relative flex items-center justify-center overflow-hidden">
                   {isImage ? (
                     <img
-                      src={asset.fileUrl}
+                      src={resolveMediaUrl(asset.fileUrl)}
                       alt={asset.altText || asset.originalName}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />

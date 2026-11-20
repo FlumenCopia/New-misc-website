@@ -10,6 +10,7 @@
     "seed:admin": "tsx src/utils/seedAdmin.ts",
     "seed:website": "tsx src/utils/seedWebsite.ts",
     "seed:all": "tsx src/utils/seedAll.ts",
+    "seed:prod": "tsx src/scripts/seedProduction.ts",
     "generate:seed": "tsx src/scripts/generateWebsiteSeed.ts"
   },
   "dependencies": {

@@ -6,32 +6,9 @@ import { Button } from '../components/common/Button';
 import { Modal } from '../components/common/Modal';
 import { Badge } from '../components/common/Badge';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
+import { resolveMediaUrl } from '../components/common/ImageUploadField';
 
-const API_ORIGIN = (import.meta as any).env?.VITE_API_URL
-  ? (import.meta as any).env.VITE_API_URL.replace(/\/api\/?$/, '')
-  : 'https://new-misc-api.onrender.com';
-
-const WEBSITE_BASE_URL = (import.meta as any).env?.VITE_WEBSITE_URL || 'https://new-misc-website-pdfk.vercel.app';
-
-export const resolveMediaUrl = (url?: string): string => {
-  if (!url) return '';
-  if (url.includes('/uploads/')) {
-    const uploadPath = url.substring(url.indexOf('/uploads/'));
-    return `${API_ORIGIN}${uploadPath}`;
-  }
-  if (
-    url.startsWith('http://') ||
-    url.startsWith('https://') ||
-    url.startsWith('//') ||
-    url.startsWith('data:')
-  ) {
-    return url;
-  }
-  if (url.startsWith('/assets/')) {
-    return `${WEBSITE_BASE_URL}${url}`;
-  }
-  return `${WEBSITE_BASE_URL}/${url.replace(/^\/+/, '')}`;
-};
+export { resolveMediaUrl };
 
 export const TeamPage: React.FC = () => {
   const [team, setTeam] = useState<any[]>([]);
@@ -158,6 +135,19 @@ export const TeamPage: React.FC = () => {
     }
   };
 
+  const handleToggleActive = async (member: any) => {
+    try {
+      const newStatus = !member.isActive;
+      await apiRequest(`/team-members/${member._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ isActive: newStatus }),
+      });
+      fetchTeam();
+    } catch (err: any) {
+      alert(err.message || 'Error updating status');
+    }
+  };
+
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to remove this team member?')) return;
     try {
@@ -217,9 +207,16 @@ export const TeamPage: React.FC = () => {
             <td className="px-6 py-4 text-xs font-semibold text-slate-700">{m.designation}</td>
             <td className="px-6 py-4 text-xs font-medium text-slate-600">{m.order}</td>
             <td className="px-6 py-4">
-              <Badge variant={m.isActive ? 'success' : 'neutral'}>
-                {m.isActive ? 'Active' : 'Inactive'}
-              </Badge>
+              <button
+                type="button"
+                onClick={() => handleToggleActive(m)}
+                className="cursor-pointer focus:outline-none transition-transform active:scale-95"
+                title={`Click to set ${m.isActive ? 'Inactive' : 'Active'}`}
+              >
+                <Badge variant={m.isActive ? 'success' : 'neutral'}>
+                  {m.isActive ? 'Active' : 'Inactive'}
+                </Badge>
+              </button>
             </td>
             <td className="px-6 py-4">
               <div className="flex items-center gap-2">
@@ -269,6 +266,30 @@ export const TeamPage: React.FC = () => {
                 value={formData.designation}
                 onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
                 placeholder="Managing Director"
+                className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
+              />
+            </div>
+          </div>
+
+          {/* Status Selection (Active / Inactive) */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Display Status</label>
+              <select
+                value={formData.isActive ? 'active' : 'inactive'}
+                onChange={(e) => setFormData({ ...formData, isActive: e.target.value === 'active' })}
+                className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500 font-medium"
+              >
+                <option value="active">Active (Visible on public About page)</option>
+                <option value="inactive">Inactive / Hidden</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Display Order</label>
+              <input
+                type="number"
+                value={formData.order}
+                onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
                 className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
               />
             </div>

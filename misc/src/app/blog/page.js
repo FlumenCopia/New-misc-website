@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import Header from "@/components/common/Header";
-import QuoteSection from "@/components/home/Quote";
 import FooterSection from "@/components/common/Footer";
 import BlogContent from '@/components/blog/BlogContent';
+import { getBlogs, getSettings, getServices } from "@/lib/api";
 
 export const metadata = {
   title: 'Latest Updates | Miscarchive',
@@ -10,14 +10,18 @@ export const metadata = {
   keywords: 'Digital Marketing, Marketing Solutions, Web Development, SEO, Social Media Management',
 };
 
-export default function page() {
+export default async function page() {
+  const [blogs, settings, services] = await Promise.all([
+    getBlogs({ limit: 100 }),
+    getSettings(),
+    getServices(true),
+  ]);
+
   return (
     <div>
-        <Header/>
-        <BlogContent />
-        {/* <QuoteSection/> */}
-        {/* <Whychoosesection /> */}
-        <FooterSection/>
+      <Header settings={settings} services={services} />
+      <BlogContent initialBlogs={blogs} />
+      <FooterSection settings={settings} />
     </div>
-  )
+  );
 }

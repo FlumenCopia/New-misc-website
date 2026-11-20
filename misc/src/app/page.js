@@ -11,7 +11,7 @@ import QuoteSection from "@/components/home/Quote";
 import FooterSection from "@/components/common/Footer";
 import WhatsAppButton from "@/components/common/WhatsappButton";
 import Footer2 from "@/components/common/Footer2";
-import { getBanners, getClientLogos, getSettings } from "@/lib/api";
+import { getBanners, getClientLogos, getServices, getSettings, getBlogs } from "@/lib/api";
 
 export const metadata = {
   title: 'Digital Marketing company in trivandrum, Kerala | Miscarchive',
@@ -20,21 +20,23 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const [initialBanners, initialLogos, initialSettings] = await Promise.all([
+  const [initialBanners, initialLogos, initialSettings, initialServices, initialBlogs] = await Promise.all([
     getBanners(),
     getClientLogos(),
     getSettings(),
+    getServices(true),
+    getBlogs({ limit: 6 }),
   ]);
 
   return (
     <div>
-     <Header settings={initialSettings}/>
+     <Header settings={initialSettings} services={initialServices} />
      <Banner initialBanners={initialBanners}/>
      <AboutSection/>
      <LogosSection initialLogos={initialLogos}/>
-     <ServicesSection/>
+     <ServicesSection initialServices={initialServices} limit={null} />
      <DigitalMarketingSection/>
-     <BlogSection/>
+     <BlogSection initialBlogs={initialBlogs}/>
 
      {/* <QuoteSection/> */}
 

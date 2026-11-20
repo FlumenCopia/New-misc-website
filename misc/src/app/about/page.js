@@ -6,7 +6,7 @@ import FooterSection from "@/components/common/Footer";
 import AboutUs from '@/components/about/About_about';
 import AboutBanner from '@/components/about/AboutBanner';
 import LogosSection from '@/components/home/Logo';
-import { getClientLogos, getSettings, getTeamMembers } from "@/lib/api";
+import { getClientLogos, getServices, getSettings, getTeamMembers } from "@/lib/api";
 
 export const metadata = {
   title: 'Learn More About Us | Miscarchive',
@@ -15,15 +15,16 @@ export const metadata = {
 };
 
 export default async function page() {
-  const [initialSettings, initialLogos, initialTeam] = await Promise.all([
+  const [initialSettings, initialLogos, initialTeam, initialServices] = await Promise.all([
     getSettings(),
     getClientLogos(),
     getTeamMembers(),
+    getServices(true),
   ]);
 
   return (
     <div>
-        <Header settings={initialSettings} />
+        <Header settings={initialSettings} services={initialServices} />
         <AboutBanner />
         <AboutUs initialTeam={initialTeam} />
         <LogosSection initialLogos={initialLogos} />

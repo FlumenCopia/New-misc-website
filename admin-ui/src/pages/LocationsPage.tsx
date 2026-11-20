@@ -13,8 +13,9 @@ import {
   Globe,
   Plus,
 } from 'lucide-react';
-import { apiRequest } from '../api/client';
+import { apiRequest, getPublicSiteUrl } from '../api/client';
 import { Button } from '../components/common/Button';
+import { ImageUploadField } from '../components/common/ImageUploadField';
 import { Card } from '../components/common/Card';
 import { Badge } from '../components/common/Badge';
 import { Modal } from '../components/common/Modal';
@@ -61,6 +62,7 @@ export const LocationsPage: React.FC = () => {
 
   // Edit Location Modal
   const [editingLocation, setEditingLocation] = useState<LocationPageItem | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     slug: '',
@@ -168,6 +170,7 @@ export const LocationsPage: React.FC = () => {
         isPublished: true,
       });
     }
+    setIsEditModalOpen(true);
   };
 
   const handleSaveLocation = async (e: React.FormEvent) => {
@@ -175,7 +178,7 @@ export const LocationsPage: React.FC = () => {
     setIsSaving(true);
     try {
       const payload = { ...formData, pageType: 'location' };
-      if (editingLocation) {
+      if (editingLocation && editingLocation._id) {
         await apiRequest(`/pages/${editingLocation._id}`, {
           method: 'PUT',
           body: JSON.stringify(payload),
@@ -186,6 +189,7 @@ export const LocationsPage: React.FC = () => {
           body: JSON.stringify(payload),
         });
       }
+      setIsEditModalOpen(false);
       setEditingLocation(null);
       fetchLocations();
     } catch (err: any) {
@@ -273,7 +277,7 @@ export const LocationsPage: React.FC = () => {
                     </Button>
 
                     <a
-                      href={`http://localhost:3000${loc.route}`}
+                      href={getPublicSiteUrl(loc.route)}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[13px] font-medium text-slate-600 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors"
@@ -396,11 +400,14 @@ export const LocationsPage: React.FC = () => {
       )}
 
       {/* Edit Location Modal */}
-      {editingLocation !== null && (
+      {isEditModalOpen && (
         <Modal
           isOpen={true}
-          onClose={() => setEditingLocation(null)}
-          title={editingLocation._id ? `Edit Location: ${editingLocation.title}` : 'Add New Location'}
+          onClose={() => {
+            setIsEditModalOpen(false);
+            setEditingLocation(null);
+          }}
+          title={editingLocation?._id ? `Edit Location: ${editingLocation.title}` : 'Add New Location Page'}
           maxWidth="2xl"
         >
           <form onSubmit={handleSaveLocation} className="space-y-4">
@@ -516,8 +523,25 @@ export const LocationsPage: React.FC = () => {
               />
             </div>
 
+            <div>
+              <ImageUploadField
+                label="Location Social Image (OG Image)"
+                value={formData.ogImage}
+                onChange={(url) => setFormData({ ...formData, ogImage: url })}
+                placeholder="/uploads/... or /assets/images/..."
+                helperText="Cover image for this location landing page and social sharing previews."
+              />
+            </div>
+
             <div className="pt-4 border-t border-slate-200 flex justify-end gap-3">
-              <Button type="button" variant="secondary" onClick={() => setEditingLocation(null)}>
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => {
+                  setIsEditModalOpen(false);
+                  setEditingLocation(null);
+                }}
+              >
                 Cancel
               </Button>
               <Button type="submit" isLoading={isSaving}>

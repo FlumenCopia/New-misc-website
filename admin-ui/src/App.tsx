@@ -28,7 +28,7 @@ import { MediaLibraryPage } from './pages/MediaLibraryPage';
 export const App: React.FC = () => {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL || '/'}>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
 
@@ -37,23 +37,24 @@ export const App: React.FC = () => {
             <Route path="/" element={<DashboardPage />} />
             <Route path="/pages" element={<PagesPage />} />
             <Route path="/locations" element={<LocationsPage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/navigation" element={<NavigationPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/banners" element={<BannersPage />} />
             <Route path="/services" element={<ServicesPage />} />
-            <Route path="/sub-services" element={<SubServicesPage />} />
             <Route path="/client-logos" element={<ClientLogosPage />} />
             <Route path="/team-members" element={<TeamPage />} />
-            <Route path="/testimonials" element={<TestimonialsPage />} />
             <Route path="/blogs" element={<BlogsPage />} />
             <Route path="/blogs/new" element={<BlogEditPage />} />
             <Route path="/blogs/edit/:id" element={<BlogEditPage />} />
-            <Route path="/blog-categories" element={<BlogCategoriesPage />} />
-            <Route path="/faqs" element={<FaqsPage />} />
             <Route path="/careers" element={<CareersPage />} />
             <Route path="/enquiries" element={<EnquiriesPage />} />
             <Route path="/media" element={<MediaLibraryPage />} />
+            {/* Redirect decommissioned/unused pages */}
+            <Route path="/projects" element={<Navigate to="/" replace />} />
+            <Route path="/navigation" element={<Navigate to="/" replace />} />
+            <Route path="/sub-services" element={<Navigate to="/" replace />} />
+            <Route path="/testimonials" element={<Navigate to="/" replace />} />
+            <Route path="/blog-categories" element={<Navigate to="/" replace />} />
+            <Route path="/faqs" element={<Navigate to="/" replace />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />

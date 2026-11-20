@@ -5,79 +5,44 @@ import Link from 'next/link';
 import { getBlogs, resolveMediaUrl } from '@/lib/api';
 import styles from './Blogs.module.css';
 
-const defaultBlogs = [
-  {
-    id: 1,
-    image: '/assets/images/blogs/bl63.webp',
-    category: 'Digital Marketing',
-    date: 'April 01, 2026',
-    title: 'How Social Media Builds Trust Before Sales',
-    description: 'Discover how genuine engagement, consistent messaging, and community building on social media can help.',
-    link: '/blog/social-media-builds-trust-before-sales',
-  },
-  {
-    id: 2,
-    image: '/assets/images/blogs/bl62.webp',
-    category: 'Digital Marketing',
-    date: 'March 28, 2026',
-    title: 'Top 5 Reasons Strategy Beats Ad Spend',
-    description: 'Learn why a well-planned strategy can deliver better results than a bigger budget in digital marketing.',
-    link: '/blog/strategy-beats-ad-spend',
-  },
-  {
-    id: 3,
-    image: '/assets/images/blogs/bl61.webp',
-    category: 'Digital Marketing',
-    date: 'March 24, 2026',
-    title: 'A Guide to Using AI Without Losing Marketing Sense',
-    description: 'Explore practical ways to use AI in marketing while keeping human creativity, strategy, and authenticity at the core.',
-    link: '/blog/ai-without-losing-marketing-sense',
-  },
-];
-
 export default function BlogSection({ initialBlogs }) {
+  const mapBlogs = (list) => {
+    if (!list || !Array.isArray(list)) return [];
+    return list.map((b, i) => ({
+      id: b._id || i,
+      image: resolveMediaUrl(b.featuredImage || b.image) || '/assets/images/blogs/bl63.webp',
+      category: b.category || 'Digital Marketing',
+      date: new Date(b.publishDate || b.createdAt).toLocaleDateString('en-US', {
+        month: 'long',
+        day: '2-digit',
+        year: 'numeric',
+      }),
+      title: b.title,
+      description: b.excerpt || b.shortDescription || b.description || '',
+      link: `/blog/${b.slug}`,
+    }));
+  };
+
   const [blogs, setBlogs] = useState(() => {
-    if (initialBlogs && initialBlogs.length > 0) {
-      return initialBlogs.slice(0, 3).map((b, i) => ({
-        id: b._id || i,
-        image: resolveMediaUrl(b.featuredImage || b.image) || defaultBlogs[i % 3].image,
-        category: b.category || 'Digital Marketing',
-        date: new Date(b.publishDate || b.createdAt).toLocaleDateString('en-US', {
-          month: 'long',
-          day: '2-digit',
-          year: 'numeric',
-        }),
-        title: b.title,
-        description: b.excerpt || b.description || defaultBlogs[i % 3].description,
-        link: `/blog/${b.slug}`,
-      }));
+    if (initialBlogs && Array.isArray(initialBlogs) && initialBlogs.length > 0) {
+      return mapBlogs(initialBlogs);
     }
-    return defaultBlogs;
+    return [];
   });
 
   useEffect(() => {
-    if (!initialBlogs) {
-      getBlogs({ limit: 3 }).then((data) => {
-        if (data && data.length > 0) {
-          setBlogs(
-            data.slice(0, 3).map((b, i) => ({
-              id: b._id || i,
-              image: resolveMediaUrl(b.featuredImage || b.image) || defaultBlogs[i % 3].image,
-              category: b.category || 'Digital Marketing',
-              date: new Date(b.publishDate || b.createdAt).toLocaleDateString('en-US', {
-                month: 'long',
-                day: '2-digit',
-                year: 'numeric',
-              }),
-              title: b.title,
-              description: b.excerpt || b.description || defaultBlogs[i % 3].description,
-              link: `/blog/${b.slug}`,
-            }))
-          );
+    getBlogs({ limit: 6 })
+      .then((data) => {
+        if (data && Array.isArray(data) && data.length > 0) {
+          setBlogs(mapBlogs(data));
         }
-      }).catch(() => {});
-    }
-  }, [initialBlogs]);
+      })
+      .catch(() => {});
+  }, []);
+
+  if (blogs.length === 0) {
+    return null;
+  }
 
   return (
     <section className={styles.blogSection} id="blogs">

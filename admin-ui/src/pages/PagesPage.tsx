@@ -13,8 +13,9 @@ import {
   Globe,
   Plus,
 } from 'lucide-react';
-import { apiRequest } from '../api/client';
+import { apiRequest, getPublicSiteUrl } from '../api/client';
 import { Button } from '../components/common/Button';
+import { ImageUploadField } from '../components/common/ImageUploadField';
 import { Card } from '../components/common/Card';
 import { Badge } from '../components/common/Badge';
 import { Modal } from '../components/common/Modal';
@@ -62,6 +63,7 @@ export const PagesPage: React.FC = () => {
 
   // Page Metadata Modal state
   const [editingPage, setEditingPage] = useState<WebsitePageItem | null>(null);
+  const [isPageModalOpen, setIsPageModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     slug: '',
@@ -173,7 +175,7 @@ export const PagesPage: React.FC = () => {
         title: '',
         slug: '',
         route: '',
-        pageType: 'core',
+        pageType: 'custom',
         description: '',
         heroHeading: '',
         heroSubheading: '',
@@ -184,13 +186,14 @@ export const PagesPage: React.FC = () => {
         isPublished: true,
       });
     }
+    setIsPageModalOpen(true);
   };
 
   const handleSavePageMetadata = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSavingMetadata(true);
     try {
-      if (editingPage) {
+      if (editingPage && editingPage._id) {
         await apiRequest(`/pages/${editingPage._id}`, {
           method: 'PUT',
           body: JSON.stringify(formData),
@@ -201,12 +204,26 @@ export const PagesPage: React.FC = () => {
           body: JSON.stringify(formData),
         });
       }
+      setIsPageModalOpen(false);
       setEditingPage(null);
       fetchPages();
     } catch (err: any) {
       alert(err.message || 'Failed to save page.');
     } finally {
       setIsSavingMetadata(false);
+    }
+  };
+
+  const handleTogglePublished = async (page: WebsitePageItem) => {
+    try {
+      const newStatus = !page.isPublished;
+      await apiRequest(`/pages/${page._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ isPublished: newStatus }),
+      });
+      fetchPages();
+    } catch (err: any) {
+      alert(err.message || 'Error updating page publishing status');
     }
   };
 
@@ -245,9 +262,16 @@ export const PagesPage: React.FC = () => {
                 <div className="space-y-1.5 flex-1">
                   <div className="flex items-center gap-2.5 flex-wrap">
                     <h2 className="text-lg font-bold text-slate-900">{page.title}</h2>
-                    <Badge variant={page.isPublished ? 'success' : 'neutral'}>
-                      {page.isPublished ? 'Published' : 'Draft'}
-                    </Badge>
+                    <button
+                      type="button"
+                      onClick={() => handleTogglePublished(page)}
+                      className="cursor-pointer focus:outline-none transition-transform active:scale-95"
+                      title={`Click to set ${page.isPublished ? 'Draft / Inactive' : 'Published'}`}
+                    >
+                      <Badge variant={page.isPublished ? 'success' : 'neutral'}>
+                        {page.isPublished ? 'Published' : 'Draft'}
+                      </Badge>
+                    </button>
                     <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
                       {page.route}
                     </span>
@@ -286,7 +310,7 @@ export const PagesPage: React.FC = () => {
                   </Button>
 
                   <a
-                    href={`http://localhost:3000${page.route}`}
+                    href={getPublicSiteUrl(page.route)}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[13px] font-medium text-slate-600 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors"
@@ -408,11 +432,14 @@ export const PagesPage: React.FC = () => {
       )}
 
       {/* Modal: Edit Page Info & SEO */}
-      {editingPage !== null && (
+      {isPageModalOpen && (
         <Modal
           isOpen={true}
-          onClose={() => setEditingPage(null)}
-          title={editingPage._id ? `Edit Page: ${editingPage.title}` : 'Add New Website Page'}
+          onClose={() => {
+            setIsPageModalOpen(false);
+            setEditingPage(null);
+          }}
+          title={editingPage?._id ? `Edit Page: ${editingPage.title}` : 'Add New Website Page'}
           maxWidth="2xl"
         >
           <form onSubmit={handleSavePageMetadata} className="space-y-4">
@@ -566,16 +593,13 @@ export const PagesPage: React.FC = () => {
                       className="w-full px-3 py-2 border rounded-md"
                     />
                   </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-600 mb-1">
-                      Social Sharing Image (OG Image)
-                    </label>
-                    <input
-                      type="text"
+                  <div className="md:col-span-2">
+                    <ImageUploadField
+                      label="Social Sharing Image (OG Image)"
                       value={formData.ogImage}
-                      onChange={(e) => setFormData({ ...formData, ogImage: e.target.value })}
-                      placeholder="/assets/images/og-image.png"
-                      className="w-full px-3 py-2 border rounded-md"
+                      onChange={(url) => setFormData({ ...formData, ogImage: url })}
+                      placeholder="/uploads/... or /assets/images/og-image.png"
+                      helperText="Image displayed when page is shared on WhatsApp, LinkedIn, Facebook, Twitter (1200x630px recommended)."
                     />
                   </div>
                 </div>
@@ -586,7 +610,10 @@ export const PagesPage: React.FC = () => {
               <Button
                 type="button"
                 variant="secondary"
-                onClick={() => setEditingPage(null)}
+                onClick={() => {
+                  setIsPageModalOpen(false);
+                  setEditingPage(null);
+                }}
               >
                 Cancel
               </Button>

@@ -17,9 +17,9 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const variantStyles = {
     primary:
-      'bg-brand-500 hover:bg-brand-600 text-charcoal-950 font-bold shadow-xs focus-visible:outline-brand-500 active:scale-[0.99] transition-all',
+      'bg-gradient-to-r from-[#f5a623] to-[#e69818] hover:from-[#e69818] hover:to-[#d88910] text-slate-950 font-bold shadow-xs active:scale-[0.99] transition-all',
     secondary:
-      'bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 hover:border-slate-400 font-medium shadow-xs active:scale-[0.99] transition-all',
+      'bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 hover:border-slate-300 font-semibold shadow-xs active:scale-[0.99] transition-all',
     danger:
       'bg-red-600 hover:bg-red-700 text-white font-medium shadow-xs focus-visible:outline-red-600 active:scale-[0.99] transition-all',
     ghost:
@@ -29,9 +29,9 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   const sizeStyles = {
-    sm: 'px-3 py-1.5 text-[13px] rounded-md font-medium',
-    md: 'px-4 py-2 text-sm rounded-md font-semibold',
-    lg: 'px-5 py-2.5 text-base rounded-md font-semibold',
+    sm: 'px-3 py-1.5 text-[13px] rounded-lg font-medium',
+    md: 'px-4 py-2 text-sm rounded-xl font-semibold',
+    lg: 'px-5 py-2.5 text-base rounded-xl font-semibold',
   };
 
   return (

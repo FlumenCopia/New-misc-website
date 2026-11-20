@@ -1,0 +1,720 @@
+/* ==========================================================================
+   MINIMAL CAREERS PAGE (/career)
+   Clean, modern, and focused on essential hiring information
+   ========================================================================== */
+
+.pageWrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #faf8f5;
+  color: #111827;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding-top: 140px;
+  padding-bottom: 80px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* =========================================
+   BREADCRUMBS & HERO TITLE
+   ========================================= */
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.breadcrumbHome {
+  color: #f5a623;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.breadcrumbHome:hover {
+  opacity: 0.85;
+}
+
+.breadcrumbSeparator {
+  color: #f5a623;
+}
+
+.breadcrumbActive {
+  color: #f5a623;
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #09090b;
+  margin: 0 0 28px 0;
+  line-height: 1.15;
+}
+
+.heroHighlight {
+  color: #f5a623;
+}
+
+/* =========================================
+   3 MINIMAL PILL CARDS
+   ========================================= */
+
+.pillsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 45px;
+}
+
+.pillCard {
+  background: #ffffff;
+  border: 1px solid #f0eee6;
+  border-radius: 16px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pillCard:hover {
+  transform: translateY(-2px);
+  border-color: #f5a623;
+  box-shadow: 0 6px 16px rgba(245, 166, 35, 0.08);
+}
+
+.pillIconCircle {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(245, 166, 35, 0.12);
+  color: #d98200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pillTitle {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #18181b;
+  margin: 0;
+}
+
+/* =========================================
+   SECTION HEADER (OPEN OPPORTUNITIES)
+   ========================================= */
+
+.sectionHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.sectionTitleWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sectionTitle {
+  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #09090b;
+  margin: 0;
+}
+
+.titleAccent {
+  width: 38px;
+  height: 3.5px;
+  background: #f5a623;
+  border-radius: 2px;
+}
+
+.activeCountBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.pulseDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+/* =========================================
+   MINIMAL JOB CARD
+   ========================================= */
+
+.jobsList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.jobCard {
+  background: #ffffff;
+  border: 1.5px solid #fed7aa;
+  border-radius: 20px;
+  padding: 32px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  box-shadow: 0 4px 18px rgba(245, 166, 35, 0.05);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.jobCard:hover {
+  transform: translateY(-2px);
+  border-color: #f5a623;
+  box-shadow: 0 10px 28px rgba(245, 166, 35, 0.1);
+}
+
+.jobLeftCol {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+
+.roleTitle {
+  font-size: clamp(1.35rem, 2.2vw, 1.65rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #09090b;
+  margin: 0;
+}
+
+.metaPillsRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.metaPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 9px;
+  background: #f4f4f5;
+  color: #334155;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.metaPill svg {
+  color: #64748b;
+}
+
+.departmentPill {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.departmentPill svg {
+  color: #b45309;
+}
+
+.statusPill {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+  font-weight: 700;
+}
+
+.actionsRow {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.applyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  background: linear-gradient(135deg, #f5a623 0%, #e69818 100%);
+  color: #0f172a;
+  border-radius: 12px;
+  font-size: 0.96rem;
+  font-weight: 800;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(245, 166, 35, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.applyBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(245, 166, 35, 0.35);
+  color: #0f172a;
+}
+
+.shareBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: none;
+  border: none;
+  color: #475569;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: color 0.2s ease;
+}
+
+.shareBtn:hover {
+  color: #0f172a;
+}
+
+/* Flyer Thumbnail Right Column */
+.jobRightCol {
+  flex-shrink: 0;
+  width: 220px;
+}
+
+.flyerPreviewWrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #e4e4e7;
+  background: #f4f4f5;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.flyerPreviewWrap:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.flyerImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.flyerOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  font-size: 0.84rem;
+  font-weight: 700;
+  gap: 6px;
+}
+
+.flyerPreviewWrap:hover .flyerOverlay {
+  opacity: 1;
+}
+
+/* =========================================
+   BOTTOM SPONTANEOUS BAR
+   ========================================= */
+
+.spontaneousBar {
+  margin-top: 36px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 24px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.spontaneousTitle {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.spontaneousBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #0f172a;
+  color: #ffffff;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.spontaneousBtn:hover {
+  background: #27272a;
+  color: #ffffff;
+}
+
+/* =========================================
+   CLEAN EMPTY STATE
+   ========================================= */
+
+.emptyState {
+  text-align: center;
+  padding: 70px 20px;
+  background: #ffffff;
+  border: 1px dashed #e4e4e7;
+  border-radius: 20px;
+}
+
+.emptyTitle {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #18181b;
+  margin: 0 0 8px 0;
+}
+
+.emptyText {
+  font-size: 0.96rem;
+  color: #64748b;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+/* =========================================
+   APPLICATION MODAL (LARGER, HIGH-CONTRAST TEXT & FULLY RESPONSIVE)
+   ========================================= */
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(5px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modalBox {
+  background: #ffffff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  animation: modalIn 0.22s ease-out;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modalHeader {
+  padding: 22px 28px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 2;
+}
+
+.modalTitle {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.modalCloseBtn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.modalCloseBtn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.modalBody {
+  padding: 24px 28px 28px 28px;
+}
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formLabel {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: #1e293b;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.formInput,
+.formTextarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1.5px solid #cbd5e1;
+  font-size: 0.98rem;
+  color: #0f172a;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+  background: #ffffff;
+}
+
+.formInput::placeholder,
+.formTextarea::placeholder {
+  color: #94a3b8;
+  font-size: 0.92rem;
+}
+
+.formInput:focus,
+.formTextarea:focus {
+  border-color: #f5a623;
+  box-shadow: 0 0 0 3.5px rgba(245, 166, 35, 0.18);
+}
+
+.formTextarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.formSubmitBtn {
+  margin-top: 8px;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #f5a623 0%, #e69818 100%);
+  color: #0f172a;
+  border-radius: 12px;
+  font-size: 1.02rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(245, 166, 35, 0.28);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.formSubmitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 166, 35, 0.38);
+}
+
+.formSubmitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.alertSuccess {
+  background: #ecfdf5;
+  border: 1.5px solid #a7f3d0;
+  color: #065f46;
+  padding: 18px 20px;
+  border-radius: 14px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.imageLightbox {
+  max-width: 90vw;
+  max-height: 90vh;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.imageLightbox img {
+  max-width: 100%;
+  max-height: 85vh;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.lightboxClose {
+  position: absolute;
+  top: -42px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-size: 1.25rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* =========================================
+   FULL RESPONSIVENESS
+   ========================================= */
+
+@media (max-width: 860px) {
+  .pageWrapper {
+    padding-top: 120px;
+    padding-bottom: 50px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .pillsRow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .jobCard {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    padding: 22px 20px;
+    gap: 22px;
+  }
+
+  .jobRightCol {
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto;
+  }
+
+  .actionsRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .applyBtn {
+    justify-content: center;
+    width: 100%;
+    padding: 13px;
+  }
+
+  .shareBtn {
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .spontaneousBar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 18px;
+    gap: 16px;
+  }
+
+  .spontaneousBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modalHeader {
+    padding: 18px 20px;
+  }
+
+  .modalBody {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 1.75rem;
+  }
+
+  .roleTitle {
+    font-size: 1.3rem;
+  }
+
+  .metaPillsRow {
+    gap: 6px;
+  }
+
+  .metaPill {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+}

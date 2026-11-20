@@ -18,6 +18,9 @@ import { Career } from "../models/Career";
 import { Banner } from "../models/Banner";
 import { Blog } from "../models/Blog";
 import { MediaAsset } from "../models/MediaAsset";
+import { WebsitePage } from "../models/WebsitePage";
+import { NavigationMenu } from "../models/NavigationMenu";
+import { Project } from "../models/Project";
 
 export interface ISeedSummary {
   websiteSettings: number;
@@ -32,6 +35,9 @@ export interface ISeedSummary {
   careers: number;
   blogs: number;
   mediaAssets: number;
+  websitePages: number;
+  navigationMenus: number;
+  projects: number;
 }
 
 export const seedWebsiteData = async (
@@ -175,6 +181,42 @@ export const seedWebsiteData = async (
     );
   }
 
+  // 12. Website Pages (Core & Landing pages)
+  if (data.websitePages && Array.isArray(data.websitePages)) {
+    log(`[Seed Website] Seeding Website Pages (${data.websitePages.length})...`);
+    for (const page of data.websitePages) {
+      await WebsitePage.findOneAndUpdate(
+        { slug: page.slug },
+        page,
+        { upsert: true, new: true }
+      );
+    }
+  }
+
+  // 13. Navigation Menus (Header & Footer)
+  if (data.navigationMenus && Array.isArray(data.navigationMenus)) {
+    log(`[Seed Website] Seeding Navigation Menus (${data.navigationMenus.length})...`);
+    for (const nav of data.navigationMenus) {
+      await NavigationMenu.findOneAndUpdate(
+        { label: nav.label, placement: nav.placement },
+        nav,
+        { upsert: true, new: true }
+      );
+    }
+  }
+
+  // 14. Projects (Portfolio showcases)
+  if (data.projects && Array.isArray(data.projects)) {
+    log(`[Seed Website] Seeding Projects (${data.projects.length})...`);
+    for (const proj of data.projects) {
+      await Project.findOneAndUpdate(
+        { slug: proj.slug },
+        proj,
+        { upsert: true, new: true }
+      );
+    }
+  }
+
   // Summary counts from DB
   const [
     websiteSettingsCount,
@@ -189,6 +231,9 @@ export const seedWebsiteData = async (
     careersCount,
     blogsCount,
     mediaAssetsCount,
+    websitePagesCount,
+    navigationMenusCount,
+    projectsCount,
   ] = await Promise.all([
     WebsiteSettings.countDocuments(),
     Banner.countDocuments(),
@@ -202,6 +247,9 @@ export const seedWebsiteData = async (
     Career.countDocuments(),
     Blog.countDocuments(),
     MediaAsset.countDocuments(),
+    WebsitePage.countDocuments(),
+    NavigationMenu.countDocuments(),
+    Project.countDocuments(),
   ]);
 
   const summary: ISeedSummary = {
@@ -217,21 +265,27 @@ export const seedWebsiteData = async (
     careers: careersCount,
     blogs: blogsCount,
     mediaAssets: mediaAssetsCount,
+    websitePages: websitePagesCount,
+    navigationMenus: navigationMenusCount,
+    projects: projectsCount,
   };
 
   log("\n=== WEBSITE SEED COMPLETED SUCCESSFULLY ===");
-  log(`WebsiteSettings: ${summary.websiteSettings}`);
-  log(`Banners:         ${summary.banners}`);
-  log(`Blog Categories: ${summary.blogCategories}`);
-  log(`Services:        ${summary.services}`);
-  log(`Sub-Services:    ${summary.subServices}`);
-  log(`Client Logos:    ${summary.clientLogos}`);
-  log(`Team Members:    ${summary.teamMembers}`);
-  log(`Testimonials:    ${summary.testimonials}`);
-  log(`FAQs:            ${summary.faqs}`);
-  log(`Careers:         ${summary.careers}`);
-  log(`Blogs:           ${summary.blogs}`);
-  log(`Media Assets:    ${summary.mediaAssets}`);
+  log(`WebsiteSettings:  ${summary.websiteSettings}`);
+  log(`Banners:          ${summary.banners}`);
+  log(`Blog Categories:  ${summary.blogCategories}`);
+  log(`Services:         ${summary.services}`);
+  log(`Sub-Services:     ${summary.subServices}`);
+  log(`Client Logos:     ${summary.clientLogos}`);
+  log(`Team Members:     ${summary.teamMembers}`);
+  log(`Testimonials:     ${summary.testimonials}`);
+  log(`FAQs:             ${summary.faqs}`);
+  log(`Careers:          ${summary.careers}`);
+  log(`Blogs:            ${summary.blogs}`);
+  log(`Media Assets:     ${summary.mediaAssets}`);
+  log(`Website Pages:    ${summary.websitePages}`);
+  log(`Navigation Menus: ${summary.navigationMenus}`);
+  log(`Projects:         ${summary.projects}`);
 
   return summary;
 };

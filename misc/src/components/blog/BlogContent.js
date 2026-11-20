@@ -5,243 +5,35 @@ import Link from 'next/link';
 import { getBlogs, resolveMediaUrl, submitEnquiry } from '@/lib/api';
 import styles from './BlogContent.module.css';
 
-const defaultBlogPosts = [
-  {
-    image: '/assets/images/blogs/bl63.webp',
-    category: 'Digital Marketing',
-    subCategory: 'Social Media',
-    date: 'April 01, 2026',
-    readTime: '6 min read',
-    title: 'How Social Media Builds Trust Before Sales',
-    href: '/blog/social-media-builds-trust-before-sales',
-    excerpt: 'Trust is often built long before customers are ready to buy. Discover how genuine engagement and brand consistency shape perception.',
-  },
-  {
-    image: '/assets/images/blogs/bl62.webp',
-    category: 'Digital Marketing',
-    subCategory: 'Strategy',
-    date: 'March 28, 2026',
-    readTime: '5 min read',
-    title: 'Top 5 Reasons Strategy Beats Ad Spend',
-    href: '/blog/strategy-beats-ad-spend',
-    excerpt: 'Pouring budget into ads without a coherent strategic foundation burns cash. Learn why positioning and intent outperform brute force.',
-  },
-  {
-    image: '/assets/images/blogs/bl61.webp',
-    category: 'Digital Marketing',
-    subCategory: 'AI & Innovation',
-    date: 'March 24, 2026',
-    readTime: '7 min read',
-    title: 'A Guide to Using AI Without Losing Marketing Sense',
-    href: '/blog/ai-without-losing-marketing-sense',
-    excerpt: 'AI accelerates output, but human intuition, emotional resonance, and brand voice remain irreplaceable. Explore how to blend both.',
-  },
-  {
-    image: '/assets/images/blogs/bl60.webp',
-    category: 'Web Development',
-    subCategory: 'UI/UX Design',
-    date: 'March 20, 2026',
-    readTime: '5 min read',
-    title: 'Why UI Alone Keeps Letting Websites Down',
-    href: '/blog/ui-alone-keeps-letting-websites-down',
-    excerpt: 'A beautiful website that fails to guide users toward clear decisions is just digital art. Discover the critical balance between aesthetics and conversion.',
-  },
-  {
-    image: '/assets/images/blogs/bl59.webp',
-    category: 'Web Development',
-    subCategory: 'Engineering',
-    date: 'March 16, 2026',
-    readTime: '6 min read',
-    title: 'How to Choose a Tech Stack Wisely',
-    href: '/blog/choose-a-tech-stack-wisely',
-    excerpt: 'From Next.js and headless architectures to performance optimization, picking the right foundation shapes product agility for years to come.',
-  },
-  {
-    image: '/assets/images/blogs/bl58.webp',
-    category: 'Digital Marketing',
-    subCategory: 'Social Media',
-    date: 'March 12, 2026',
-    readTime: '5 min read',
-    title: 'A Guide to Social Media’s Real Purpose',
-    href: '/blog/socialmedias-real-purpose',
-    excerpt: 'Beyond follower vanity metrics, social media functions as a direct line of communication, credibility, and brand advocacy.',
-  },
-  {
-    image: '/assets/images/blogs/bl57.webp',
-    category: 'Web Development',
-    subCategory: 'Strategy',
-    date: 'March 08, 2026',
-    readTime: '5 min read',
-    title: 'How Strategy-First Websites Drive Real Results',
-    href: '/blog/websites-drive-real-results',
-    excerpt: 'When business objectives guide design and architecture, websites transform from passive brochures into automated growth engines.',
-  },
-  {
-    image: '/assets/images/blogs/bl56.webp',
-    category: 'Digital Marketing',
-    subCategory: 'Analytics',
-    date: 'March 05, 2026',
-    readTime: '6 min read',
-    title: 'A Practical Guide to Reading Ad Metrics',
-    href: '/blog/guide-to-reading-ad-metrics',
-    excerpt: 'Look beyond CTR and impressions. Understand customer acquisition cost, retention signals, and the KPIs that actually matter to the bottom line.',
-  },
-  {
-    image: '/assets/images/blogs/bl55.webp',
-    category: 'Digital Marketing',
-    subCategory: 'Paid Ads',
-    date: 'March 03, 2026',
-    readTime: '5 min read',
-    title: 'Why Retargeting Won’t Save Bad Ads',
-    href: '/blog/retargeting-wont-save-bad-ads',
-    excerpt: 'If the initial value proposition fell flat, repeatedly following prospective customers with the same creative only creates brand fatigue.',
-  },
-  {
-    image: '/assets/images/blogs/bl54.webp',
-    category: 'Digital Marketing',
-    subCategory: 'Branding',
-    date: 'March 01, 2026',
-    readTime: '6 min read',
-    title: 'How Brand Trust Makes Ads Work',
-    href: '/blog/how-brand-trust-makes-ads-work',
-    excerpt: 'Advertising doesn’t create trust from scratch; it amplifies what already exists. Learn how foundational credibility cuts advertising costs.',
-  },
-  {
-    image: '/assets/images/blogs/bl53.webp',
-    category: 'Branding',
-    subCategory: 'Visual Identity',
-    date: 'February 27, 2026',
-    readTime: '5 min read',
-    title: 'How to Build a Visual Identity That Works',
-    href: '/blog/build-visual-identity',
-    excerpt: 'Great identity design creates instant recall and signals quality. How to establish brand typography, color palettes, and visual consistency.',
-  },
-  {
-    image: '/assets/images/blogs/bl52.webp',
-    category: 'Web Development',
-    subCategory: 'Infrastructure',
-    date: 'February 25, 2026',
-    readTime: '4 min read',
-    title: 'A Guide to What Keeps Websites Running',
-    href: '/blog/what-keeps-websites-running',
-    excerpt: 'The critical infrastructure behind resilient websites: uptime monitoring, CDN edge caching, security hygiene, and database maintenance.',
-  },
-  {
-    image: '/assets/images/blogs/bl51.webp',
-    category: 'Digital Marketing',
-    subCategory: 'Analytics',
-    date: 'February 23, 2026',
-    readTime: '6 min read',
-    title: 'Data-Driven Marketing: Turning Analytics into Revenue',
-    href: '/blog/turning-analytics-into-revenue',
-    excerpt: 'Transform raw Google Analytics numbers into actionable growth levers that improve conversions and customer lifetime value.',
-  },
-  {
-    image: '/assets/images/blogs/bl50.webp',
-    category: 'Web Development',
-    subCategory: 'Architecture',
-    date: 'February 21, 2026',
-    readTime: '5 min read',
-    title: 'How to Choose the Right Website',
-    href: '/blog/choose-the-right-website',
-    excerpt: 'Not all businesses need the same type of digital footprint. Understand when to choose high-converting landing pages versus corporate portals.',
-  },
-  {
-    image: '/assets/images/blogs/bl49.webp',
-    category: 'Digital Marketing',
-    subCategory: 'Strategy',
-    date: 'February 19, 2026',
-    readTime: '5 min read',
-    title: 'How to Turn Marketing Spend Into Growth',
-    href: '/blog/marketing-spend-into-growth',
-    excerpt: 'Stop viewing marketing as a line-item expense. Build sustainable attribution models that prove direct ROI on every marketing rupee.',
-  },
-  {
-    image: '/assets/images/blogs/bl48.webp',
-    category: 'Web Development',
-    subCategory: 'SEO',
-    date: 'February 17, 2026',
-    readTime: '5 min read',
-    title: 'Impact of Website Speed on SEO And Conversion',
-    href: '/blog/website-speed-on-seo-and-conversion',
-    excerpt: 'Every millisecond of latency costs revenue. How Core Web Vitals directly dictate search ranking position and visitor bounce rates.',
-  },
-  {
-    image: '/assets/images/blogs/bl47.webp',
-    category: 'Digital Marketing',
-    subCategory: 'Local SEO',
-    date: 'February 15, 2026',
-    readTime: '5 min read',
-    title: 'How Local Businesses Can Compete with Big Brands Online',
-    href: '/blog/compete-with-big-brands-online',
-    excerpt: 'Big budgets can’t beat hyper-localized relevance and community reputation. Proven strategies for local dominance in Kerala and beyond.',
-  },
-  {
-    image: '/assets/images/blogs/bl46.webp',
-    category: 'Digital Marketing',
-    subCategory: 'CRO',
-    date: 'February 13, 2026',
-    readTime: '6 min read',
-    title: 'How to Optimize Landing Pages That Convert',
-    href: '/blog/optimize-landing-pages',
-    excerpt: 'Frameworks, headline structures, social proof placement, and form UX that reliably turn cold traffic into qualified inquiries.',
-  },
-  {
-    image: '/assets/images/blogs/bl45.webp',
-    category: 'Digital Marketing',
-    subCategory: 'Content',
-    date: 'February 11, 2026',
-    readTime: '5 min read',
-    title: 'Why UGC Quietly Outperforms Paid Ads',
-    href: '/blog/ugc-quietly-outperforms',
-    excerpt: 'Customers believe other customers far more than polished brand claims. Why user-generated content drives higher conversion rates.',
-  },
-  {
-    image: '/assets/images/blogs/bl44.webp',
-    category: 'Web Development',
-    subCategory: 'UX Design',
-    date: 'February 09, 2026',
-    readTime: '5 min read',
-    title: 'How Bad UX Quietly Kills Conversions',
-    href: '/blog/bad-ux-quietly-kills-conversions',
-    excerpt: 'Hidden navigation friction, confusing checkout steps, and cluttered interfaces silently bleed potential customers from your funnel.',
-  },
-];
-
-const CATEGORIES = [
-  'All',
-  'Digital Marketing',
-  'Strategy',
-  'AI & Innovation',
-  'Web Development',
-  'Branding',
-  'Social Media',
-];
-
 export default function BlogContent({ initialBlogs }) {
+  const formatBlogs = (list) => {
+    if (!list || !Array.isArray(list)) return [];
+    return list.map((b) => ({
+      image: resolveMediaUrl(b.featuredImage || b.image) || '/assets/images/blogs/bl63.webp',
+      category: b.category || 'Digital Marketing',
+      subCategory: b.subCategory || '',
+      date: b.publishDate
+        ? new Date(b.publishDate).toLocaleDateString('en-US', {
+            month: 'long',
+            day: '2-digit',
+            year: 'numeric',
+          })
+        : '',
+      readTime: b.readTime || '5 min read',
+      title: b.title,
+      href: `/blog/${b.slug}`,
+      excerpt:
+        b.excerpt ||
+        b.shortDescription ||
+        `Practical insights and strategic perspectives on ${(b.title || '').toLowerCase()}.`,
+    }));
+  };
+
   const [blogPosts, setBlogPosts] = useState(() => {
     if (initialBlogs && Array.isArray(initialBlogs) && initialBlogs.length > 0) {
-      return initialBlogs.map((b) => ({
-        image: resolveMediaUrl(b.featuredImage || b.image),
-        category: b.category || 'Digital Marketing',
-        subCategory: b.subCategory || '',
-        date: b.publishDate
-          ? new Date(b.publishDate).toLocaleDateString('en-US', {
-              month: 'long',
-              day: '2-digit',
-              year: 'numeric',
-            })
-          : '',
-        readTime: b.readTime || '5 min read',
-        title: b.title,
-        href: `/blog/${b.slug}`,
-        excerpt:
-          b.excerpt ||
-          b.shortDescription ||
-          `Practical insights and strategic perspectives on ${b.title.toLowerCase()}.`,
-      }));
+      return formatBlogs(initialBlogs);
     }
-    return defaultBlogPosts;
+    return [];
   });
 
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -257,29 +49,7 @@ export default function BlogContent({ initialBlogs }) {
     getBlogs({ limit: 100 })
       .then((data) => {
         if (isMounted && data && Array.isArray(data) && data.length > 0) {
-          setBlogPosts(
-            data.map((b) => ({
-              image:
-                resolveMediaUrl(b.featuredImage || b.image) ||
-                '/assets/images/blogs/bl63.webp',
-              category: b.category || 'Digital Marketing',
-              subCategory: b.subCategory || '',
-              date: b.publishDate
-                ? new Date(b.publishDate).toLocaleDateString('en-US', {
-                    month: 'long',
-                    day: '2-digit',
-                    year: 'numeric',
-                  })
-                : '',
-              readTime: b.readTime || '5 min read',
-              title: b.title,
-              href: `/blog/${b.slug}`,
-              excerpt:
-                b.excerpt ||
-                b.shortDescription ||
-                `Practical insights and strategic perspectives on ${b.title.toLowerCase()}.`,
-            }))
-          );
+          setBlogPosts(formatBlogs(data));
         }
       })
       .catch(() => {});
@@ -287,6 +57,16 @@ export default function BlogContent({ initialBlogs }) {
       isMounted = false;
     };
   }, []);
+
+  // Dynamically extract categories from articles
+  const categories = useMemo(() => {
+    const set = new Set();
+    blogPosts.forEach((p) => {
+      if (p.category) set.add(p.category);
+    });
+    const customCats = Array.from(set);
+    return customCats.length > 0 ? ['All', ...customCats] : ['All', 'Digital Marketing', 'Web Development'];
+  }, [blogPosts]);
 
   // Filter posts based on active category
   const filteredPosts = useMemo(() => {
@@ -382,7 +162,7 @@ export default function BlogContent({ initialBlogs }) {
 
           {/* Category Filter Pills */}
           <nav aria-label="Blog categories" className={styles.categoryNav}>
-            {CATEGORIES.map((cat) => {
+            {categories.map((cat) => {
               const isActive = selectedCategory === cat;
               return (
                 <button

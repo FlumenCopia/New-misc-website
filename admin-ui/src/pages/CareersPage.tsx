@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Plus, Edit2, Trash2, MapPin, Briefcase } from 'lucide-react';
+import { Plus, Edit2, Trash2, MapPin, Briefcase, GraduationCap, Image as ImageIcon } from 'lucide-react';
 import { apiRequest } from '../api/client';
 import { Table } from '../components/common/Table';
 import { Button } from '../components/common/Button';
 import { Modal } from '../components/common/Modal';
 import { Badge } from '../components/common/Badge';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
+import { ImageUploadField } from '../components/common/ImageUploadField';
 
 export const CareersPage: React.FC = () => {
   const [careers, setCareers] = useState<any[]>([]);
@@ -18,8 +19,7 @@ export const CareersPage: React.FC = () => {
     department: 'Digital Marketing',
     location: 'Trivandrum, Kerala',
     employmentType: 'Full Time',
-    experience: '',
-    descriptionHtml: '',
+    experience: '1-3 Years',
     status: 'open',
     order: 0,
   });
@@ -46,8 +46,7 @@ export const CareersPage: React.FC = () => {
         department: career.department || 'Digital Marketing',
         location: career.location || 'Trivandrum, Kerala',
         employmentType: career.employmentType || 'Full Time',
-        experience: career.experience || '',
-        descriptionHtml: career.descriptionHtml || '',
+        experience: career.experience || '1-3 Years',
         status: career.status || 'open',
         order: career.order || 0,
       });
@@ -59,8 +58,7 @@ export const CareersPage: React.FC = () => {
         department: 'Digital Marketing',
         location: 'Trivandrum, Kerala',
         employmentType: 'Full Time',
-        experience: '',
-        descriptionHtml: '',
+        experience: '1-3 Years',
         status: 'open',
         order: careers.length,
       });
@@ -89,6 +87,19 @@ export const CareersPage: React.FC = () => {
     }
   };
 
+  const handleToggleStatus = async (career: any) => {
+    try {
+      const newStatus = career.status === 'open' ? 'closed' : 'open';
+      await apiRequest(`/careers/${career._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ status: newStatus }),
+      });
+      fetchCareers();
+    } catch (err: any) {
+      alert(err.message || 'Error updating career status');
+    }
+  };
+
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to remove this job opening?')) return;
     try {
@@ -107,7 +118,7 @@ export const CareersPage: React.FC = () => {
         <div>
           <h1 className="text-2xl font-bold text-white">Careers & Job Openings</h1>
           <p className="text-xs text-slate-400 mt-1">
-            Manage hiring announcements, job flyers, and open recruitment roles.
+            Manage hiring vacancies, recruitment flyers, and job statuses shown on the public site.
           </p>
         </div>
         <Button onClick={() => handleOpenModal()} className="gap-2">
@@ -116,34 +127,79 @@ export const CareersPage: React.FC = () => {
       </div>
 
       <Table
-        headers={['Job Title', 'Department', 'Location', 'Job Brief', 'Status', 'Actions']}
+        headers={['Job Title', 'Department', 'Location & Exp', 'Flyer Graphic', 'Status', 'Actions']}
         isEmpty={careers.length === 0}
         emptyMessage="No career opportunities posted."
       >
         {careers.map((c) => (
           <tr key={c._id} className="hover:bg-slate-50/80 transition-colors">
+            {/* Job Title & Type */}
             <td className="px-6 py-4">
               <p className="text-sm font-semibold text-slate-900">{c.title}</p>
               <p className="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
                 <Briefcase className="w-3.5 h-3.5 text-slate-400" />
-                {c.employmentType}
+                {c.employmentType || 'Full Time'}
               </p>
             </td>
-            <td className="px-6 py-4 text-xs text-slate-700 font-semibold">{c.department}</td>
-            <td className="px-6 py-4 text-xs text-slate-600">
-              <span className="flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                {c.location}
+
+            {/* Department */}
+            <td className="px-6 py-4 text-xs text-slate-700 font-semibold">
+              <span className="px-2.5 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">
+                {c.department || 'General'}
               </span>
             </td>
-            <td className="px-6 py-4 text-xs text-slate-600 max-w-xs truncate">
-              {c.descriptionHtml ? c.descriptionHtml.replace(/<[^>]*>/g, '') : '—'}
+
+            {/* Location & Experience */}
+            <td className="px-6 py-4 text-xs text-slate-600">
+              <div className="flex flex-col gap-1">
+                <span className="flex items-center gap-1">
+                  <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                  {c.location || 'Trivandrum, Kerala'}
+                </span>
+                {c.experience && (
+                  <span className="flex items-center gap-1 text-slate-500">
+                    <GraduationCap className="w-3.5 h-3.5 text-slate-400" />
+                    Exp: {c.experience}
+                  </span>
+                )}
+              </div>
             </td>
+
+            {/* Flyer Graphic Thumbnail */}
             <td className="px-6 py-4">
-              <Badge variant={c.status === 'open' ? 'success' : 'danger'}>
-                {c.status === 'open' ? 'Actively Hiring' : 'Closed'}
-              </Badge>
+              {c.flyerImage ? (
+                <div className="w-12 h-12 rounded-lg overflow-hidden border border-slate-200 bg-slate-100 flex items-center justify-center">
+                  <img
+                    src={c.flyerImage}
+                    alt={c.title}
+                    className="w-full h-full object-cover"
+                    onError={(e: any) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                </div>
+              ) : (
+                <span className="text-xs text-slate-400 flex items-center gap-1">
+                  <ImageIcon className="w-3.5 h-3.5" /> No flyer
+                </span>
+              )}
             </td>
+
+            {/* Status (1-click toggle) */}
+            <td className="px-6 py-4">
+              <button
+                type="button"
+                onClick={() => handleToggleStatus(c)}
+                className="cursor-pointer focus:outline-none transition-transform active:scale-95"
+                title={`Click to set ${c.status === 'open' ? 'Closed' : 'Open'}`}
+              >
+                <Badge variant={c.status === 'open' ? 'success' : 'danger'}>
+                  {c.status === 'open' ? 'Actively Hiring' : 'Closed'}
+                </Badge>
+              </button>
+            </td>
+
+            {/* Actions */}
             <td className="px-6 py-4">
               <div className="flex items-center gap-2">
                 <button
@@ -169,7 +225,7 @@ export const CareersPage: React.FC = () => {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title={editingCareer ? 'Edit Job Posting' : 'Post New Job'}
+        title={editingCareer ? 'Edit Job Opening' : 'Post New Job Opening'}
       >
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -179,10 +235,11 @@ export const CareersPage: React.FC = () => {
               required
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              placeholder="Digital Marketing Executive"
+              placeholder="e.g. Digital Marketing Executive / Hiring"
               className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
             />
           </div>
+
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">Department</label>
@@ -190,40 +247,71 @@ export const CareersPage: React.FC = () => {
                 type="text"
                 value={formData.department}
                 onChange={(e) => setFormData({ ...formData, department: e.target.value })}
+                placeholder="Digital Marketing"
                 className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
               />
             </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Employment Type</label>
+              <select
+                value={formData.employmentType}
+                onChange={(e) => setFormData({ ...formData, employmentType: e.target.value })}
+                className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
+              >
+                <option value="Full Time">Full Time</option>
+                <option value="Part Time">Part Time</option>
+                <option value="Contract">Contract</option>
+                <option value="Internship">Internship</option>
+                <option value="Remote">Remote</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">Location</label>
               <input
                 type="text"
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                placeholder="Trivandrum, Kerala"
+                className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Experience Required</label>
+              <input
+                type="text"
+                value={formData.experience}
+                onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
+                placeholder="e.g. 1-3 Years, Fresher"
                 className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
               />
             </div>
           </div>
+
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Job Brief / Overview</label>
-            <textarea
-              rows={3}
-              value={formData.descriptionHtml}
-              onChange={(e) => setFormData({ ...formData, descriptionHtml: e.target.value })}
-              placeholder="Provide a brief summary of the role, core responsibilities, or qualification requirements..."
-              className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500 resize-y"
+            <ImageUploadField
+              label="Job Flyer / Announcement Graphic"
+              value={formData.flyerImage}
+              onChange={(url) => setFormData({ ...formData, flyerImage: url })}
+              placeholder="/uploads/... or /assets/..."
+              helperText="Upload recruitment poster or flyer image for this position."
             />
           </div>
+
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Status</label>
+            <label className="block text-xs font-semibold text-slate-700 mb-1">Hiring Status</label>
             <select
               value={formData.status}
               onChange={(e) => setFormData({ ...formData, status: e.target.value })}
               className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500"
             >
-              <option value="open">Open / Actively Hiring</option>
-              <option value="closed">Closed / Filled</option>
+              <option value="open">Open / Actively Hiring (Visible on Website)</option>
+              <option value="closed">Closed / Filled (Hidden from Public)</option>
             </select>
           </div>
+
           <div className="flex justify-end gap-3 pt-4 border-t border-slate-100">
             <Button type="button" variant="ghost" onClick={() => setIsModalOpen(false)}>
               Cancel

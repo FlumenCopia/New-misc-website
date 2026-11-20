@@ -1,30 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Search, Edit2, Trash2, ExternalLink, Filter } from 'lucide-react';
-import { apiRequest } from '../api/client';
+import { apiRequest, getPublicSiteUrl } from '../api/client';
 import { Table } from '../components/common/Table';
 import { Button } from '../components/common/Button';
 import { Badge } from '../components/common/Badge';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
+import { resolveMediaUrl } from '../components/common/ImageUploadField';
 
-const resolveBlogMediaUrl = (url?: string) => {
-  if (!url) return '';
-  if (url.includes('/uploads/')) {
-    const uploadPath = url.substring(url.indexOf('/uploads/'));
-    const apiOrigin = import.meta.env.VITE_API_URL
-      ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '')
-      : 'https://new-misc-api.onrender.com';
-    return `${apiOrigin}${uploadPath}`;
-  }
-  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
-    return url;
-  }
-  const websiteUrl = import.meta.env.VITE_WEBSITE_URL || 'https://new-misc-website-pdfk.vercel.app';
-  if (url.startsWith('/assets/')) {
-    return `${websiteUrl}${url}`;
-  }
-  return `${websiteUrl}/${url.replace(/^\/+/, '')}`;
-};
+const resolveBlogMediaUrl = resolveMediaUrl;
 
 export const BlogsPage: React.FC = () => {
   const [blogs, setBlogs] = useState<any[]>([]);
@@ -67,6 +51,19 @@ export const BlogsPage: React.FC = () => {
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleTogglePublish = async (blog: any) => {
+    try {
+      const newStatus = !blog.isPublished;
+      await apiRequest(`/blogs/${blog._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ isPublished: newStatus }),
+      });
+      fetchBlogs(pagination.page);
+    } catch (err: any) {
+      alert(err.message || 'Error updating article status');
     }
   };
 
@@ -175,12 +172,28 @@ export const BlogsPage: React.FC = () => {
                   {new Date(b.publishDate).toLocaleDateString()}
                 </td>
                 <td className="px-6 py-4">
-                  <Badge variant={b.isPublished ? 'success' : 'warning'}>
-                    {b.isPublished ? 'Published' : 'Draft'}
-                  </Badge>
+                  <button
+                    type="button"
+                    onClick={() => handleTogglePublish(b)}
+                    className="cursor-pointer focus:outline-none transition-transform active:scale-95"
+                    title={`Click to set ${b.isPublished ? 'Draft / Hidden' : 'Published'}`}
+                  >
+                    <Badge variant={b.isPublished ? 'success' : 'warning'}>
+                      {b.isPublished ? 'Published' : 'Draft'}
+                    </Badge>
+                  </button>
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-2">
+                    <a
+                      href={getPublicSiteUrl(`/blog/${b.slug}`)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="p-1.5 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded transition-colors"
+                      title="Preview on Live Site"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
                     <Link
                       to={`/blogs/edit/${b._id}`}
                       className="p-1.5 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded transition-colors"

@@ -2900,6 +2900,9 @@ html {
   left: 0;
 
   min-width: 280px;
+  max-height: calc(85vh - 80px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   /* padding: 14px 0; */
   list-style: none;
   display: none;
@@ -2926,6 +2929,20 @@ html {
     backdrop-filter 0.35s ease;
 }
 
+.dropdown-menu::-webkit-scrollbar {
+  width: 5px;
+}
+.dropdown-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+.dropdown-menu::-webkit-scrollbar-thumb {
+  background: rgba(245, 166, 35, 0.4);
+  border-radius: 4px;
+}
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 166, 35, 0.8);
+}
+
 /* SHOW DROPDOWN */
 .dropdown:hover .dropdown-menu {
   display: block;
@@ -2936,7 +2953,7 @@ html {
 
 
 .dropdown-menu li a {
-  padding: 14px 28px;
+  padding: 11px 24px;
   display: block;
   color: #ffffff;
   font-weight: 600;

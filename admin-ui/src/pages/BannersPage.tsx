@@ -6,25 +6,9 @@ import { Button } from '../components/common/Button';
 import { Modal } from '../components/common/Modal';
 import { Badge } from '../components/common/Badge';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
+import { resolveMediaUrl } from '../components/common/ImageUploadField';
 
-const resolveBannerUrl = (url: string) => {
-  if (!url) return '';
-  if (url.includes('/uploads/')) {
-    const uploadPath = url.substring(url.indexOf('/uploads/'));
-    const apiOrigin = import.meta.env.VITE_API_URL
-      ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '')
-      : 'https://new-misc-api.onrender.com';
-    return `${apiOrigin}${uploadPath}`;
-  }
-  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
-    return url;
-  }
-  const websiteUrl = import.meta.env.VITE_WEBSITE_URL || 'https://new-misc-website-pdfk.vercel.app';
-  if (url.startsWith('/assets/')) {
-    return `${websiteUrl}${url}`;
-  }
-  return `${websiteUrl}/${url.replace(/^\/+/, '')}`;
-};
+const resolveBannerUrl = resolveMediaUrl;
 
 export const BannersPage: React.FC = () => {
   const [banners, setBanners] = useState<any[]>([]);
@@ -37,6 +21,7 @@ export const BannersPage: React.FC = () => {
     desktopImage: '',
     linkUrl: '',
     description: '',
+    isActive: true,
   });
 
   // Image Upload State
@@ -68,6 +53,7 @@ export const BannersPage: React.FC = () => {
         desktopImage: banner.desktopImage || '',
         linkUrl: banner.linkUrl || '',
         description: banner.description || '',
+        isActive: banner.isActive ?? true,
       });
     } else {
       setEditingBanner(null);
@@ -75,6 +61,7 @@ export const BannersPage: React.FC = () => {
         desktopImage: '',
         linkUrl: '',
         description: '',
+        isActive: true,
       });
     }
     setIsModalOpen(true);
@@ -137,7 +124,7 @@ export const BannersPage: React.FC = () => {
         linkUrl: formData.linkUrl || '',
         description: formData.description || '',
         order: editingBanner ? editingBanner.order : banners.length,
-        isActive: editingBanner ? (editingBanner.isActive ?? true) : true,
+        isActive: formData.isActive,
         title: editingBanner?.title || '',
         theme: editingBanner?.theme || 'light',
       };
@@ -159,6 +146,19 @@ export const BannersPage: React.FC = () => {
       alert(err.message || 'Error saving banner slide');
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleToggleActive = async (banner: any) => {
+    try {
+      const newStatus = !banner.isActive;
+      await apiRequest(`/banners/${banner._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ isActive: newStatus }),
+      });
+      fetchBanners();
+    } catch (err: any) {
+      alert(err.message || 'Error updating banner status');
     }
   };
 
@@ -225,9 +225,16 @@ export const BannersPage: React.FC = () => {
 
             {/* 4. Status */}
             <td className="px-6 py-4">
-              <Badge variant={b.isActive ? 'success' : 'neutral'}>
-                {b.isActive ? 'Active' : 'Hidden'}
-              </Badge>
+              <button
+                type="button"
+                onClick={() => handleToggleActive(b)}
+                className="cursor-pointer focus:outline-none transition-transform active:scale-95"
+                title={`Click to set ${b.isActive ? 'Hidden' : 'Active'}`}
+              >
+                <Badge variant={b.isActive ? 'success' : 'neutral'}>
+                  {b.isActive ? 'Active' : 'Hidden'}
+                </Badge>
+              </button>
             </td>
 
             {/* 6. Actions */}
@@ -376,6 +383,21 @@ export const BannersPage: React.FC = () => {
               placeholder="Enter banner description or notes..."
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500 resize-none"
             />
+          </div>
+
+          {/* 4. Display Status */}
+          <div>
+            <label className="block text-xs font-semibold text-slate-300 mb-1">
+              Display Status
+            </label>
+            <select
+              value={formData.isActive ? 'active' : 'inactive'}
+              onChange={(e) => setFormData({ ...formData, isActive: e.target.value === 'active' })}
+              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500 font-medium"
+            >
+              <option value="active">Active (Visible in Hero Carousel)</option>
+              <option value="inactive">Inactive / Hidden</option>
+            </select>
           </div>
 
           {/* Modal Actions */}

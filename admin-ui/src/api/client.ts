@@ -1,5 +1,17 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
+export const getPublicSiteUrl = (path: string = ''): string => {
+  let base = '';
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    base = window.location.origin;
+  } else {
+    const envUrl = import.meta.env.VITE_PUBLIC_SITE_URL || import.meta.env.VITE_WEBSITE_URL;
+    base = (envUrl && !envUrl.includes('localhost') ? envUrl : '') || (typeof window !== 'undefined' && window.location.hostname !== 'localhost' ? window.location.origin : 'http://localhost:3000');
+  }
+  const cleanPath = path ? (path.startsWith('/') ? path : `/${path}`) : '';
+  return `${(base || 'http://localhost:3000').replace(/\/$/, '')}${cleanPath}`;
+};
+
 export interface ApiResponse<T = any> {
   success: boolean;
   message?: string;

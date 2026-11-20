@@ -24,6 +24,7 @@ import {
 import { Button } from '../common/Button';
 import { LoadingSpinner } from '../common/LoadingSpinner';
 import { apiRequest } from '../../api/client';
+import { resolveMediaUrl } from '../common/ImageUploadField';
 
 export interface BlogFormData {
   _id?: string;
@@ -247,7 +248,33 @@ export const RichBlogEditor: React.FC<RichBlogEditorProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-3 self-end sm:self-auto">
+        <div className="flex items-center gap-3 self-end sm:self-auto flex-wrap">
+          {/* Status Toggle (Published / Draft) */}
+          <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200">
+            <button
+              type="button"
+              onClick={() => setIsPublished(true)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                isPublished
+                  ? 'bg-emerald-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Published (Live)
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsPublished(false)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                !isPublished
+                  ? 'bg-amber-500 text-slate-950 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Draft (Hidden)
+            </button>
+          </div>
+
           <Button type="button" variant="ghost" onClick={onCancel} disabled={isLoading}>
             Cancel
           </Button>
@@ -326,7 +353,7 @@ export const RichBlogEditor: React.FC<RichBlogEditorProps> = ({
             <div className="rounded-xl border border-slate-200 bg-white overflow-hidden max-w-xl shadow-xs">
               <div className="aspect-[16/9] w-full overflow-hidden bg-slate-100 flex items-center justify-center relative group">
                 <img
-                  src={featuredImage}
+                  src={resolveMediaUrl(featuredImage)}
                   alt="Blog Preview"
                   className="w-full h-full object-cover"
                   onError={(e) => {

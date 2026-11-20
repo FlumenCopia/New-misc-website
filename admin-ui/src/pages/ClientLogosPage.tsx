@@ -6,36 +6,9 @@ import { Button } from '../components/common/Button';
 import { Modal } from '../components/common/Modal';
 import { Badge } from '../components/common/Badge';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
+import { resolveMediaUrl } from '../components/common/ImageUploadField';
 
-const WEBSITE_BASE_URL = import.meta.env.VITE_WEBSITE_URL || 'https://new-misc-website-pdfk.vercel.app';
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://new-misc-api.onrender.com/api';
-const API_ORIGIN = API_BASE_URL.replace(/\/api\/?$/, '');
-
-/**
- * Resolves logo URLs for consistent rendering:
- * - Absolute URLs (http://, https://, //, data:) remain unchanged.
- * - Admin API uploaded paths (/uploads/...) resolve to the Admin API origin.
- * - Seeded website paths (/assets/...) resolve to the public website origin.
- */
-export const resolveLogoUrl = (url?: string): string => {
-  if (!url) return '';
-  if (url.includes('/uploads/')) {
-    const uploadPath = url.substring(url.indexOf('/uploads/'));
-    return `${API_ORIGIN}${uploadPath}`;
-  }
-  if (
-    url.startsWith('http://') ||
-    url.startsWith('https://') ||
-    url.startsWith('//') ||
-    url.startsWith('data:')
-  ) {
-    return url;
-  }
-  if (url.startsWith('/assets/')) {
-    return `${WEBSITE_BASE_URL}${url}`;
-  }
-  return `${WEBSITE_BASE_URL}/${url.replace(/^\/+/, '')}`;
-};
+export const resolveLogoUrl = resolveMediaUrl;
 
 export const ClientLogosPage: React.FC = () => {
   const [logos, setLogos] = useState<any[]>([]);
@@ -181,6 +154,19 @@ export const ClientLogosPage: React.FC = () => {
     }
   };
 
+  const handleToggleActive = async (logo: any) => {
+    try {
+      const newStatus = !logo.isActive;
+      await apiRequest(`/client-logos/${logo._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ isActive: newStatus }),
+      });
+      fetchLogos();
+    } catch (err: any) {
+      alert(err.message || 'Error updating logo status');
+    }
+  };
+
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this logo?')) return;
     try {
@@ -229,9 +215,16 @@ export const ClientLogosPage: React.FC = () => {
               {logo.clientName}
             </td>
             <td className="px-6 py-4">
-              <Badge variant={logo.isActive ? 'success' : 'neutral'}>
-                {logo.isActive ? 'Visible' : 'Hidden'}
-              </Badge>
+              <button
+                type="button"
+                onClick={() => handleToggleActive(logo)}
+                className="cursor-pointer focus:outline-none transition-transform active:scale-95"
+                title={`Click to set ${logo.isActive ? 'Hidden' : 'Visible'}`}
+              >
+                <Badge variant={logo.isActive ? 'success' : 'neutral'}>
+                  {logo.isActive ? 'Visible' : 'Hidden'}
+                </Badge>
+              </button>
             </td>
             <td className="px-6 py-4">
               <div className="flex items-center gap-2">
@@ -278,6 +271,21 @@ export const ClientLogosPage: React.FC = () => {
             <p className="text-[12.5px] text-slate-600 mt-1">
               Used to identify and describe the client logo.
             </p>
+          </div>
+
+          {/* 2. Display Status */}
+          <div>
+            <label className="block text-[13px] font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              Display Status
+            </label>
+            <select
+              value={formData.isActive ? 'active' : 'inactive'}
+              onChange={(e) => setFormData({ ...formData, isActive: e.target.value === 'active' })}
+              className="w-full bg-white border border-slate-300 rounded-md px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-500 transition-colors shadow-xs font-medium"
+            >
+              <option value="active">Visible (Active in Marquee)</option>
+              <option value="inactive">Hidden / Inactive</option>
+            </select>
           </div>
 
           {/* 2. Logo Image (Upload + Preview + Change + Remove) */}

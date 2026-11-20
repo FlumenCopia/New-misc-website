@@ -169,6 +169,8 @@ export default function FooterSection({ settings: initialSettings }) {
                 <li><Link href="/services">Services</Link></li>
                 <li><Link href="/services/miscaudibles">Misc Audible</Link></li>
                 <li><Link href="/blog">Blog</Link></li>
+                <li><Link href="/career">Careers</Link></li>
+                <li><Link href="/Neyyattinkara">Neyyattinkara Hub</Link></li>
                 <li><Link href="/contact">Contact</Link></li>
               </ul>
             </div>

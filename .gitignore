@@ -46,3 +46,9 @@ Thumbs.db
 uploads/*
 */uploads/*
 !*/uploads/.gitkeep
+
+# Archives & Temporary Backups
+*.tar.gz
+*.tar
+backup/
+

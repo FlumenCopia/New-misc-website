@@ -16,6 +16,7 @@ import { Badge } from '../components/common/Badge';
 import { Modal } from '../components/common/Modal';
 import { Table } from '../components/common/Table';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
+import { ImageUploadField, resolveMediaUrl } from '../components/common/ImageUploadField';
 
 interface ProjectItem {
   _id: string;
@@ -244,7 +245,7 @@ export const ProjectsPage: React.FC = () => {
                 <div className="w-12 h-10 rounded bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center">
                   {proj.thumbnailImage ? (
                     <img
-                      src={proj.thumbnailImage}
+                      src={resolveMediaUrl(proj.thumbnailImage)}
                       alt={proj.title}
                       className="w-full h-full object-cover"
                       onError={(e) => {
@@ -402,32 +403,27 @@ export const ProjectsPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                  Thumbnail Image URL
-                </label>
-                <input
-                  type="text"
-                  value={formData.thumbnailImage}
-                  onChange={(e) => setFormData({ ...formData, thumbnailImage: e.target.value })}
-                  placeholder="/assets/images/project/1.png"
-                  className="w-full px-3 py-2 border rounded-md"
-                />
-              </div>
+            <div>
+              <ImageUploadField
+                label="Thumbnail Image"
+                value={formData.thumbnailImage}
+                onChange={(url) => setFormData({ ...formData, thumbnailImage: url })}
+                placeholder="/uploads/... or /assets/images/project/1.png"
+                helperText="Upload project preview card / showcase image."
+              />
+            </div>
 
-              <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                  External Project URL
-                </label>
-                <input
-                  type="text"
-                  value={formData.projectUrl}
-                  onChange={(e) => setFormData({ ...formData, projectUrl: e.target.value })}
-                  placeholder="https://..."
-                  className="w-full px-3 py-2 border rounded-md"
-                />
-              </div>
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                External Project URL
+              </label>
+              <input
+                type="text"
+                value={formData.projectUrl}
+                onChange={(e) => setFormData({ ...formData, projectUrl: e.target.value })}
+                placeholder="https://..."
+                className="w-full px-3 py-2 border rounded-md"
+              />
             </div>
 
             <div>

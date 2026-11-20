@@ -2,106 +2,43 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { getServices } from '@/lib/api';
+import { getServices, resolveMediaUrl } from '@/lib/api';
 import styles from './Services.module.css';
-
-// Exact preserved original services list and copy with images matching the mockup
-export const defaultServices = [
-  {
-    num: '01',
-    title: 'Main Services',
-    slug: 'main-services',
-    route: '/services',
-    image: '/assets/images/services/service-card-01.webp',
-    description:
-      "Discover how we can assist you! We're excited to learn more about your project. Reach out and let's create something amazing together.",
-  },
-  {
-    num: '02',
-    title: 'Digital Marketing',
-    slug: 'digital-marketing',
-    route: '/services/digital-marketing',
-    image: '/assets/images/services/service-card-02.webp',
-    description:
-      'Digital marketing works best when it feels natural not forced. At MiscArchive, we help businesses in Trivandrum, Kerala, and beyond grow their online presence.',
-  },
-  {
-    num: '03',
-    title: 'Web Development',
-    slug: 'web-development',
-    route: '/services/web-development',
-    image: '/assets/images/services/service-card-03.webp',
-    description:
-      'Websites That Look Good and Work Better. A website is often the first interaction someone has with your brand. We design and develop websites that are not only visually appealing, but also functional, fast, and easy to navigate.',
-  },
-  {
-    num: '04',
-    title: 'Graphic Designing',
-    slug: 'graphic-designing',
-    route: '/services/graphic-designing',
-    image: '/assets/images/services/service-card-04.webp',
-    description:
-      "Graphic design is the centre of attraction for any business. We at Misc Archive create unique graphic designs that help improve your business's online visibility.",
-  },
-  {
-    num: '05',
-    title: 'Branding',
-    slug: 'branding',
-    route: '/services',
-    image: '/assets/images/services/service-card-05.webp',
-    description:
-      "Misc Archive is a leading Digital Marketing Company in Trivandrum. We're dedicated to helping you shape your brand identity and elevate your impact in the world through branding.",
-  },
-  {
-    num: '06',
-    title: 'SEO',
-    slug: 'seo',
-    route: '/services/digital-marketing/seo',
-    image: '/assets/images/services/service-card-06.webp',
-    description:
-      'SEO improves visibility, drives traffic, boosts sales, and converts clicks into customers. We make your site rank higher on search engines using trends and analytics.',
-  },
-];
 
 export default function ServicesSection({
   initialServices,
-  limit = 6,
+  limit = null,
   showSeeMore = true,
 }) {
+  const formatServices = (list) => {
+    if (!list || !Array.isArray(list)) return [];
+    const active = list.filter((s) => s && s.isActive !== false && s.slug !== 'main-services');
+    const targeted = limit ? active.slice(0, limit) : active;
+    return targeted.map((s, idx) => ({
+      num: (idx + 1).toString().padStart(2, '0'),
+      title: s.title,
+      route: s.route || `/services/${s.slug}`,
+      description: s.shortDescription || s.description || '',
+      image: resolveMediaUrl(s.coverImage || s.image || s.iconImage) || `/assets/images/services/service-card-${((idx % 9) + 1).toString().padStart(2, '0')}.webp`,
+    }));
+  };
+
   const [services, setServices] = useState(() => {
-    if (initialServices && initialServices.length > 0) {
-      const active = initialServices.filter((s) => s.isActive !== false);
-      return (limit ? active.slice(0, limit) : active).map((s, idx) => ({
-        num: (idx + 1).toString().padStart(2, '0'),
-        title: s.title,
-        route: s.route || `/services/${s.slug}`,
-        description: s.shortDescription || s.description || defaultServices[idx % defaultServices.length]?.description || '',
-        image: s.image || defaultServices[idx % defaultServices.length]?.image,
-      }));
+    if (initialServices && Array.isArray(initialServices) && initialServices.length > 0) {
+      return formatServices(initialServices);
     }
-    return limit ? defaultServices.slice(0, limit) : defaultServices;
+    return [];
   });
 
   useEffect(() => {
-    if (!initialServices) {
-      getServices(true)
-        .then((data) => {
-          if (data && data.length > 0) {
-            const list = limit ? data.slice(0, limit) : data;
-            setServices(
-              list.map((s, idx) => ({
-                num: (idx + 1).toString().padStart(2, '0'),
-                title: s.title,
-                route: s.route || `/services/${s.slug}`,
-                description: s.shortDescription || s.description || defaultServices[idx % defaultServices.length]?.description || '',
-                image: s.image || defaultServices[idx % defaultServices.length]?.image,
-              }))
-            );
-          }
-        })
-        .catch(() => {});
-    }
-  }, [initialServices, limit]);
+    getServices(true)
+      .then((data) => {
+        if (data && Array.isArray(data) && data.length > 0) {
+          setServices(formatServices(data));
+        }
+      })
+      .catch(() => {});
+  }, [limit]);
 
   return (
     <section className={styles.servicesSection} id="services">
